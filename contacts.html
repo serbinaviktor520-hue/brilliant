@@ -146,6 +146,8 @@ html,body{overflow-x:clip;max-width:100%}
 
 
 
+
+
 /* MOBILE START */
 .mm-btn,.mm,.m-rock-spot{display:none}
 @media (max-width: 767px){
@@ -414,6 +416,10 @@ section[style*="margin-top: -300px"]{margin-top:40px !important;border-radius:40
 /* типографіка: картки болей і відступ у контактах */
 .m-pn p[style*="font-size: 22px"]{font-weight:600 !important}
 #contact.sec-l div[style*="margin-top: 120px"]{margin-top:80px !important}
+/* галерея-дуга в hero */
+.m-top{display:flex !important;flex-direction:column}
+.m-top>.m-hero{order:1}
+.m-ring{order:2;position:relative !important;top:auto !important;left:auto !important;right:auto !important;height:440px !important;zoom:.5;margin:0 0 40px;flex:none}
 /* горизонтальні стрічки: без вертикального прокручування всередині */
 .m-ap,.m-cases,[aria-label="Фільтр проєктів"],[aria-roledescription="carousel"]{overflow-y:hidden !important;overscroll-behavior-x:contain}
 }
