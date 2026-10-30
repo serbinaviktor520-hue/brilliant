@@ -157,6 +157,8 @@ html,body{overflow-x:clip;max-width:100%}
 
 
 
+
+
 /* MOBILE START */
 .mm-btn,.mm,.m-rock-spot{display:none}
 @media (max-width: 767px){
@@ -441,6 +443,16 @@ section[style*="margin-top: -300px"]{margin-top:40px !important;border-radius:40
 .m-top{margin-bottom:48px !important}
 /* заголовок форми: «навіщо вам сайт» одним рядком */
 #contact h2 .hl-under,#form h2 .hl-under{display:inline-block;white-space:nowrap}
+/* «Девелопмент»: перший екран — питання → відповідь → кнопка */
+.m-top:has(h1[style*="clamp(36px"]) .m-rock-spot{height:72px !important}
+.m-top:has(h1[style*="clamp(36px"]) .m-hero-r>p:nth-of-type(2){order:2 !important;margin-top:12px !important}
+.m-top:has(h1[style*="clamp(36px"]) .m-hero-r .cta-wrap{order:3 !important;margin-top:24px !important}
+.m-top:has(h1[style*="clamp(36px"]) .m-hero-me{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:12px;align-items:center}
+.m-top:has(h1[style*="clamp(36px"]) .m-hero-me>p{grid-column:1}
+.m-top:has(h1[style*="clamp(36px"]) .m-hero-me>div{grid-column:2;grid-row:1 / span 3;margin-top:0 !important}
+.m-pn p[style*="align-self: flex-end"] br{display:none}
+.m-pn p[style*="align-self: flex-end"]{font-size:24px !important;max-width:320px}
+div[style*="margin-top: 64px; display: flex; flex-direction: column; align-items: center; gap: 14px"]{margin-top:28px !important}
 /* горизонтальні стрічки: без вертикального прокручування всередині */
 .m-ap,.m-cases,[aria-label="Фільтр проєктів"],[aria-roledescription="carousel"]{overflow-y:hidden !important;overscroll-behavior-x:contain}
 }
