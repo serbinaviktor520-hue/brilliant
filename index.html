@@ -150,11 +150,13 @@ html,body{overflow-x:clip;max-width:100%}
 
 
 
+
+
 /* MOBILE START */
 .mm-btn,.mm,.m-rock-spot{display:none}
 @media (max-width: 767px){
 /* --- база --- */
-.sec{padding:80px 16px !important}
+.sec{padding:48px 16px !important}
 .h2,.h2.hs{font-size:32px !important;line-height:1.08 !important;max-width:none}
 .bd{font-size:16px}
 .tu{font-size:20px}.tu-s{font-size:15px}
@@ -316,7 +318,7 @@ footer .ft-link,footer a{display:inline-block;padding:8px 0;min-height:40px}
 #niches a p[style*="font-size: 36px"]{font-size:24px !important}
 /* --- контакт --- */
 #contact{border-radius:40px !important;padding:56px 20px 40px !important}
-#contact.sec-l{border-radius:0 !important;padding:112px 16px 80px !important}
+#contact.sec-l{border-radius:0 !important;padding:112px 16px 48px !important}
 .m-g12{grid-template-columns:minmax(0,1fr) !important;gap:48px !important}
 .m-g12>div{grid-column:auto !important;padding-right:0 !important}
 #contact h2{font-size:32px !important}
@@ -424,6 +426,10 @@ section[style*="margin-top: -300px"]{margin-top:40px !important;border-radius:40
 .m-ring{order:2;position:relative !important;top:auto !important;left:auto !important;right:auto !important;height:440px !important;zoom:.5;margin:0 0 40px;flex:none}
 /* повітря між заголовком секції і контентом */
 [aria-roledescription="carousel"]{margin-top:36px !important}
+/* єдиний ритм між блоками: 96px */
+:is(#approach,#about,#contact:not(.sec-l),#form,#solution,#process,.cta-full,section.sec-d){margin-top:48px !important;margin-bottom:48px !important}
+:is(#approach,#about,#contact:not(.sec-l),#form,#solution,#process,.cta-full,section.sec-d)+:is(#approach,#about,#contact:not(.sec-l),#form,#solution,#process,.cta-full,section.sec-d){margin-top:96px !important}
+.m-top{margin-bottom:48px !important}
 /* горизонтальні стрічки: без вертикального прокручування всередині */
 .m-ap,.m-cases,[aria-label="Фільтр проєктів"],[aria-roledescription="carousel"]{overflow-y:hidden !important;overscroll-behavior-x:contain}
 }
