@@ -159,6 +159,7 @@ html,body{overflow-x:clip;max-width:100%}
 
 
 
+
 /* MOBILE START */
 .mm-btn,.mm,.m-rock-spot{display:none}
 @media (max-width: 767px){
@@ -453,6 +454,9 @@ section[style*="margin-top: -300px"]{margin-top:40px !important;border-radius:40
 .m-pn p[style*="align-self: flex-end"] br{display:none}
 .m-pn p[style*="align-self: flex-end"]{font-size:24px !important;max-width:320px}
 div[style*="margin-top: 64px; display: flex; flex-direction: column; align-items: center; gap: 14px"]{margin-top:28px !important}
+/* hero: прибрати зайве місце над заголовком */
+.m-top>div:empty:not([class]){display:none !important}
+.m-top>div[aria-hidden="true"][style*="height: 82px"]{display:block !important;height:72px !important}
 /* горизонтальні стрічки: без вертикального прокручування всередині */
 .m-ap,.m-cases,[aria-label="Фільтр проєктів"],[aria-roledescription="carousel"]{overflow-y:hidden !important;overscroll-behavior-x:contain}
 }
