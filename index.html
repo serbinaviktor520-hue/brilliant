@@ -167,6 +167,10 @@ html,body{overflow-x:clip;max-width:100%}
 
 
 
+
+
+
+
 /* MOBILE START */
 .mm-btn,.mm,.m-rock-spot{display:none}
 @media (max-width: 767px){
@@ -467,8 +471,9 @@ div[style*="margin-top: 64px; display: flex; flex-direction: column; align-items
 .m-top>div:empty:not([class]){display:none !important}
 .m-top>div[aria-hidden="true"][style*="height: 82px"]{display:block !important;height:60px !important}
 /* «Девелопмент»: перший екран — фото + питання, цифри нижче згину */
-.m-top:has(h1[style*="clamp(36px"]) .m-rock-spot{height:max(72px,calc(100svh - 588px)) !important}
-.m-top:has(h1[style*="clamp(36px"]) .m-hero-r .cta-wrap{margin-bottom:56px !important}
+.m-top:has(h1[style*="clamp(36px"]) .m-rock-spot{height:max(72px,calc(100svh - 560px)) !important}
+.m-top:has(h1[style*="clamp(36px"]) .m-hero-r .cta-wrap{margin-bottom:28px !important}
+@media (min-width:420px){.m-top:has(h1[style*="clamp(36px"]) .m-rock-spot{height:max(72px,calc(100svh - 510px)) !important}}
 /* горизонтальні стрічки: без вертикального прокручування всередині */
 .m-ap,.m-cases,[aria-label="Фільтр проєктів"],[aria-roledescription="carousel"]{overflow-y:hidden !important;overscroll-behavior-x:contain}
 }
@@ -481,7 +486,7 @@ div[style*="margin-top: 64px; display: flex; flex-direction: column; align-items
     <body>
     <div id="app"></div>
     <script src="assets/htm-preact.js?v=56f60f92"></script>
-    <script src="assets/app.js?v=d41baea6"></script>
+    <script src="assets/app.js?v=10488bd8"></script>
     <script src="assets/lenis.min.js?v=79e3a064"></script>
     <script>(function(){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||!window.Lenis)return;var l=new Lenis({lerp:0.09,wheelMultiplier:0.9,smoothWheel:true,anchors:true});function raf(t){l.raf(t);requestAnimationFrame(raf)}requestAnimationFrame(raf);window.__lenis=l;})();</script>
     </body>
