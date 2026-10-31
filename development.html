@@ -192,6 +192,8 @@ html,body{overflow-x:clip;max-width:100%}
 
 
 
+
+
 /* MOBILE START */
 .mm-btn,.mm,.m-rock-spot{display:none}
 @media (max-width: 767px){
@@ -209,19 +211,21 @@ html,body{overflow-x:clip;max-width:100%}
 .cta-wrap+p{text-align:center}
 .cta-scrib{display:none}
 /* --- хедер --- */
-.site-hdr{padding:10px 16px !important;grid-template-columns:auto 1fr auto !important}
+.site-hdr{padding:8px 16px !important;grid-template-columns:auto 1fr auto !important}
 .site-hdr .nav-wrap{display:none !important}
 .site-hdr .hdr-right{grid-column:3;gap:8px !important}
 .site-hdr .hdr-cta{display:none !important}
-.site-hdr .hdr-logo img{height:28px !important}
-.mm-btn{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:48px;height:48px;padding:0;border-radius:9px;border:1px solid rgba(235,235,235,0.9);background:transparent;cursor:pointer;transition:background-color .3s ease,border-color .3s ease}
-.mm-btn i{display:block;width:20px;height:2px;border-radius:2px;background:#EBEBEB;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.site-hdr .hdr-logo img{height:22px !important}
+.site-hdr .hdr-logo{min-height:40px !important}
+.hdr-compact .hdr-logo{min-height:40px !important;padding:0 8px !important;border-radius:8px !important}
+.mm-btn{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:40px;height:40px;padding:0;border-radius:8px;border:1px solid rgba(235,235,235,0.9);background:transparent;cursor:pointer;transition:background-color .3s ease,border-color .3s ease}
+.mm-btn i{display:block;width:24px;height:2px;border-radius:2px;background:#EBEBEB;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
 .hdr-compact .mm-btn{background:#000000;border-color:#000000}
 .mm-open .mm-btn{background:#000000;border-color:#000000}
 .mm-open .mm-btn i:first-child{transform:translateY(4px) rotate(45deg)}
 .mm-open .mm-btn i:last-child{transform:translateY(-4px) rotate(-45deg)}
 .mm-open .site-hdr .hdr-logo img{filter:none !important}
-.mm-open .site-hdr .hdr-logo{background-color:#000000;min-height:48px !important;padding:0 10px;border-radius:9px}
+.mm-open .site-hdr .hdr-logo{background-color:#000000;min-height:40px !important;padding:0 8px;border-radius:8px}
 .mm{display:flex;flex-direction:column;position:fixed;inset:0;z-index:-1;padding:80px 16px 0;background:#EBEBEB;color:#0F0F0F;overflow-x:hidden;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .3s ease,transform .35s cubic-bezier(.2,.8,.2,1),visibility 0s linear .35s}
 .mm-open .mm{opacity:1;visibility:visible;transform:none;transition:opacity .3s ease,transform .35s cubic-bezier(.2,.8,.2,1),visibility 0s}
 .mm-nav{display:flex;flex-direction:column;border-bottom:1px solid rgba(15,15,15,0.18)}
@@ -488,7 +492,10 @@ section[style*="margin-top: -300px"]{margin-top:40px !important;border-radius:40
 div[style*="margin-top: 64px; display: flex; flex-direction: column; align-items: center; gap: 14px"]{margin-top:28px !important}
 /* hero: прибрати зайве місце над заголовком */
 .m-top>div:empty:not([class]){display:none !important}
-.m-top>div[aria-hidden="true"][style*="height: 82px"]{display:block !important;height:72px !important}
+.m-top>div[aria-hidden="true"][style*="height: 82px"]{display:block !important;height:60px !important}
+/* «Девелопмент»: перший екран — фото + питання, цифри нижче згину */
+.m-top:has(h1[style*="clamp(36px"]) .m-rock-spot{height:max(72px,calc(100svh - 588px)) !important}
+.m-top:has(h1[style*="clamp(36px"]) .m-hero-r .cta-wrap{margin-bottom:56px !important}
 /* горизонтальні стрічки: без вертикального прокручування всередині */
 .m-ap,.m-cases,[aria-label="Фільтр проєктів"],[aria-roledescription="carousel"]{overflow-y:hidden !important;overscroll-behavior-x:contain}
 }
