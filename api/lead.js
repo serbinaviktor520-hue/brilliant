@@ -10,6 +10,16 @@ export default async function handler(req) {
   if (!token || !chat) return json({ ok: false, error: 'config' }, 500);
   let fd;
   try { fd = await req.formData(); } catch (e) { return json({ ok: false, error: 'body' }, 400); }
+  const api = (m) => 'https://api.telegram.org/bot' + token + '/' + m;
+  const form = String(fd.get('form') || '').slice(0, 100).trim();
+  if (form) {
+    const fields = String(fd.get('fields') || '').slice(0, 3000).trim();
+    const pg = String(fd.get('page') || '').slice(0, 200);
+    if (fields.length < 4) return json({ ok: false, error: 'empty' }, 400);
+    const m = '🆕 Заявка: ' + form + '\n📄 Сторінка: ' + (pg || '/') + '\n\n' + fields;
+    const r = await fetch(api('sendMessage'), { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ chat_id: chat, text: m }) });
+    return r.ok ? json({ ok: true }) : json({ ok: false, error: 'telegram' }, 502);
+  }
   const text = String(fd.get('text') || '').slice(0, 3000).trim();
   const contact = String(fd.get('contact') || '').slice(0, 200).trim();
   const page = String(fd.get('page') || '').slice(0, 200);
@@ -18,7 +28,6 @@ export default async function handler(req) {
   if (contact.length < 4 || (!text && !hasVoice)) return json({ ok: false, error: 'empty' }, 400);
   if (hasVoice && voice.size > 20 * 1024 * 1024) return json({ ok: false, error: 'size' }, 413);
 
-  const api = (m) => 'https://api.telegram.org/bot' + token + '/' + m;
   const msg = '🆕 Заявка з чату на сайті\n\n'
     + '👤 Контакт: ' + contact + '\n'
     + '📄 Сторінка: ' + (page || '/') + '\n\n'
