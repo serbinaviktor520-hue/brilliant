@@ -254,13 +254,15 @@
 
 
 <section id="form" class="sec sec-d sol-bg" style="border-radius: 120px; padding: 120px 80px">
-<div class="m-g12" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; align-items: start">
+<div class="m-g12" style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; align-items: center">
 <div style="grid-column: span 5">
 <h2 class="h2 hs" style="font-size: 56px; line-height: 1"><span class="lw"><span class="hm"><span class="hc" style="--i:0">О</span></span><span class="hm"><span class="hc" style="--i:1">б</span></span><span class="hm"><span class="hc" style="--i:2">г</span></span><span class="hm"><span class="hc" style="--i:3">о</span></span><span class="hm"><span class="hc" style="--i:4">в</span></span><span class="hm"><span class="hc" style="--i:5">о</span></span><span class="hm"><span class="hc" style="--i:6">р</span></span><span class="hm"><span class="hc" style="--i:7">и</span></span><span class="hm"><span class="hc" style="--i:8">м</span></span><span class="hm"><span class="hc" style="--i:9">о</span></span></span> <span class="hl-under"><span class="lw"><span class="hm"><span class="hc" style="--i:10">в</span></span><span class="hm"><span class="hc" style="--i:11">а</span></span><span class="hm"><span class="hc" style="--i:12">ш</span></span></span> <span class="lw"><span class="hm"><span class="hc" style="--i:13">п</span></span><span class="hm"><span class="hc" style="--i:14">р</span></span><span class="hm"><span class="hc" style="--i:15">о</span></span><span class="hm"><span class="hc" style="--i:16">є</span></span><span class="hm"><span class="hc" style="--i:17">к</span></span><span class="hm"><span class="hc" style="--i:18">т</span></span></span></span></h2>
 <p class="ru bd" style="--i: 3; margin-top: 24px; max-width: 420px; color: rgba(235,235,235,0.75)">Є сайт — надішлю відеорозбір, де він втрачає заявки. Немає — порахую вартість і строки нового.</p>
 <a href="mailto:vicktorscherbina123@gmail.com" class="ft-link" style="display: inline-block; margin-top: 32px; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: #FFFFFF; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.35); padding-bottom: 4px">vicktorscherbina123@gmail.com</a><div style="margin-top: 20px; display: flex; gap: 8px"><a href="https://www.instagram.com/vitya_brilliant/" target="_blank" rel="noopener" aria-label="Instagram" class="soc-link" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; color: #FFFFFF; text-decoration: none; background: radial-gradient(circle at 30% 107%, #FDF497 0%, #FDF497 5%, #FD5949 45%, #D6249F 60%, #285AEB 90%)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"></circle></svg></a><a href="https://t.me/vitya_brilliant" target="_blank" rel="noopener" aria-label="Telegram" class="soc-link" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; color: #FFFFFF; text-decoration: none; background: #27A7E7"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.7 4.3 2.9 11.2c-1.2.5-1.2 1.2-.2 1.5l4.6 1.4 1.7 5.4c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.2c.3-1.2-.5-1.8-1.5-1.3ZM8.6 13.9l9.4-5.9c.4-.3.9-.1.5.3l-7.8 7-.3 3.3-1.8-4.7Z"></path></svg></a><a href="https://www.behance.net/006b19c5" target="_blank" rel="noopener" aria-label="Behance" class="soc-link" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; color: #FFFFFF; text-decoration: none; background: #1769FF"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8.2 11.4c.7-.3 1.2-.9 1.2-1.9 0-1.8-1.3-2.4-3.1-2.4H2v9.8h4.4c1.9 0 3.6-.9 3.6-3 0-1.3-.6-2.2-1.8-2.5zM4.2 8.8h1.9c.7 0 1.3.2 1.3 1s-.5 1.1-1.2 1.1h-2V8.8zm2 6.3H4.2v-2.6h2.1c.9 0 1.4.4 1.4 1.3 0 1-.7 1.3-1.5 1.3zM15.4 7.6h4v1.1h-4zM17.5 10c-2.3 0-3.7 1.6-3.7 3.6 0 2.1 1.3 3.6 3.7 3.6 1.8 0 3-.8 3.6-2.5h-1.9c-.2.6-.9.9-1.6.9-1 0-1.7-.6-1.7-1.7h5.3c.1-2.2-1.1-3.9-3.7-3.9zm-1.6 2.9c.1-.9.6-1.4 1.6-1.4.9 0 1.4.6 1.5 1.4h-3.1z"/></svg></a></div>
 </div>
 <div style="grid-column: 7 / 13">
+<div class="f-card">
+<div class="f-head"><img loading="lazy" decoding="async" src="assets/video-thumb.webp" alt="" aria-hidden="true" class="f-ava" /><div style="flex: 1; min-width: 0"><p class="f-who">Вітя Бріліант</p><p class="f-sub">Відповім особисто</p></div><span class="f-badge">24 год</span></div>
 ${t.notSent?v`
 <form onSubmit=${t.submit} novalidate style="display: flex; flex-direction: column; gap: 32px">
 <div class="m-fields" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 28px">
@@ -271,9 +273,9 @@ ${t.notSent?v`
 ${t.bErr?v`<p class="f-err-box" role="alert">Не вдалося надіслати. Спробуйте ще раз або напишіть мені в <a href="https://t.me/vitya_brilliant" target="_blank" rel="noopener">Telegram</a>.</p>`:null}
 <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap">
 <span class="cta-wrap"><button type="submit" class="cta-lime" disabled=${t.bSending} style="position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 12px; min-height: 60px; padding: 0 36px; background: #FFFFFF; color: #0F0F0F; border: none; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer">${t.bBtn}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></button></span>
-<p class="bd sm" style="margin: 0; color: rgba(235,235,235,0.6)">Відповідаю протягом 24 годин</p>
 </div>
 </form>
+<ol class="f-steps" aria-label="Як це працює"><li><b>01</b>Заявка</li><li><b>02</b>Дзвінок 30 хв</li><li><b>03</b>Ціна й строки</li></ol>
 `:null}
 ${t.bMore?v`
 <div class="b-more" style="display: flex; flex-direction: column; gap: 24px">
@@ -293,6 +295,7 @@ ${t.sent?v`
 <div class="nx-btns"><a class="nx-tg" href="https://t.me/vitya_brilliant" target="_blank" rel="noopener">Написати в Telegram зараз<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></a><button type="button" class="nx-sec" onClick=${t.reset}>Заповнити ще раз</button></div>
 </div>
 `:null}
+</div>
 </div>
 </div>
 </section>

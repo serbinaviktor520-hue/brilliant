@@ -108,9 +108,9 @@ ${i.notSent?K`
 ${i.bErr?K`<p class="f-err-box" role="alert">Не вдалося надіслати. Спробуйте ще раз або напишіть мені в <a href="https://t.me/vitya_brilliant" target="_blank" rel="noopener">Telegram</a>.</p>`:null}
 <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap">
 <span class="cta-wrap"><button type="submit" class="cta-lime" disabled=${i.bSending} style="position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 12px; min-height: 60px; padding: 0 36px; background: #FFFFFF; color: #0F0F0F; border: none; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer">${i.bBtn}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></button></span>
-<p class="bd sm" style="margin: 0; color: rgba(235,235,235,0.6)">Відповідаю протягом 24 годин</p>
 </div>
 </form>
+<ol class="f-steps" aria-label="Як це працює"><li><b>01</b>Заявка</li><li><b>02</b>Дзвінок 30 хв</li><li><b>03</b>Ціна й строки</li></ol>
 `:null}
 ${i.bMore?K`
 <div class="b-more" style="display: flex; flex-direction: column; gap: 24px">
