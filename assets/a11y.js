@@ -14,7 +14,7 @@
   }).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
   document.addEventListener('keydown',function(e){
     var d=dialog(),scope=d||menu();if(!scope)return;
-    if(e.key==='Escape'){e.preventDefault();if(d){var c=d.querySelector('[aria-label^="Закрити"]');if(c)c.click();}else{var m=document.querySelector('.mm-btn');if(m)m.click();}return;}
+    if(e.key==='Escape'){e.preventDefault();if(d){var c=d.querySelector('[aria-label^="Закрити"]');if(c)c.click();}else{var m=document.querySelector('.mm-btn');if(m){m.click();setTimeout(function(){m.focus();},50);}}return;}
     if(e.key!=='Tab')return;
     var f=focusables(scope);if(!f.length)return;var first=f[0],last=f[f.length-1],a=document.activeElement;
     if(!scope.contains(a)){e.preventDefault();first.focus();return;}
@@ -38,6 +38,8 @@
       if(seen[k])c.setAttribute('aria-hidden','true');else seen[k]=1;
     });
   }
+  function cv(){Array.prototype.forEach.call(document.querySelectorAll('canvas'),function(c){c.setAttribute('aria-hidden','true');});}
+  setInterval(cv,2000);cv();
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sr);else sr();
   setTimeout(sr,1500);
 })();
