@@ -100,6 +100,35 @@ textarea{min-height:92px;resize:vertical;line-height:1.45}
 .login p{margin:0;color:var(--mut)}
 .err{color:var(--bad);font-size:14px;min-height:20px}
 .empty{padding:60px 24px;text-align:center;color:var(--mut)}
+/* pages editor + live previews */
+.seg{display:inline-flex;gap:3px;padding:3px;border-radius:10px;background:rgba(15,15,15,.07)}
+.seg button{min-height:34px;padding:0 12px;border:0;border-radius:7px;background:transparent;color:var(--mut);font-size:13px;font-weight:600;white-space:nowrap}
+.seg button[aria-pressed=true]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.pgw{display:grid;grid-template-columns:minmax(240px,280px) minmax(0,1fr);gap:20px;padding:12px max(16px,env(safe-area-inset-right)) 16px max(16px,env(safe-area-inset-left));height:calc(100vh - 64px);min-height:560px}
+.pgw .side{position:static;max-height:none;height:100%}
+.pg{display:flex;flex-direction:column;gap:2px;width:100%;text-align:left;padding:12px 14px;border-radius:14px;border:1px solid transparent;background:var(--card)}
+.pg b{font-weight:600}.pg small{color:var(--mut);font-size:12px}
+.pg:hover{border-color:var(--line)}.pg[aria-current=true]{border-color:var(--ink)}
+.howto{margin-top:6px;padding:14px;border-radius:14px;background:rgba(61,139,255,.08);font-size:13px;line-height:1.5}
+.howto p{margin:0 0 6px}.howto p:last-child{margin:0}
+.chg{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:start;padding:10px 12px;border-radius:12px;background:var(--card);font-size:13px}
+.chg s{color:var(--mut);text-decoration-thickness:1px}.chg span{display:block;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.chg em{font-style:normal;font-size:11px;font-weight:600;color:#1F5FD0}
+.chg button{width:28px;height:28px;border:0;border-radius:7px;background:transparent;color:var(--mut);font-size:16px}
+.chg button:hover{background:rgba(15,15,15,.06);color:var(--ink)}
+.stage{display:flex;flex-direction:column;min-height:0;border-radius:24px;background:var(--card);overflow:hidden}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--line)}
+.bar .grp{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.bar small{color:var(--mut);font-size:12px}
+.frame{position:relative;flex:1;min-height:0;overflow:hidden;background:#D9DDE5}
+.frame iframe{position:absolute;top:0;left:0;border:0;background:#fff;transform-origin:0 0;transition:opacity .25s}
+.frame.mob iframe{box-shadow:0 0 0 1px rgba(15,15,15,.12),0 20px 50px rgba(0,0,0,.15)}
+.frame .ld{position:absolute;inset:0;display:grid;place-items:center;color:var(--mut);font-size:14px;pointer-events:none}
+.wrap.wp{grid-template-columns:minmax(260px,300px) minmax(0,1fr) minmax(0,1.05fr);max-width:none}
+.pvw{position:sticky;top:76px;align-self:start;height:calc(100vh - 92px);min-height:480px}
+.pvw .stage{height:100%}
+@media (max-width:1280px){.wrap.wp{grid-template-columns:minmax(260px,300px) minmax(0,1fr)}.pvw{grid-column:1/-1;position:static;height:80vh}}
+@media (max-width:980px){.pgw{grid-template-columns:1fr;height:auto}.pgw .stage{height:80vh}.wrap.wp{grid-template-columns:1fr}}
 @media (max-width:980px){.wrap{grid-template-columns:1fr}.side{position:static;max-height:none}.top{grid-template-columns:1fr auto}.tabs{grid-column:1/-1;grid-row:2;justify-self:start}.grid2,.sws{grid-template-columns:1fr}.img{grid-template-columns:1fr}.prev{grid-template-columns:1fr}.st{display:none}}
 </style>
 </head>
@@ -108,7 +137,7 @@ textarea{min-height:92px;resize:vertical;line-height:1.45}
   <form id="lf">
     <span class="logo"><i><img src="/assets/logo.png" alt=""></i></span>
     <h1>Адмінка</h1>
-    <p>Тут редагуються проєкти й відгуки на vbrilliant.com.</p>
+    <p>Тут редагуються сторінки, проєкти й відгуки на vbrilliant.com.</p>
     <div class="f"><label for="pw">Пароль</label><input id="pw" type="password" autocomplete="current-password" required></div>
     <div class="err" id="lerr"></div>
     <button class="btn pri" type="submit">Увійти</button>
@@ -119,7 +148,8 @@ textarea{min-height:92px;resize:vertical;line-height:1.45}
   <header class="top">
     <a class="logo" href="/" target="_blank" rel="noopener"><i><img src="/assets/logo.png" alt="Brilliant"></i><b>Адмінка</b></a>
     <div class="tabs" role="tablist">
-      <button role="tab" id="t-projects" aria-selected="true">Проєкти</button>
+      <button role="tab" id="t-pages" aria-selected="true">Сторінки</button>
+      <button role="tab" id="t-projects" aria-selected="false">Проєкти</button>
       <button role="tab" id="t-reviews" aria-selected="false">Відгуки</button>
     </div>
     <div class="acts">
@@ -128,31 +158,35 @@ textarea{min-height:92px;resize:vertical;line-height:1.45}
       <button class="btn pri" id="pub" disabled>Опублікувати</button>
     </div>
   </header>
-  <main class="wrap" id="main"></main>
+  <main id="main"></main>
 </div>
 <div class="toast" id="toast" hidden></div>
 
-<script>
-(() => {
+<script type="module">
+import * as core from '/cms/core.mjs';
+{
 const $ = (s, r = document) => r.querySelector(s);
 const el = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag); for (const k in attrs) { const v = attrs[k]; if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else if (v === true) e.setAttribute(k, ''); else if (v !== false && v != null) e.setAttribute(k, v); } for (const c of kids.flat()) if (c != null && c !== false) e.append(c.nodeType ? c : document.createTextNode(c)); return e; };
 const CATS = { re: 'Нерухомість', ag: 'Агенції', br: 'Бренди', art: 'Арт' };
 const store = { get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} } };
 
-let pass = store.get('bl-admin') || '', site = null, saved = '', tab = 'projects', cur = 0, busy = false;
+let pass = store.get('bl-admin') || '', site = null, saved = '', tab = 'pages', cur = 0, busy = false;
+let pageId = 'home', mode = 'edit', view = 'desk', savedEdits = 0, pvPage = null;
 const pending = new Map(); // path -> {base64, url}
 
 // ---------- utils ----------
 const slug = (s) => (s || 'img').toLowerCase().normalize('NFKD').replace(/[^\w\s-]/g, '').replace(/[\s_]+/g, '-').replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'img';
 const tr = (s) => { const m = { а:'a',б:'b',в:'v',г:'h',ґ:'g',д:'d',е:'e',є:'ye',ж:'zh',з:'z',и:'y',і:'i',ї:'yi',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'kh',ц:'ts',ч:'ch',ш:'sh',щ:'shch',ь:'',ю:'yu',я:'ya' }; return String(s || '').toLowerCase().split('').map((c) => (m[c] ?? c)).join(''); };
 const src = (p) => (!p ? '' : pending.has(p) ? pending.get(p).url : '/' + p.replace(/^\//, ''));
+const blobPath = new Map(); // blob url -> uploads/… path
+const recent = new Map(); // just-published photos, shown from memory until the deploy is live
 const dirty = () => JSON.stringify(site) !== saved || pending.size > 0;
-function mark() { const d = dirty(); const st = $('#st'); st.textContent = d ? 'Є неопубліковані зміни' : 'Усе збережено'; st.classList.toggle('dirty', d); $('#pub').disabled = !d || busy; }
+function mark() { if (tab !== 'pages') schedulePreview(); const d = dirty(); const st = $('#st'); st.textContent = d ? 'Є неопубліковані зміни' : 'Усе збережено'; st.classList.toggle('dirty', d); $('#pub').disabled = !d || busy; }
 let tt = 0; function toast(msg, bad) { const t = $('#toast'); t.textContent = msg; t.classList.toggle('bad', !!bad); t.hidden = false; clearTimeout(tt); tt = setTimeout(() => { t.hidden = true; }, bad ? 7000 : 4500); }
 addEventListener('beforeunload', (e) => { if (site && dirty()) { e.preventDefault(); e.returnValue = ''; } });
 
 async function resize(file, kind) {
-  const conf = { wide: [1800, 0], card: [900, 0], case: [1200, 0], avatar: [200, 200] }[kind];
+  const conf = { wide: [1800, 0], card: [900, 0], case: [1200, 0], avatar: [200, 200], page: [2000, 0] }[kind];
   const bmp = await createImageBitmap(file);
   let [w, h] = conf, sx = 0, sy = 0, sw = bmp.width, sh = bmp.height;
   if (h) { const s = Math.min(sw, sh); sx = (sw - s) / 2; sy = (sh - s) / 2; sw = sh = s; } else { w = Math.min(w, bmp.width); h = Math.round(bmp.height * w / bmp.width); }
@@ -194,7 +228,7 @@ function imagePicker(obj, key, kind, ratio, name, round) {
       const r = await resize(f, kind);
       const path = `uploads/${slug(tr(name())) }-${kind}-${Date.now().toString(36)}.webp`;
       if (pending.has(obj[key])) { URL.revokeObjectURL(pending.get(obj[key]).url); pending.delete(obj[key]); }
-      pending.set(path, { base64: r.b64, url: r.url }); obj[key] = path; draw(); mark(); renderSide();
+      pending.set(path, { base64: r.b64, url: r.url }); blobPath.set(r.url, path); obj[key] = path; draw(); mark(); renderSide();
       toast(`Фото стиснуто до ${Math.round(r.size / 1024)} КБ. Збережеться після «Опублікувати».`);
     } catch (e) { toast('Не вдалося відкрити це фото. Спробуйте JPG або PNG.', true); }
     fi.value = '';
@@ -297,16 +331,308 @@ function reviewEditor(r) {
         field('Текст відгуку', text(r, 'quote', { area: true, rows: 5 }), 'Без лапок, вони додаються самі.', true))));
 }
 
+// ---------- live preview engine ----------
+// Pages are built in the browser with the same code as the deploy (cms/core.mjs) and shown from blob: URLs,
+// so the preview is exactly what «Опублікувати» will put on the site.
+const PG = Object.fromEntries(core.PAGES.map((p) => [p.id, p]));
+const urlOf = (f) => (f === 'index.html' ? '/' : '/' + f.replace(/\.html$/, ''));
+const srcCache = {}, builtCache = {};
+function sources(id) {
+  if (!srcCache[id]) {
+    const pg = PG[id];
+    const get = async (u) => (await fetch(u + (u.includes('?') ? '&' : '?') + 'cms=' + Date.now(), { cache: 'no-store' })).text();
+    srcCache[id] = Promise.all([get(urlOf(pg.html)), pg.js ? get('/' + pg.js) : Promise.resolve('')]).catch((e) => { delete srcCache[id]; throw e; });
+  }
+  return srcCache[id];
+}
+const withBlobs = (s) => { for (const [p, v] of [...recent, ...pending]) s = s.split('/' + p).join(v.url).split(p).join(v.url); return s; };
+async function docUrl(id) {
+  const [h0, j0] = await sources(id);
+  const b = core.makeBuilder(site);
+  let h = b(h0, false, id), j = j0 ? b(j0, true, id) : '';
+  builtCache[id] = [h, j];
+  h = withBlobs(h); j = withBlobs(j);
+  const urls = [];
+  const pg = PG[id];
+  if (pg.js) {
+    const ju = URL.createObjectURL(new Blob([j], { type: 'text/javascript' })); urls.push(ju);
+    h = h.replace(new RegExp(`src="/?${pg.js.replace(/\./g, '\\.')}(\\?v=[^"]*)?"`), `src="${ju}"`);
+  }
+  h = h.replace(/<head([^>]*)>/i, `<head$1><base href="${location.origin}/">`);
+  const u = URL.createObjectURL(new Blob([h], { type: 'text/html' })); urls.push(u);
+  return { url: u, urls };
+}
+
+// a box that holds the page iframe: desktop pages are rendered 1440 px wide and scaled to fit, phone is 390 px
+class Stage {
+  constructor(host) { this.host = host; this.cur = null; this.seq = 0; this.w = 1440; this.ro = new ResizeObserver(() => this.fit()); this.ro.observe(host); }
+  setView(v) { this.w = v === 'mob' ? 390 : 1440; this.host.classList.toggle('mob', v === 'mob'); this.fit(); }
+  fit() {
+    const W = this.host.clientWidth, H = this.host.clientHeight; if (!W || !H) return;
+    const mob = this.w < 500, s = mob ? Math.min(1, (H - 24) / 844, (W - 24) / this.w) : Math.min(1, W / this.w);
+    for (const f of this.host.querySelectorAll('iframe')) {
+      f.style.width = this.w + 'px';
+      f.style.height = (mob ? Math.min(844, (H - 24) / s) : H / s) + 'px';
+      f.style.transform = `scale(${s})`;
+      f.style.left = Math.max(0, (W - this.w * s) / 2) + 'px';
+      f.style.top = mob ? '12px' : '0';
+    }
+  }
+  async show(id, { keepScroll = false, scrollTo = null, onReady = null } = {}) {
+    const my = ++this.seq;
+    if (!this.cur) this.loading(true);
+    let d;
+    try { d = await docUrl(id); } catch (e) { this.loading(false); toast('Не вдалося завантажити сторінку для превʼю.', true); return; }
+    if (my !== this.seq) { d.urls.forEach((u) => URL.revokeObjectURL(u)); return; }
+    const f = document.createElement('iframe');
+    f.title = 'Превʼю сторінки'; f.style.opacity = '0'; f._urls = d.urls;
+    this.host.append(f); this.fit();
+    await new Promise((r) => { f.addEventListener('load', r, { once: true }); f.src = d.url; });
+    await new Promise((r) => setTimeout(r, 650));
+    if (my !== this.seq) { this.drop(f); return; }
+    const old = this.cur;
+    let y = 0;
+    try { if (keepScroll && old) y = old.contentWindow.scrollY; } catch (e) {}
+    try {
+      const w = f.contentWindow;
+      if (scrollTo) { const el = [...w.document.querySelectorAll(scrollTo)].find((x) => x.getClientRects().length); if (el) { const sec = el.closest('section') || el; y = sec.getBoundingClientRect().top + w.scrollY - 40; } }
+      if (y) { w.scrollTo(0, y); w.document.documentElement.scrollTop = y; }
+    } catch (e) {}
+    if (onReady) try { onReady(f); } catch (e) { console.error(e); }
+    f.style.opacity = '1'; this.cur = f; this.loading(false);
+    if (old) setTimeout(() => this.drop(old), 260);
+  }
+  drop(f) { (f._urls || []).forEach((u) => URL.revokeObjectURL(u)); f.remove(); }
+  loading(on) { let l = this.host.querySelector('.ld'); if (on && !l) { l = el('div', { class: 'ld' }, 'Завантажую сторінку…'); this.host.append(l); } else if (!on && l) l.remove(); }
+  destroy() { this.seq++; this.ro.disconnect(); this.host.querySelectorAll('iframe').forEach((f) => this.drop(f)); }
+}
+let stage = null;
+const seg = (opts, val, on) => el('div', { class: 'seg', role: 'group' }, ...opts.map(([v, label]) => el('button', { type: 'button', 'aria-pressed': String(v === val), onclick: () => on(v) }, label)));
+
+// ---------- pages tab: click a text or a photo right on the page ----------
+const GEN = '.wgrid,.ring-card,.rv-card,.cs-card,.m-cases';
+const SHARED = /(^|\s)(site-hdr|mm|lc|lc-[\w-]+|pl-wrap)(\s|$)/;
+function scopeOf(node) { for (let e = node; e && e.nodeType === 1; e = e.parentElement) { if (e.tagName === 'FOOTER' || SHARED.test(e.className && e.className.baseVal == null ? e.className : '')) return '*'; } return pageId; }
+function pathOf(u, w) {
+  if (!u) return '';
+  if (u.startsWith('blob:')) return blobPath.get(u) || '';
+  try { return decodeURIComponent(new URL(u, w.document.baseURI).pathname.replace(/^\//, '')); } catch (e) { return ''; }
+}
+function recordEdit(e) {
+  const k = site.edits.findIndex((x, i) => i >= savedEdits && x.page === e.page && x.type === e.type && x.to === e.from);
+  if (k >= 0) { site.edits[k].to = e.to; if (site.edits[k].from === site.edits[k].to) site.edits.splice(k, 1); } else site.edits.push(e);
+  const bc = builtCache[pageId];
+  if (bc) builtCache[pageId] = e.type === 'img' ? [core.replaceImg(bc[0], e.from, e.to), core.replaceImg(bc[1], e.from, e.to)] : [core.replaceText(bc[0], e.from, e.to, false), core.replaceText(bc[1], e.from, e.to, true)];
+  mark(); renderChanges();
+}
+
+function attachEditor(f) {
+  const w = f.contentWindow, d = w.document;
+  if (!d || !d.body) return;
+  const st = d.createElement('style');
+  st.textContent = `.cms-hl{position:fixed;z-index:2147483646;pointer-events:none;border:1.5px solid #3D8BFF;border-radius:6px;background:rgba(61,139,255,.07);display:none}
+.cms-hl.off{border-color:rgba(15,15,15,.35);border-style:dashed;background:rgba(15,15,15,.04)}
+.cms-lb{position:fixed;z-index:2147483647;pointer-events:none;display:none;padding:6px 10px;border-radius:8px;background:#0F0F0F;color:#fff;font:600 12px/1.2 Manrope,system-ui,sans-serif;white-space:nowrap;letter-spacing:0;text-transform:none}
+.cms-ed{outline:2px solid #3D8BFF;outline-offset:3px;border-radius:3px;cursor:text;caret-color:#3D8BFF;-webkit-user-select:text;user-select:text}
+html.cms-on,html.cms-on *{cursor:pointer}`;
+  d.head.append(st);
+  const hl = d.createElement('div'); hl.className = 'cms-hl';
+  const lb = d.createElement('div'); lb.className = 'cms-lb';
+  d.body.append(hl, lb);
+  let hit = null, editing = null, raf = 0, mx = 0, my = 0;
+  const own = (e) => e === hl || e === lb;
+
+  const textAt = (x, y) => {
+    for (const e of d.elementsFromPoint(x, y)) {
+      if (own(e) || e.closest('script,style,svg')) continue;
+      for (const n of e.childNodes) {
+        if (n.nodeType !== 3 || n.nodeValue.trim().length < 2) continue;
+        const r = d.createRange(); r.selectNodeContents(n);
+        for (const q of r.getClientRects()) if (x >= q.left - 3 && x <= q.right + 3 && y >= q.top - 3 && y <= q.bottom + 3) return { kind: 'text', node: n, el: e, rect: r.getBoundingClientRect() };
+      }
+    }
+    return null;
+  };
+  const imgAt = (x, y) => {
+    for (const e of d.elementsFromPoint(x, y)) {
+      if (own(e)) continue;
+      if (e.tagName === 'IMG') return { kind: 'img', el: e, rect: e.getBoundingClientRect(), path: pathOf(e.getAttribute('src'), w) };
+      const bg = w.getComputedStyle(e).backgroundImage, m = bg && bg.match(/url\(["']?([^"')]+)["']?\)/);
+      if (m && !m[1].startsWith('data:')) return { kind: 'img', el: e, rect: e.getBoundingClientRect(), path: pathOf(m[1], w), bg: true };
+    }
+    return null;
+  };
+  const known = (h) => {
+    const bc = builtCache[pageId] || ['', ''];
+    if (h.kind === 'text') return core.countText(bc[1], h.node.nodeValue.trim(), true) + core.countText(bc[0], h.node.nodeValue.trim(), false) > 0;
+    return !!h.path && (bc[0].includes(h.path) || bc[1].includes(h.path));
+  };
+  const probe = () => {
+    raf = 0;
+    if (editing || mode !== 'edit') { hl.style.display = lb.style.display = 'none'; return; }
+    const h = textAt(mx, my) || imgAt(mx, my);
+    hit = h;
+    if (!h) { hl.style.display = lb.style.display = 'none'; return; }
+    const g = h.el.closest(GEN);
+    h.msg = g ? (g.closest('.rv-card') ? 'Відгуки редагуються у вкладці «Відгуки»' : 'Проєкти редагуються у вкладці «Проєкти»')
+      : !known(h) ? (h.kind === 'text' ? 'Цей текст підставляється автоматично' : 'Це фото змінюється тільки в коді')
+      : null;
+    h.go = g ? (g.closest('.rv-card') ? 'reviews' : 'projects') : null;
+    const r = h.rect, pad = h.kind === 'text' ? 4 : 0;
+    Object.assign(hl.style, { display: 'block', left: r.left - pad + 'px', top: r.top - pad + 'px', width: r.width + pad * 2 + 'px', height: r.height + pad * 2 + 'px' });
+    hl.classList.toggle('off', !!h.msg);
+    const shared = !h.msg && scopeOf(h.el) === '*';
+    lb.textContent = h.msg || (h.kind === 'text' ? 'Клікніть, щоб змінити текст' : 'Клікніть, щоб замінити фото') + (shared ? ' · на всіх сторінках' : '');
+    lb.style.display = 'block';
+    const lw = lb.offsetWidth, top = r.top - pad - 32 > 4 ? r.top - pad - 32 : r.bottom + pad + 6;
+    lb.style.left = Math.max(6, Math.min(w.innerWidth - lw - 6, r.left - pad)) + 'px'; lb.style.top = top + 'px';
+  };
+  d.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; if (!raf) raf = w.requestAnimationFrame(probe); }, true);
+  w.addEventListener('scroll', () => { if (!raf && hit) raf = w.requestAnimationFrame(probe); }, true);
+  d.addEventListener('mouseleave', () => { hl.style.display = lb.style.display = 'none'; hit = null; });
+
+  function startText(h) {
+    const n = h.node, orig = n.nodeValue, from = orig.trim(), scope = scopeOf(h.el);
+    const sp = d.createElement('span'); sp.className = 'cms-ed';
+    try { sp.contentEditable = 'plaintext-only'; } catch (e) { sp.contentEditable = 'true'; }
+    if (sp.contentEditable !== 'plaintext-only') sp.contentEditable = 'true';
+    n.parentNode.insertBefore(sp, n); sp.append(n);
+    editing = { sp, n, orig, from, scope };
+    hl.style.display = lb.style.display = 'none';
+    sp.focus();
+    const sel = w.getSelection(), rg = d.createRange(); rg.selectNodeContents(sp); sel.removeAllRanges(); sel.addRange(rg);
+    sp.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); finish(true); } else if (e.key === 'Escape') { e.preventDefault(); finish(false); } });
+    sp.addEventListener('keyup', (e) => e.stopPropagation());
+    sp.addEventListener('paste', (e) => { e.preventDefault(); d.execCommand('insertText', false, (e.clipboardData.getData('text/plain') || '').replace(/\s+/g, ' ')); });
+    sp.addEventListener('blur', () => finish(true));
+  }
+  function finish(commit) {
+    if (!editing) return;
+    const { sp, n, orig, from, scope } = editing; editing = null;
+    const val = sp.textContent.replace(/\s+/g, ' ').trim();
+    const ok = commit && val.length >= 1 && val !== from;
+    n.nodeValue = ok ? orig.replace(from, val) : orig;
+    sp.replaceWith(n);
+    if (commit && !val) toast('Порожній текст не зберігаю. Якщо треба прибрати блок, напишіть мені.', true);
+    if (ok) recordEdit({ page: scope, type: 'text', from, to: val });
+  }
+  async function startImg(h) {
+    const fi = el('input', { type: 'file', accept: 'image/*' });
+    fi.addEventListener('change', async () => {
+      const file = fi.files && fi.files[0]; if (!file) return;
+      try {
+        const r = await resize(file, 'page');
+        const base = slug(tr((h.el.getAttribute('alt') || '').slice(0, 30))) || 'photo';
+        const path = `uploads/${pageId === '404' ? 'nf' : pageId}-${base}-${Date.now().toString(36)}.webp`;
+        pending.set(path, { base64: r.b64, url: r.url }); blobPath.set(r.url, path);
+        if (h.bg) h.el.style.backgroundImage = `url("${r.url}")`;
+        else { const pic = h.el.closest('picture'); if (pic) pic.querySelectorAll('source').forEach((s) => s.remove()); h.el.removeAttribute('srcset'); h.el.src = r.url; }
+        recordEdit({ page: scopeOf(h.el), type: 'img', from: h.path, to: path });
+        toast(`Фото стиснуто до ${Math.round(r.size / 1024)} КБ. Збережеться після «Опублікувати».`);
+      } catch (e) { toast('Не вдалося відкрити це фото. Спробуйте JPG або PNG.', true); }
+    });
+    fi.click();
+  }
+  d.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a[href]');
+    if (mode !== 'edit') {
+      if (!a) return;
+      const href = a.getAttribute('href') || '';
+      const tgt = core.PAGES.find((p) => { const b = p.html.replace(/\.html$/, ''); const h = href.replace(/^\.?\//, '').split(/[?#]/)[0].replace(/\.html$/, ''); return h === b || (b === 'index' && h === ''); });
+      if (tgt && !/^https?:/.test(href)) { e.preventDefault(); e.stopPropagation(); if (tgt.id !== pageId) { pageId = tgt.id; render(); } }
+      return;
+    }
+    if (editing && editing.sp.contains(e.target)) { e.preventDefault(); return; }
+    e.preventDefault(); e.stopPropagation();
+    if (editing) { finish(true); return; }
+    mx = e.clientX; my = e.clientY; probe();
+    const h = hit; if (!h) return;
+    if (h.msg) { if (h.go) { tab = h.go; cur = 0; syncTabs(); render(); } else toast(h.msg); return; }
+    if (h.kind === 'text') startText(h); else startImg(h);
+  }, true);
+  for (const t of ['pointerdown', 'mousedown', 'touchstart', 'submit', 'dblclick']) d.addEventListener(t, (e) => { if (mode === 'edit' && !(editing && editing.sp.contains(e.target))) { if (t === 'submit') e.preventDefault(); e.stopPropagation(); } }, { capture: true, passive: false });
+  d.addEventListener('keydown', (e) => { if (mode === 'edit' && !editing) e.stopPropagation(); }, true);
+  d.documentElement.classList.toggle('cms-on', mode === 'edit');
+  f._setMode = () => { d.documentElement.classList.toggle('cms-on', mode === 'edit'); if (mode !== 'edit') { if (editing) finish(true); hl.style.display = lb.style.display = 'none'; } };
+}
+
+function renderChanges() {
+  const box = $('#chg'); if (!box) return;
+  const list = site.edits.map((e, i) => ({ e, i })).filter(({ e, i }) => i >= savedEdits && (e.page === pageId || e.page === '*'));
+  box.replaceChildren(...(list.length ? [el('h2', {}, `Неопубліковані зміни · ${list.length}`)] : []),
+    ...list.map(({ e, i }) => el('div', { class: 'chg' },
+      el('div', { style: 'min-width:0' }, e.page === '*' ? el('em', {}, 'Усі сторінки') : null,
+        e.type === 'img' ? el('span', {}, 'Нове фото замість ', el('s', {}, e.from.split('/').pop())) : [el('span', {}, el('s', {}, e.from)), el('span', {}, e.to)]),
+      el('button', { type: 'button', 'aria-label': 'Скасувати цю зміну', title: 'Скасувати', onclick: () => { site.edits.splice(i, 1); mark(); renderChanges(); stage && stage.show(pageId, { keepScroll: true, onReady: attachEditor }); } }, '×'))));
+}
+
+function pagesBar() {
+  return el('div', { class: 'bar' },
+    el('div', { class: 'grp' },
+      seg([['edit', 'Редагування'], ['view', 'Перегляд']], mode, (v) => { mode = v; $('.stage .bar').replaceWith(pagesBar()); if (stage && stage.cur && stage.cur._setMode) stage.cur._setMode(); }),
+      seg([['desk', 'Компʼютер'], ['mob', 'Телефон']], view, (v) => { view = v; $('.stage .bar').replaceWith(pagesBar()); stage.setView(v); stage.show(pageId, { onReady: attachEditor }); })),
+    el('div', { class: 'grp' }, el('small', {}, mode === 'edit' ? 'Клікніть по тексту або фото' : 'Посилання на сторінки працюють'),
+      el('button', { type: 'button', class: 'btn sm', onclick: () => stage.show(pageId, { keepScroll: true, onReady: attachEditor }) }, 'Оновити')));
+}
+function renderPages(main) {
+  const frame = el('div', { class: 'frame' });
+  const side = el('aside', { class: 'side' },
+    el('h2', {}, 'Сторінки'),
+    ...core.PAGES.map((p) => el('button', { type: 'button', class: 'pg', 'aria-current': String(p.id === pageId), onclick: () => { if (p.id !== pageId) { pageId = p.id; render(); } } }, el('b', {}, p.title), el('small', {}, urlOf(p.html)))),
+    el('div', { class: 'howto' },
+      el('p', {}, el('b', {}, 'Текст: '), 'наведіть і клікніть, пишіть прямо на сторінці. Enter — готово, Esc — скасувати.'),
+      el('p', {}, el('b', {}, 'Фото: '), 'клікніть по фото й виберіть нове.'),
+      el('p', {}, 'Шапка, меню, футер і чат міняються на всіх сторінках одразу.')),
+    el('div', { id: 'chg', style: 'display:flex;flex-direction:column;gap:8px' }));
+  main.className = 'pgw';
+  main.replaceChildren(side, el('section', { class: 'stage' }, pagesBar(), frame));
+  stage = new Stage(frame); stage.setView(view);
+  stage.show(pageId, { onReady: attachEditor });
+  renderChanges();
+}
+
+// ---------- projects / reviews: live preview next to the form ----------
+let pvTimer = 0;
+function pvTarget() {
+  if (tab === 'reviews') return { id: pvPage || 'home', sel: '.rv-card' };
+  const p = site.projects[cur];
+  let id = pvPage;
+  if (!id) id = p && !(p.inWorks || p.inGallery) && p.dev && p.dev.show ? 'dev' : 'home';
+  const sel = id === 'dev' ? '.cs-card,.ring-card' : id === 'projects' ? '.wgrid' : p && p.inWorks ? '.wgrid' : null;
+  return { id, sel };
+}
+function schedulePreview(jump) {
+  if (!stage || tab === 'pages') return;
+  clearTimeout(pvTimer);
+  pvTimer = setTimeout(() => { const t = pvTarget(); stage.show(t.id, jump ? { scrollTo: t.sel } : { keepScroll: true }); }, jump ? 0 : 450);
+}
+function previewPane() {
+  const t = pvTarget();
+  const frame = el('div', { class: 'frame' });
+  const opts = tab === 'reviews' ? [['home', 'Головна'], ['dev', 'Девелоперам']] : [['home', 'Головна'], ['projects', 'Проєкти'], ['dev', 'Девелоперам']];
+  const pane = el('div', { class: 'pvw' }, el('section', { class: 'stage' },
+    el('div', { class: 'bar' }, seg(opts, t.id, (v) => { pvPage = v; render(); }),
+      el('div', { class: 'grp' }, el('small', {}, 'Оновлюється, поки ви пишете'), seg([['desk', 'Компʼютер'], ['mob', 'Телефон']], view, (v) => { view = v; render(); }))),
+    frame));
+  queueMicrotask(() => { stage = new Stage(frame); stage.setView(view); schedulePreview(true); });
+  return pane;
+}
+
 function render() {
   const main = $('#main');
+  if (stage) { stage.destroy(); stage = null; }
+  if (tab === 'pages') { renderPages(main); return; }
   const list = tab === 'projects' ? site.projects : site.reviews;
   if (cur >= list.length) cur = Math.max(0, list.length - 1);
-  main.replaceChildren(el('aside', { class: 'side' }), el('div', { class: 'ed' }));
+  main.className = 'wrap wp';
+  main.replaceChildren(el('aside', { class: 'side' }), el('div', { class: 'ed' }), previewPane());
   renderSide();
   if (!list.length) { $('.ed').append(el('div', { class: 'sec empty' }, 'Поки порожньо. Додайте перший запис зліва.')); return; }
   if (tab === 'projects') projectEditor(list[cur]); else reviewEditor(list[cur]);
 }
-for (const [id, t] of [['#t-projects', 'projects'], ['#t-reviews', 'reviews']]) $(id).addEventListener('click', () => { tab = t; cur = 0; $('#t-projects').setAttribute('aria-selected', String(t === 'projects')); $('#t-reviews').setAttribute('aria-selected', String(t === 'reviews')); render(); });
+const TABS = [['#t-pages', 'pages'], ['#t-projects', 'projects'], ['#t-reviews', 'reviews']];
+function syncTabs() { for (const [id, t] of TABS) $(id).setAttribute('aria-selected', String(t === tab)); }
+for (const [id, t] of TABS) $(id).addEventListener('click', () => { if (tab === t) return; tab = t; cur = 0; pvPage = null; syncTabs(); render(); });
 
 // ---------- publish ----------
 async function api(payload) {
@@ -324,8 +650,8 @@ $('#pub').addEventListener('click', async () => {
   try {
     const { ok, d, status } = await api(body);
     if (!ok) { toast(d.error || `Помилка ${status}`, true); if (status === 401) logout(); return; }
-    for (const [, v] of pending) URL.revokeObjectURL(v.url);
-    pending.clear(); site.updatedAt = d.updatedAt; saved = JSON.stringify(site); render();
+    for (const [k, v] of pending) recent.set(k, v);
+    pending.clear(); site.updatedAt = d.updatedAt; savedEdits = site.edits.length; saved = JSON.stringify(site); render();
     toast('Опубліковано. Сайт оновиться приблизно за хвилину.');
     waitLive(d.updatedAt);
   } catch (e) { toast('Немає зв’язку. Зміни на місці, спробуйте ще раз.', true); }
@@ -345,7 +671,8 @@ function waitLive(ts) {
 function logout() { pass = ''; store.set('bl-admin', ''); $('#app').hidden = true; $('#login').hidden = false; }
 async function enter() {
   const r = await fetch('/content/site.json?t=' + Date.now(), { cache: 'no-store' });
-  site = await r.json(); site.projects = site.projects || []; site.reviews = site.reviews || [];
+  site = await r.json(); site.projects = site.projects || []; site.reviews = site.reviews || []; site.edits = site.edits || []; savedEdits = site.edits.length;
+  try { sessionStorage.setItem('bl-pre', '1'); } catch (e) {}
   saved = JSON.stringify(site); $('#login').hidden = true; $('#app').hidden = false; render(); mark();
 }
 $('#lf').addEventListener('submit', async (e) => {
@@ -354,7 +681,7 @@ $('#lf').addEventListener('submit', async (e) => {
   catch (err) { $('#lerr').textContent = 'Немає зв’язку із сервером'; }
 });
 (async () => { if (pass) { try { const { ok } = await api({ password: pass, action: 'check' }); if (ok) return enter(); } catch (e) {} } $('#login').hidden = false; $('#pw').focus(); })();
-})();
+}
 </script>
 </body>
 </html>

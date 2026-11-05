@@ -36,6 +36,14 @@ function validSite(site) {
     if (p.url && !/^https?:\/\//.test(p.url)) return `Посилання проєкту «${p.name}» має починатися з https://`;
   }
   if (site.projects.filter((p) => p.inWorks && p.featured).length > 1) return 'Великою карткою може бути лише один проєкт';
+  if (site.edits != null) {
+    if (!Array.isArray(site.edits) || site.edits.length > 3000) return 'Неправильний список правок';
+    for (const e of site.edits) {
+      if (!e || typeof e.from !== 'string' || typeof e.to !== 'string' || typeof e.page !== 'string' || !/^(text|img)$/.test(e.type)) return 'Неправильна правка сторінки';
+      if (e.from.length < 2 || e.from.length > 2000 || e.to.length > 2000) return 'Задовгий або закороткий текст правки';
+      if (e.type === 'img' && !/^(assets|uploads)\/[\w.-]+$/.test(e.to)) return 'Неправильний шлях фото';
+    }
+  }
   return '';
 }
 
