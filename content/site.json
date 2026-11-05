@@ -5,7 +5,7 @@
     {
       "name": "TYSHA",
       "cat": "re",
-      "url": "https://yarus-vercel.vercel.app/tysha/",
+      "url": "https://tysha.vbrilliant.com/",
       "concept": true,
       "linkLabel": "Дивитися сайт",
       "featured": true,
@@ -50,7 +50,7 @@
     {
       "name": "STRATA",
       "cat": "re",
-      "url": "https://yarus-vercel.vercel.app/strata/",
+      "url": "https://strata.vbrilliant.com/",
       "concept": true,
       "linkLabel": "Дивитися сайт",
       "featured": false,
@@ -91,7 +91,7 @@
     {
       "name": "YARUS",
       "cat": "re",
-      "url": "https://yarus-vercel.vercel.app/",
+      "url": "https://yarus.vbrilliant.com/",
       "concept": true,
       "linkLabel": "Дивитися сайт",
       "featured": false,
