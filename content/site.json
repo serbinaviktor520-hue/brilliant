@@ -318,5 +318,8 @@
       "role": "Організатори лекції",
       "photo": "assets/rv-nesonia.webp"
     }
-  ]
+  ],
+  "analytics": {
+    "ga4": "G-M00G0QX198"
+  }
 }
