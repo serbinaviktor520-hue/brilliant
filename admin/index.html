@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Адмінка · Brilliant</title>
+<link rel="icon" href="/favicon.ico">
+<style>
+@font-face{font-family:Manrope;font-weight:200 800;font-display:swap;src:url(/assets/fonts/manrope-cyrillic-wght-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Manrope;font-weight:200 800;font-display:swap;src:url(/assets/fonts/manrope-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+/* layout: dark top bar like the site header, list of entries on the left, editor on the right */
+:root{--bg:#EBEBEB;--card:#FFFFFF;--ink:#0F0F0F;--mut:rgba(15,15,15,.55);--line:rgba(15,15,15,.1);--acc:#3D8BFF;--dark:#0F0F0F;--ok:#1E9E5A;--bad:#D93A3A;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 Manrope,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+[hidden]{display:none!important}
+.top{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:10px max(16px,env(safe-area-inset-left));background:rgba(235,235,235,.86);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.logo{display:inline-flex;align-items:center;gap:12px;justify-self:start;text-decoration:none;color:var(--ink)}
+.logo i{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 10px;border-radius:9px;background:var(--dark)}
+.logo img{height:26px;filter:brightness(0) invert(1)}
+.logo b{font-size:15px;font-weight:600}
+.tabs{display:flex;gap:5px;padding:5px;border-radius:12px;background:var(--dark)}
+.tabs button{min-height:40px;padding:0 18px;border:0;border-radius:8px;background:transparent;color:rgba(255,255,255,.62);font-weight:500}
+.tabs button[aria-selected=true]{background:rgba(255,255,255,.14);color:#fff}
+.acts{justify-self:end;display:flex;align-items:center;gap:10px}
+.st{font-size:13px;color:var(--mut);white-space:nowrap}
+.st.dirty{color:var(--ink)}.st.dirty::before{content:"";display:inline-block;width:7px;height:7px;margin-right:7px;border-radius:50%;background:var(--acc);vertical-align:1px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:9px;border:1px solid var(--line);background:var(--card);font-weight:600;text-decoration:none;color:var(--ink);transition:background .2s,color .2s,border-color .2s}
+.btn:hover{border-color:var(--ink)}
+.btn.pri{background:var(--dark);border-color:var(--dark);color:#fff}
+.btn.pri:hover{background:var(--acc);border-color:var(--acc)}
+.btn.pri:disabled{opacity:.45;cursor:default;background:var(--dark);border-color:var(--dark)}
+.btn.ghost{background:transparent}
+.btn.sm{min-height:36px;padding:0 12px;font-size:13px}
+.btn.danger{color:var(--bad)}
+.btn.danger.arm{background:var(--bad);border-color:var(--bad);color:#fff}
+.wrap{display:grid;grid-template-columns:minmax(280px,360px) minmax(0,1fr);gap:20px;padding:12px max(16px,env(safe-area-inset-right)) 80px max(16px,env(safe-area-inset-left));max-width:1440px;margin:0 auto}
+.side{position:sticky;top:76px;align-self:start;display:flex;flex-direction:column;gap:10px;max-height:calc(100vh - 92px);overflow:auto;padding-bottom:8px}
+.side h2,.ed h2{margin:6px 0 4px;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.item{display:grid;grid-template-columns:auto 64px minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px;border-radius:16px;background:var(--card);border:1px solid transparent;cursor:pointer;transition:border-color .15s}
+.item:hover{border-color:var(--line)}
+.item[aria-current=true]{border-color:var(--ink)}
+.item.drag{opacity:.4}.item.over{border-color:var(--acc);border-style:dashed}
+.grip{width:18px;height:28px;border:0;background:radial-gradient(circle,var(--mut) 1.3px,transparent 1.6px) 0 0/6px 7px;opacity:.6;cursor:grab}
+.item img,.item .ph{width:64px;height:40px;border-radius:7px;object-fit:cover;background:#D9DDE5;display:block}
+.item b{display:block;font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+.chip{font-size:11px;font-weight:600;padding:2px 7px;border-radius:999px;background:rgba(15,15,15,.06);color:var(--mut)}
+.chip.on{background:rgba(61,139,255,.14);color:#1F5FD0}
+.mv{display:flex;flex-direction:column;gap:2px}
+.mv button{width:26px;height:20px;border:0;border-radius:5px;background:transparent;color:var(--mut);font-size:12px}
+.mv button:hover{background:rgba(15,15,15,.06);color:var(--ink)}
+.add{min-height:52px;border:1px dashed rgba(15,15,15,.25);border-radius:16px;background:transparent;font-weight:600;color:var(--mut)}
+.add:hover{border-color:var(--ink);color:var(--ink)}
+.ed{display:flex;flex-direction:column;gap:16px;min-width:0}
+.sec{padding:24px;border-radius:24px;background:var(--card)}
+.sec>h3{margin:0 0 4px;font-size:20px;font-weight:600;letter-spacing:-.02em}
+.sec>p.hint{margin:0 0 18px;color:var(--mut);font-size:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.f.full{grid-column:1/-1}
+.f label,.f .lb{font-size:13px;font-weight:600}
+.f small{color:var(--mut);font-size:12px}
+input[type=text],input[type=url],input[type=password],select,textarea{width:100%;min-height:44px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#F6F6F6;transition:border-color .15s,background .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--acc);background:#fff}
+textarea{min-height:92px;resize:vertical;line-height:1.45}
+.sw{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 14px;border-radius:14px;background:#F6F6F6}
+.sw span b{display:block;font-weight:600}.sw span small{color:var(--mut);font-size:12px}
+.sw input{appearance:none;-webkit-appearance:none;flex:none;width:44px;height:26px;border-radius:999px;background:rgba(15,15,15,.18);position:relative;cursor:pointer;transition:background .2s}
+.sw input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .2s}
+.sw input:checked{background:var(--acc)}.sw input:checked::after{transform:translateX(18px)}
+.sws{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.img{display:grid;grid-template-columns:200px minmax(0,1fr);gap:14px;align-items:center}
+.img .pv{position:relative;width:200px;border-radius:14px;overflow:hidden;background:#D9DDE5 repeating-linear-gradient(45deg,rgba(255,255,255,.35) 0 8px,transparent 8px 16px)}
+.img .pv img{display:block;width:100%;height:100%;object-fit:cover}
+.img .pv.round{width:96px;height:96px;border-radius:50%}
+.img:has(.round){grid-template-columns:96px minmax(0,1fr)}
+.img .pv em{position:absolute;left:8px;top:8px;font-style:normal;font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;background:var(--acc);color:#fff}
+.img .ctl{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.tags{display:flex;flex-wrap:wrap;gap:6px;padding:6px;min-height:44px;border-radius:12px;border:1px solid var(--line);background:#F6F6F6}
+.tags span{display:inline-flex;align-items:center;gap:6px;padding:4px 6px 4px 10px;border-radius:8px;background:#fff;border:1px solid var(--line);font-size:13px}
+.tags span button{border:0;background:transparent;color:var(--mut);padding:0 2px;font-size:15px;line-height:1}
+.tags input{flex:1;min-width:120px;min-height:30px;border:0;background:transparent;padding:4px}
+.tags input:focus{background:transparent}
+.head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.head h1{margin:0;font-size:clamp(28px,3.4vw,44px);font-weight:600;letter-spacing:-.04em;line-height:1}
+.prev{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.prev figure{margin:0}
+.prev figcaption{margin-top:8px;font-size:12px;color:var(--mut)}
+.prev .box{border-radius:14px;overflow:hidden;background:#0F0F0F;color:#fff}
+.rv{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:start}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:50;max-width:min(560px,calc(100vw - 32px));padding:14px 18px;border-radius:14px;background:var(--dark);color:#fff;font-weight:500;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.toast.bad{background:var(--bad)}
+.login{min-height:100vh;display:grid;place-items:center;padding:24px 16px}
+.login form{width:min(420px,100%);padding:32px;border-radius:24px;background:var(--card);display:flex;flex-direction:column;gap:14px}
+.login h1{margin:8px 0 0;font-size:32px;letter-spacing:-.04em;line-height:1}
+.login p{margin:0;color:var(--mut)}
+.err{color:var(--bad);font-size:14px;min-height:20px}
+.empty{padding:60px 24px;text-align:center;color:var(--mut)}
+@media (max-width:980px){.wrap{grid-template-columns:1fr}.side{position:static;max-height:none}.top{grid-template-columns:1fr auto}.tabs{grid-column:1/-1;grid-row:2;justify-self:start}.grid2,.sws{grid-template-columns:1fr}.img{grid-template-columns:1fr}.prev{grid-template-columns:1fr}.st{display:none}}
+</style>
+</head>
+<body>
+<div id="login" class="login" hidden>
+  <form id="lf">
+    <span class="logo"><i><img src="/assets/logo.png" alt=""></i></span>
+    <h1>Адмінка</h1>
+    <p>Тут редагуються проєкти й відгуки на vbrilliant.com.</p>
+    <div class="f"><label for="pw">Пароль</label><input id="pw" type="password" autocomplete="current-password" required></div>
+    <div class="err" id="lerr"></div>
+    <button class="btn pri" type="submit">Увійти</button>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header class="top">
+    <a class="logo" href="/" target="_blank" rel="noopener"><i><img src="/assets/logo.png" alt="Brilliant"></i><b>Адмінка</b></a>
+    <div class="tabs" role="tablist">
+      <button role="tab" id="t-projects" aria-selected="true">Проєкти</button>
+      <button role="tab" id="t-reviews" aria-selected="false">Відгуки</button>
+    </div>
+    <div class="acts">
+      <span class="st" id="st">Усе збережено</span>
+      <a class="btn ghost sm" href="/" target="_blank" rel="noopener">Сайт ↗</a>
+      <button class="btn pri" id="pub" disabled>Опублікувати</button>
+    </div>
+  </header>
+  <main class="wrap" id="main"></main>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(() => {
+const $ = (s, r = document) => r.querySelector(s);
+const el = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag); for (const k in attrs) { const v = attrs[k]; if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else if (v === true) e.setAttribute(k, ''); else if (v !== false && v != null) e.setAttribute(k, v); } for (const c of kids.flat()) if (c != null && c !== false) e.append(c.nodeType ? c : document.createTextNode(c)); return e; };
+const CATS = { re: 'Нерухомість', ag: 'Агенції', br: 'Бренди', art: 'Арт' };
+const store = { get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} } };
+
+let pass = store.get('bl-admin') || '', site = null, saved = '', tab = 'projects', cur = 0, busy = false;
+const pending = new Map(); // path -> {base64, url}
+
+// ---------- utils ----------
+const slug = (s) => (s || 'img').toLowerCase().normalize('NFKD').replace(/[^\w\s-]/g, '').replace(/[\s_]+/g, '-').replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'img';
+const tr = (s) => { const m = { а:'a',б:'b',в:'v',г:'h',ґ:'g',д:'d',е:'e',є:'ye',ж:'zh',з:'z',и:'y',і:'i',ї:'yi',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'kh',ц:'ts',ч:'ch',ш:'sh',щ:'shch',ь:'',ю:'yu',я:'ya' }; return String(s || '').toLowerCase().split('').map((c) => (m[c] ?? c)).join(''); };
+const src = (p) => (!p ? '' : pending.has(p) ? pending.get(p).url : '/' + p.replace(/^\//, ''));
+const dirty = () => JSON.stringify(site) !== saved || pending.size > 0;
+function mark() { const d = dirty(); const st = $('#st'); st.textContent = d ? 'Є неопубліковані зміни' : 'Усе збережено'; st.classList.toggle('dirty', d); $('#pub').disabled = !d || busy; }
+let tt = 0; function toast(msg, bad) { const t = $('#toast'); t.textContent = msg; t.classList.toggle('bad', !!bad); t.hidden = false; clearTimeout(tt); tt = setTimeout(() => { t.hidden = true; }, bad ? 7000 : 4500); }
+addEventListener('beforeunload', (e) => { if (site && dirty()) { e.preventDefault(); e.returnValue = ''; } });
+
+async function resize(file, kind) {
+  const conf = { wide: [1800, 0], card: [900, 0], case: [1200, 0], avatar: [200, 200] }[kind];
+  const bmp = await createImageBitmap(file);
+  let [w, h] = conf, sx = 0, sy = 0, sw = bmp.width, sh = bmp.height;
+  if (h) { const s = Math.min(sw, sh); sx = (sw - s) / 2; sy = (sh - s) / 2; sw = sh = s; } else { w = Math.min(w, bmp.width); h = Math.round(bmp.height * w / bmp.width); }
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const x = c.getContext('2d'); x.imageSmoothingQuality = 'high'; x.drawImage(bmp, sx, sy, sw, sh, 0, 0, w, h);
+  const blob = await new Promise((r) => c.toBlob(r, 'image/webp', 0.84));
+  const b64 = await new Promise((r) => { const fr = new FileReader(); fr.onload = () => r(String(fr.result).split(',')[1]); fr.readAsDataURL(blob); });
+  return { b64, url: URL.createObjectURL(blob), size: blob.size };
+}
+
+// ---------- form pieces ----------
+function field(label, input, hint, full) { return el('div', { class: 'f' + (full ? ' full' : '') }, el('label', {}, label), input, hint ? el('small', {}, hint) : null); }
+function text(obj, key, opts = {}) {
+  const tag = opts.area ? 'textarea' : 'input';
+  const i = el(tag, { type: opts.type || 'text', placeholder: opts.ph || '', rows: opts.rows || null });
+  i.value = obj[key] ?? ''; i.addEventListener('input', () => { obj[key] = i.value; mark(); if (opts.live) opts.live(); });
+  return i;
+}
+function toggle(title, sub, obj, key, after) {
+  const i = el('input', { type: 'checkbox', role: 'switch' }); i.checked = !!obj[key];
+  i.addEventListener('change', () => { obj[key] = i.checked; mark(); if (after) after(); });
+  return el('label', { class: 'sw' }, el('span', {}, el('b', {}, title), sub ? el('small', {}, sub) : null), i);
+}
+function tagsInput(obj, key) {
+  obj[key] = obj[key] || [];
+  const box = el('div', { class: 'tags' });
+  const inp = el('input', { type: 'text', placeholder: 'Новий тег і Enter' });
+  const draw = () => { box.replaceChildren(...obj[key].map((t, i) => el('span', {}, t, el('button', { type: 'button', 'aria-label': 'Прибрати тег ' + t, onclick: () => { obj[key].splice(i, 1); draw(); mark(); } }, '×'))), inp); };
+  inp.addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ',') && inp.value.trim()) { e.preventDefault(); obj[key].push(inp.value.trim().replace(/,$/, '')); inp.value = ''; draw(); mark(); inp.focus(); } else if (e.key === 'Backspace' && !inp.value && obj[key].length) { obj[key].pop(); draw(); mark(); inp.focus(); } });
+  draw(); return box;
+}
+function imagePicker(obj, key, kind, ratio, name, round) {
+  const pv = el('div', { class: 'pv' + (round ? ' round' : ''), style: round ? null : `aspect-ratio:${ratio}` });
+  const draw = () => { pv.replaceChildren(); if (obj[key]) pv.append(el('img', { src: src(obj[key]), alt: '' })); if (pending.has(obj[key])) pv.append(el('em', {}, 'нове')); };
+  const fi = el('input', { type: 'file', accept: 'image/*', hidden: true });
+  fi.addEventListener('change', async () => {
+    const f = fi.files && fi.files[0]; if (!f) return;
+    try {
+      const r = await resize(f, kind);
+      const path = `uploads/${slug(tr(name())) }-${kind}-${Date.now().toString(36)}.webp`;
+      if (pending.has(obj[key])) { URL.revokeObjectURL(pending.get(obj[key]).url); pending.delete(obj[key]); }
+      pending.set(path, { base64: r.b64, url: r.url }); obj[key] = path; draw(); mark(); renderSide();
+      toast(`Фото стиснуто до ${Math.round(r.size / 1024)} КБ. Збережеться після «Опублікувати».`);
+    } catch (e) { toast('Не вдалося відкрити це фото. Спробуйте JPG або PNG.', true); }
+    fi.value = '';
+  });
+  draw();
+  return el('div', { class: 'img' }, pv, el('div', { class: 'ctl' }, el('button', { type: 'button', class: 'btn sm', onclick: () => fi.click() }, obj[key] ? 'Замінити фото' : 'Завантажити фото'), el('small', { style: 'color:var(--mut);font-size:12px' }, round ? 'Квадратне, обріжеться по центру.' : `Пропорція ${ratio.replace(' / ', ':')}. Стискаю автоматично.`), fi));
+}
+
+// ---------- projects ----------
+const blank = () => ({ id: 'p' + Date.now().toString(36), name: 'Новий проєкт', cat: 're', url: 'https://', concept: false, linkLabel: 'Дивитися сайт', featured: false, inWorks: false, inGallery: false, imgWide: '', imgAlt: '', cardText: '', location: '', longText: '', tags: [], imgCard: '', cardSub: '', dev: { show: false, img: '', imgAlt: '', location: '', tags: [], rows: [{ label: 'Задача', text: '' }, { label: 'Що зробили', text: '' }], linkLabel: 'Відкрити сайт' } });
+let dragFrom = -1;
+function renderSide() {
+  const side = $('.side'); if (!side) return;
+  const list = tab === 'projects' ? site.projects : site.reviews;
+  side.replaceChildren(el('h2', {}, tab === 'projects' ? `Проєкти · ${list.length}` : `Відгуки · ${list.length}`));
+  list.forEach((p, i) => {
+    const chips = tab === 'projects'
+      ? [p.featured && p.inWorks ? el('span', { class: 'chip on' }, 'Велика') : null, el('span', { class: 'chip' + (p.inWorks ? ' on' : '') }, 'Роботи'), el('span', { class: 'chip' + (p.inGallery ? ' on' : '') }, 'Галерея'), el('span', { class: 'chip' + (p.dev && p.dev.show ? ' on' : '') }, 'Девелопери'), p.concept ? el('span', { class: 'chip' }, 'Концепт') : null]
+      : [el('span', { class: 'chip' }, p.role || '—')];
+    const th = tab === 'projects' ? (p.imgWide || p.imgCard) : p.photo;
+    const it = el('div', { class: 'item', draggable: 'true', 'aria-current': String(i === cur), tabindex: '0', onclick: (e) => { if (e.target.closest('.mv')) return; cur = i; render(); }, onkeydown: (e) => { if (e.key === 'Enter') { cur = i; render(); } } },
+      el('span', { class: 'grip', 'aria-hidden': 'true' }),
+      th ? el('img', { src: src(th), alt: '', style: tab === 'reviews' ? 'width:40px;height:40px;border-radius:50%' : null }) : el('span', { class: 'ph' }),
+      el('div', { style: 'min-width:0' }, el('b', {}, p.name || 'Без назви'), el('div', { class: 'chips' }, chips)),
+      el('div', { class: 'mv' }, el('button', { type: 'button', 'aria-label': 'Вище', onclick: () => move(i, i - 1) }, '▲'), el('button', { type: 'button', 'aria-label': 'Нижче', onclick: () => move(i, i + 1) }, '▼')));
+    it.addEventListener('dragstart', (e) => { dragFrom = i; it.classList.add('drag'); e.dataTransfer.effectAllowed = 'move'; });
+    it.addEventListener('dragend', () => { it.classList.remove('drag'); side.querySelectorAll('.over').forEach((x) => x.classList.remove('over')); });
+    it.addEventListener('dragover', (e) => { e.preventDefault(); it.classList.add('over'); });
+    it.addEventListener('dragleave', () => it.classList.remove('over'));
+    it.addEventListener('drop', (e) => { e.preventDefault(); move(dragFrom, i); });
+    side.append(it);
+  });
+  side.append(el('button', { class: 'add', type: 'button', onclick: () => { if (tab === 'projects') site.projects.push(blank()); else site.reviews.push({ quote: '', name: 'Нове ім’я', role: '', photo: '' }); cur = list.length - 1; render(); mark(); } }, tab === 'projects' ? '+ Додати проєкт' : '+ Додати відгук'));
+}
+function move(a, b) {
+  const list = tab === 'projects' ? site.projects : site.reviews;
+  if (a < 0 || b < 0 || a >= list.length || b >= list.length || a === b) return;
+  const [x] = list.splice(a, 1); list.splice(b, 0, x);
+  if (cur === a) cur = b; else if (a < cur && b >= cur) cur--; else if (a > cur && b <= cur) cur++;
+  render(); mark();
+}
+function delBtn(onDel) {
+  let armed = false, t = 0;
+  const b = el('button', { type: 'button', class: 'btn danger sm' }, 'Видалити');
+  b.addEventListener('click', () => { if (!armed) { armed = true; b.classList.add('arm'); b.textContent = 'Точно видалити?'; t = setTimeout(() => { armed = false; b.classList.remove('arm'); b.textContent = 'Видалити'; }, 3500); } else { clearTimeout(t); onDel(); } });
+  return b;
+}
+
+function projectEditor(p) {
+  const ed = $('.ed');
+  const nameNow = () => p.name;
+  const sec = (title, hint, ...kids) => el('section', { class: 'sec' }, el('h3', {}, title), hint ? el('p', { class: 'hint' }, hint) : null, ...kids);
+  const cat = el('select', {}, ...Object.entries(CATS).map(([k, v]) => el('option', { value: k, selected: p.cat === k }, v)));
+  cat.addEventListener('change', () => { p.cat = cat.value; mark(); });
+  const lbl = el('select', {}, ...['Дивитися сайт', 'Дивитися кейс'].map((v) => el('option', { value: v, selected: p.linkLabel === v }, v)));
+  lbl.addEventListener('change', () => { p.linkLabel = lbl.value; mark(); });
+  const re = () => { projectEditor(p); renderSide(); };
+  ed.replaceChildren(
+    el('div', { class: 'head' }, el('h1', {}, p.name || 'Без назви'), delBtn(() => { site.projects.splice(cur, 1); cur = Math.max(0, cur - 1); render(); mark(); })),
+    sec('Основне', null, el('div', { class: 'grid2' },
+      field('Назва', text(p, 'name', { live: () => { $('.head h1').textContent = p.name || 'Без назви'; renderSide(); } })),
+      field('Категорія', cat, 'Для фільтра у «Вибраних роботах».'),
+      field('Посилання', text(p, 'url', { type: 'url', ph: 'https://…' }), 'Куди веде вся картка й кнопка.', true),
+      field('Текст кнопки', lbl, '«Дивитися кейс» — для Behance.'),
+      el('div', { class: 'f' }, el('span', { class: 'lb' }, ' '), toggle('Концепт', 'Плашка «Концепт» на фото', p, 'concept', renderSide)))),
+    sec('Де показувати', null, el('div', { class: 'sws' },
+      toggle('Вибрані роботи', 'Сітка на головній і в «Проєктах»', p, 'inWorks', re),
+      toggle('Велика картка зверху', 'Лише один проєкт', p, 'featured', () => { if (p.featured) site.projects.forEach((q) => { if (q !== p) q.featured = false; }); re(); }),
+      toggle('Галерея на першому екрані', 'Картки, що крутяться дугою', p, 'inGallery', re),
+      toggle('Сторінка для девелоперів', 'Кейси й галерея на /development', p.dev, 'show', re))),
+    p.inWorks ? sec(p.featured ? 'Велика картка' : 'Картка у «Вибраних роботах»', null, el('div', { class: 'grid2' },
+      field('Фото 16:9', imagePicker(p, 'imgWide', 'wide', '16 / 9', nameNow), null, true),
+      field('Опис фото для пошуковиків', text(p, 'imgAlt', { ph: 'Напр.: TYSHA — сайт архітектурного бюро' }), null, true),
+      ...(p.featured
+        ? [field('Підзаголовок', text(p, 'location', { ph: 'Архітектурне бюро, Львів — Варшава' }), null, true), field('Опис', text(p, 'longText', { area: true, rows: 4 }), null, true), field('Теги', tagsInput(p, 'tags'), null, true)]
+        : [field('Короткий опис', text(p, 'cardText', { area: true, rows: 3, ph: 'Лендінг бізнес-центру класу А для інвесторів: концепт, дизайн і верстка.' }), 'Один-два рядки під назвою.', true)]))) : null,
+    p.inGallery ? sec('Картка в галереї', 'Галерея на першому екрані головної.', el('div', { class: 'grid2' },
+      field('Фото картки', imagePicker(p, 'imgCard', 'card', '400 / 260', nameNow), 'Якщо не завантажити, візьметься фото 16:9.', true),
+      field('Підпис', text(p, 'cardSub', { area: true, rows: 2, ph: 'Бізнес-центр класу А:\nлендінг для інвесторів' }), 'Два короткі рядки, перенос — Enter.', true))) : null,
+    p.dev && p.dev.show ? sec('Сторінка для девелоперів', 'Картка кейсу і галерея на /development.', el('div', { class: 'grid2' },
+      field('Фото 4:3', imagePicker(p.dev, 'img', 'case', '4 / 3', nameNow), 'Якщо не завантажити, візьметься фото 16:9.', true),
+      field('Хто клієнт', text(p.dev, 'location', { ph: 'Бізнес-центр класу А, Київ' })),
+      field('Текст кнопки', text(p.dev, 'linkLabel', { ph: 'Відкрити сайт' })),
+      field('Теги', tagsInput(p.dev, 'tags'), null, true),
+      field('Задача', text(p.dev.rows[0] || (p.dev.rows[0] = { label: 'Задача', text: '' }), 'text', { area: true, rows: 3 }), null, true),
+      field('Що зробили', text(p.dev.rows[1] || (p.dev.rows[1] = { label: 'Що зробили', text: '' }), 'text', { area: true, rows: 3 }), null, true))) : null,
+    !p.inWorks && !p.inGallery && !(p.dev && p.dev.show) ? el('div', { class: 'sec empty' }, 'Проєкт ніде не показується. Увімкніть, де його показати.') : null
+  );
+}
+
+function reviewEditor(r) {
+  const ed = $('.ed');
+  ed.replaceChildren(
+    el('div', { class: 'head' }, el('h1', {}, r.name || 'Відгук'), delBtn(() => { site.reviews.splice(cur, 1); cur = Math.max(0, cur - 1); render(); mark(); })),
+    el('section', { class: 'sec' }, el('h3', {}, 'Відгук'), el('p', { class: 'hint' }, 'Показується в каруселі відгуків на головній і на сторінці для девелоперів.'),
+      el('div', { class: 'grid2' },
+        field('Фото', imagePicker(r, 'photo', 'avatar', '1 / 1', () => r.name, true), null, true),
+        field('Ім’я', text(r, 'name', { live: () => { $('.head h1').textContent = r.name || 'Відгук'; renderSide(); } })),
+        field('Хто це', text(r, 'role', { ph: 'Власник бізнесу, працюємо 1,5 року', live: renderSide })),
+        field('Текст відгуку', text(r, 'quote', { area: true, rows: 5 }), 'Без лапок, вони додаються самі.', true))));
+}
+
+function render() {
+  const main = $('#main');
+  const list = tab === 'projects' ? site.projects : site.reviews;
+  if (cur >= list.length) cur = Math.max(0, list.length - 1);
+  main.replaceChildren(el('aside', { class: 'side' }), el('div', { class: 'ed' }));
+  renderSide();
+  if (!list.length) { $('.ed').append(el('div', { class: 'sec empty' }, 'Поки порожньо. Додайте перший запис зліва.')); return; }
+  if (tab === 'projects') projectEditor(list[cur]); else reviewEditor(list[cur]);
+}
+for (const [id, t] of [['#t-projects', 'projects'], ['#t-reviews', 'reviews']]) $(id).addEventListener('click', () => { tab = t; cur = 0; $('#t-projects').setAttribute('aria-selected', String(t === 'projects')); $('#t-reviews').setAttribute('aria-selected', String(t === 'reviews')); render(); });
+
+// ---------- publish ----------
+async function api(payload) {
+  const r = await fetch('/api/cms-save', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) });
+  let d = {}; try { d = await r.json(); } catch (e) {}
+  return { ok: r.ok && d.ok, d, status: r.status };
+}
+$('#pub').addEventListener('click', async () => {
+  if (busy) return;
+  const files = [...pending.entries()].filter(([p]) => JSON.stringify(site).includes(p)).map(([path, v]) => ({ path, base64: v.base64 }));
+  const body = { password: pass, action: 'save', site, files, message: 'Адмінка: ' + new Date().toLocaleString('uk-UA') };
+  const size = JSON.stringify(body).length;
+  if (size > 3.8e6) { toast('Забагато нових фото за раз. Опублікуйте частину, потім решту.', true); return; }
+  busy = true; mark(); $('#pub').textContent = 'Публікую…';
+  try {
+    const { ok, d, status } = await api(body);
+    if (!ok) { toast(d.error || `Помилка ${status}`, true); if (status === 401) logout(); return; }
+    for (const [, v] of pending) URL.revokeObjectURL(v.url);
+    pending.clear(); site.updatedAt = d.updatedAt; saved = JSON.stringify(site); render();
+    toast('Опубліковано. Сайт оновиться приблизно за хвилину.');
+    waitLive(d.updatedAt);
+  } catch (e) { toast('Немає зв’язку. Зміни на місці, спробуйте ще раз.', true); }
+  finally { busy = false; $('#pub').textContent = 'Опублікувати'; mark(); }
+});
+function waitLive(ts) {
+  let n = 0; const st = $('#st');
+  const tick = async () => {
+    n++; if (dirty()) return;
+    try { const s = await (await fetch('/content/site.json?t=' + Date.now(), { cache: 'no-store' })).json(); if (s.updatedAt >= ts) { st.textContent = 'Сайт оновлено ✓'; return; } } catch (e) {}
+    st.textContent = 'Сайт оновлюється…'; if (n < 40) setTimeout(tick, 6000); else st.textContent = 'Оновлення затримується, перевірте Vercel';
+  };
+  setTimeout(tick, 8000);
+}
+
+// ---------- login ----------
+function logout() { pass = ''; store.set('bl-admin', ''); $('#app').hidden = true; $('#login').hidden = false; }
+async function enter() {
+  const r = await fetch('/content/site.json?t=' + Date.now(), { cache: 'no-store' });
+  site = await r.json(); site.projects = site.projects || []; site.reviews = site.reviews || [];
+  saved = JSON.stringify(site); $('#login').hidden = true; $('#app').hidden = false; render(); mark();
+}
+$('#lf').addEventListener('submit', async (e) => {
+  e.preventDefault(); const pw = $('#pw').value; $('#lerr').textContent = '';
+  try { const { ok, d } = await api({ password: pw, action: 'check' }); if (!ok) { $('#lerr').textContent = d.error || 'Не вдалося увійти'; return; } pass = pw; store.set('bl-admin', pw); await enter(); }
+  catch (err) { $('#lerr').textContent = 'Немає зв’язку із сервером'; }
+});
+(async () => { if (pass) { try { const { ok } = await api({ password: pass, action: 'check' }); if (ok) return enter(); } catch (e) {} } $('#login').hidden = false; $('#pw').focus(); })();
+})();
+</script>
+</body>
+</html>

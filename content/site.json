@@ -1,0 +1,322 @@
+{
+  "version": 1,
+  "updatedAt": 1793883714,
+  "projects": [
+    {
+      "name": "TYSHA",
+      "cat": "re",
+      "url": "https://yarus-vercel.vercel.app/tysha/",
+      "concept": true,
+      "linkLabel": "Дивитися сайт",
+      "featured": true,
+      "inWorks": true,
+      "imgWide": "assets/work-tysha-wide.webp",
+      "imgAlt": "TYSHA — сайт архітектурного бюро",
+      "location": "Архітектурне бюро, Львів — Варшава",
+      "longText": "Сайт-маніфест бюро, яке проєктує приватні будинки в тиші: децибели як наскрізна метрика, проєкти, метод і день у будинку по годинах. Концепція, структура й тексти, арт-дирекція, дизайн і верстка.",
+      "tags": [
+        "Архітектура",
+        "Сайт студії",
+        "Арт-дирекція"
+      ],
+      "cardText": "",
+      "imgCard": "assets/work-tysha.webp",
+      "cardSub": "Архітектурне бюро:\nсайт-маніфест студії",
+      "inGallery": true,
+      "dev": {
+        "show": true,
+        "img": "assets/case-tysha.webp",
+        "imgAlt": "TYSHA — сайт архітектурного бюро",
+        "location": "Архітектурне бюро, Львів",
+        "tags": [
+          "Концепт",
+          "Архітектура",
+          "Сайт студії"
+        ],
+        "rows": [
+          {
+            "label": "Задача",
+            "text": "Показати, чим бюро відрізняється від сотні інших: воно проєктує приватні будинки в тиші, за 30 хвилин від міста, і закладає рівень тиші в договір."
+          },
+          {
+            "label": "Що зробили",
+            "text": "Концепція «архітектура тиші», структура й тексти, арт-дирекція, дизайн і верстка: децибели як наскрізна метрика, проєкти, метод у чотири шари, день у будинку по годинах."
+          }
+        ],
+        "linkLabel": "Відкрити сайт"
+      },
+      "id": "tysha"
+    },
+    {
+      "name": "STRATA",
+      "cat": "re",
+      "url": "https://yarus-vercel.vercel.app/strata/",
+      "concept": true,
+      "linkLabel": "Дивитися сайт",
+      "featured": false,
+      "inWorks": true,
+      "imgWide": "assets/work-strata-wide.webp",
+      "imgAlt": "STRATA",
+      "cardText": "Лендінг бізнес-центру класу А для інвесторів: концепт, дизайн і верстка.",
+      "location": "",
+      "longText": "",
+      "tags": [],
+      "imgCard": "assets/work-strata.webp",
+      "cardSub": "Бізнес-центр класу А:\nлендінг для інвесторів",
+      "inGallery": true,
+      "dev": {
+        "show": true,
+        "img": "assets/case-strata.webp",
+        "imgAlt": "STRATA — лендінг бізнес-центру класу А",
+        "location": "Бізнес-центр класу А, Київ",
+        "tags": [
+          "Концепт",
+          "Комерційна нерухомість",
+          "Лендінг для інвесторів"
+        ],
+        "rows": [
+          {
+            "label": "Задача",
+            "text": "Довести інвестора й орендаря до запиту інвестиційного меморандуму 34-поверхового бізнес-центру ще до публічного старту продажів."
+          },
+          {
+            "label": "Що зробили",
+            "text": "Структура й тексти, арт-дирекція, дизайн і верстка: перший екран з аргументами довіри, поверхи й планування, інвестиційний блок, заявка на меморандум."
+          }
+        ],
+        "linkLabel": "Відкрити сайт"
+      },
+      "id": "strata"
+    },
+    {
+      "name": "YARUS",
+      "cat": "re",
+      "url": "https://yarus-vercel.vercel.app/",
+      "concept": true,
+      "linkLabel": "Дивитися сайт",
+      "featured": false,
+      "inWorks": true,
+      "imgWide": "assets/work-yarus-wide.webp",
+      "imgAlt": "YARUS",
+      "cardText": "Лендінг передпродажу ЖК біля озера: концепт, дизайн і верстка.",
+      "location": "",
+      "longText": "",
+      "tags": [],
+      "imgCard": "assets/work-yarus.webp",
+      "cardSub": "ЖК біля озера в Києві:\nлендінг передпродажу",
+      "inGallery": true,
+      "dev": {
+        "show": true,
+        "img": "assets/case-yarus.webp",
+        "imgAlt": "YARUS — лендінг передпродажу житлового комплексу",
+        "location": "Житловий комплекс, Київ",
+        "tags": [
+          "Концепт",
+          "Житлова нерухомість",
+          "Лендінг передпродажу"
+        ],
+        "rows": [
+          {
+            "label": "Задача",
+            "text": "Продати будинок, якого ще немає: зібрати заявки на ранній доступ до 34-поверхового ЖК біля озера ще до старту продажів."
+          },
+          {
+            "label": "Що зробили",
+            "text": "Структура й тексти, арт-дирекція, дизайн і верстка: перший екран з ключовими цифрами, вибір квартири за ярусом висоти, умови раннього доступу й форма заявки."
+          }
+        ],
+        "linkLabel": "Відкрити сайт"
+      },
+      "id": "yarus"
+    },
+    {
+      "name": "October",
+      "cat": "art",
+      "url": "https://www.behance.net/gallery/253242951/Website-for-an-Artist",
+      "concept": false,
+      "linkLabel": "Дивитися кейс",
+      "featured": false,
+      "inWorks": true,
+      "imgWide": "assets/work-october.webp",
+      "imgAlt": "October",
+      "cardText": "Онлайн-виставка циклу картин: арт-дирекція і веб-дизайн.",
+      "location": "",
+      "longText": "",
+      "tags": [],
+      "imgCard": "assets/work-october.webp",
+      "cardSub": "Онлайн-виставка циклу картин:\nарт-дирекція і веб-дизайн",
+      "inGallery": true,
+      "dev": {
+        "show": false,
+        "img": "",
+        "imgAlt": "",
+        "location": "",
+        "tags": [],
+        "rows": [
+          {
+            "label": "Задача",
+            "text": ""
+          },
+          {
+            "label": "Що зробили",
+            "text": ""
+          }
+        ],
+        "linkLabel": "Відкрити сайт"
+      },
+      "id": "october"
+    },
+    {
+      "name": "NODY",
+      "cat": "br",
+      "url": "https://nody.uk/",
+      "concept": false,
+      "linkLabel": "Дивитися сайт",
+      "featured": false,
+      "inWorks": true,
+      "imgWide": "assets/work-nody.webp",
+      "imgAlt": "NODY",
+      "cardText": "Сайт меблевої студії: аналітика, арт-дирекція, дизайн, розробка.",
+      "location": "",
+      "longText": "",
+      "tags": [],
+      "imgCard": "assets/work-nody.webp",
+      "cardSub": "Сайт меблевої студії: аналітика,\nарт-дирекція, дизайн, розробка",
+      "inGallery": true,
+      "dev": {
+        "show": true,
+        "img": "assets/work-nody.webp",
+        "imgAlt": "NODY — Меблева студія",
+        "location": "Меблева студія",
+        "tags": [
+          "Преміальні меблі",
+          "Корпоративний сайт"
+        ],
+        "rows": [
+          {
+            "label": "Задача",
+            "text": "Показати меблі на замовлення так, щоб клієнт довіряв ще до візиту в шоурум."
+          },
+          {
+            "label": "Що зробили",
+            "text": "Аналітика ніші, арт-дирекція, дизайн і розробка: каталог рішень, сторінки інтер'єрів, заявка на прорахунок з кожного екрана."
+          }
+        ],
+        "linkLabel": "Відкрити сайт"
+      },
+      "id": "nody"
+    },
+    {
+      "name": "Grey Agency",
+      "cat": "ag",
+      "url": "https://www.behance.net/gallery/237680127/Website-for-a-marketing-agency-Grey-Agency",
+      "concept": false,
+      "linkLabel": "Дивитися кейс",
+      "featured": false,
+      "inWorks": true,
+      "imgWide": "assets/work-grey-agency.webp",
+      "imgAlt": "Grey Agency",
+      "cardText": "Сайт під ключ для трафік-агенції: від аналізу конкурентів до Webflow.",
+      "location": "",
+      "longText": "",
+      "tags": [],
+      "imgCard": "assets/work-grey-agency.webp",
+      "cardSub": "Сайт під ключ для трафік-агенції:\nвід аналізу конкурентів до Webflow",
+      "inGallery": true,
+      "dev": {
+        "show": false,
+        "img": "",
+        "imgAlt": "",
+        "location": "",
+        "tags": [],
+        "rows": [
+          {
+            "label": "Задача",
+            "text": ""
+          },
+          {
+            "label": "Що зробили",
+            "text": ""
+          }
+        ],
+        "linkLabel": "Відкрити сайт"
+      },
+      "id": "grey-agency"
+    },
+    {
+      "name": "Vibe Trvl",
+      "cat": "ag",
+      "url": "https://www.behance.net/gallery/256098195/Travel-Agency-Website",
+      "concept": false,
+      "linkLabel": "Дивитися кейс",
+      "featured": false,
+      "inWorks": true,
+      "imgWide": "assets/work-vibe-trvl.webp",
+      "imgAlt": "Vibe Trvl",
+      "cardText": "Сайт для агенції преміальних подорожей: дизайн і розробка.",
+      "location": "",
+      "longText": "",
+      "tags": [],
+      "imgCard": "assets/work-vibe-trvl.webp",
+      "cardSub": "Сайт для агенції преміальних\nподорожей: дизайн і розробка",
+      "inGallery": true,
+      "dev": {
+        "show": false,
+        "img": "",
+        "imgAlt": "",
+        "location": "",
+        "tags": [],
+        "rows": [
+          {
+            "label": "Задача",
+            "text": ""
+          },
+          {
+            "label": "Що зробили",
+            "text": ""
+          }
+        ],
+        "linkLabel": "Відкрити сайт"
+      },
+      "id": "vibe-trvl"
+    }
+  ],
+  "reviews": [
+    {
+      "quote": "Дякую за оперативність та швидкі правки по сайту. Окремий респект за якісну упаковку агенції та інстаграму — все зробили чітко за домовленостями!",
+      "name": "Настя",
+      "role": "Сайт і Instagram для агенції",
+      "photo": "assets/rv-nastia.webp"
+    },
+    {
+      "quote": "Працюємо вже півтора року. Кожен проєкт — це витвір мистецтва. Отримую саме той преміальний результат, який потрібен і мені як власнику, і нашим клієнтам.",
+      "name": "Павло Фарафонов",
+      "role": "Власник бізнесу, працюємо 1,5 року",
+      "photo": "assets/rv-pavlo.webp"
+    },
+    {
+      "quote": "Єдиний, хто повністю зчитав мій смак і зробив тонке попадання. Сайт швидкий, юзабельний і вже приносить стабільні оплати за мій мініпродукт. Це просто топ!",
+      "name": "Влад Молчанов",
+      "role": "Сайт для онлайн-продукту",
+      "photo": "assets/rv-vlad.webp"
+    },
+    {
+      "quote": "Ідеальне дотримання дедлайнів та глибоке занурення в проєкт. Дає кратно більше, ніж інші дизайнери на ринку. Рекомендую від щирого серця, Вітя — топ!",
+      "name": "Amiran Sanaia",
+      "role": "Трафік-агенція",
+      "photo": "assets/rv-amiran.webp"
+    },
+    {
+      "quote": "Дякую за співпрацю! Сподобалося, що ми чули один одного й знаходили найкращі рішення. Сайт вийшов дуже гарним та повністю враховує нашу стратегію розвитку.",
+      "name": "Dariia Bondarieva",
+      "role": "Сайт компанії",
+      "photo": "assets/rv-dariia.webp"
+    },
+    {
+      "quote": "Дякую за розривну лекцію! Неймовірна реакція аудиторії, цікавий досвід, класний підхід та подача. Ти приємний спікер і потужний спеціаліст. Дякую за виступ!",
+      "name": "Nesonia",
+      "role": "Організатори лекції",
+      "photo": "assets/rv-nesonia.webp"
+    }
+  ]
+}
