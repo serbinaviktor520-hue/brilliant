@@ -348,7 +348,7 @@ function sources(id) {
 const withBlobs = (s) => { for (const [p, v] of [...recent, ...pending]) s = s.split('/' + p).join(v.url).split(p).join(v.url); return s; };
 async function docUrl(id) {
   const [h0, j0] = await sources(id);
-  const b = core.makeBuilder(site);
+  const b = core.makeBuilder(site, () => false, { analytics: false });
   let h = b(h0, false, id), j = j0 ? b(j0, true, id) : '';
   builtCache[id] = [h, j];
   h = withBlobs(h); j = withBlobs(j);

@@ -224,8 +224,28 @@ export function applyEdits(s, js, page, edits) {
   return s;
 }
 
-// full transform of one source file
-export function makeBuilder(site, exists = () => false) {
+// ---------- analytics (GA4 / Google Ads) ----------
+// One block right after <head>: gtag + a lead event when /api/lead answers ok (once per 30 min, so the
+// "add more details" follow-up does not count twice) + clicks on Telegram / Instagram / mail / phone links.
+const AN_RE = /<!--cms-analytics-->[\s\S]*?<!--\/cms-analytics-->/g;
+export function analytics(html, site, on = true) {
+  html = html.replace(AN_RE, '');
+  const a = (site && site.analytics) || {};
+  const ids = [a.ga4, a.ads].filter((x) => typeof x === 'string' && /^(G|AW)-[A-Z0-9]{4,16}$/.test(x));
+  if (!on || !ids.length) return html;
+  const conv = typeof a.adsLead === 'string' && /^AW-[A-Z0-9]+\/[\w-]+$/.test(a.adsLead) ? a.adsLead : '';
+  const js = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());`
+    + ids.map((id) => `gtag('config','${id}');`).join('')
+    + `(function(){var f=window.fetch;if(!f)return;window.fetch=function(u,o){var p=f.apply(this,arguments);try{var s=typeof u==='string'?u:(u&&u.url)||'';if(s.indexOf('/api/lead')>-1){p.then(function(r){if(!r.ok)return;var k='bl-lead',t=Date.now(),l=0;try{l=+sessionStorage.getItem(k)||0}catch(e){}if(t-l<18e5)return;try{sessionStorage.setItem(k,String(t))}catch(e){}gtag('event','generate_lead',{page_path:location.pathname});`
+    + (conv ? `gtag('event','conversion',{send_to:'${conv}'});` : '')
+    + `}).catch(function(){})}}catch(e){}return p}})();`
+    + `document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href')||'',m=/t\\.me\\//.test(h)?'telegram':/instagram\\.com/.test(h)?'instagram':/^mailto:/.test(h)?'email':/^tel:/.test(h)?'phone':/behance\\.net/.test(h)?'behance':'';if(m)gtag('event','contact_click',{method:m,link_url:h})},true);`;
+  const block = `<!--cms-analytics--><script async src="https://www.googletagmanager.com/gtag/js?id=${ids[0]}"></script><script>${js}</script><!--/cms-analytics-->`;
+  return html.replace(/<head([^>]*)>/i, (m) => m + block);
+}
+
+// full transform of one source file; opts.analytics = false strips the tracking (admin preview)
+export function makeBuilder(site, exists = () => false, opts = {}) {
   const b = blocks(site, exists);
-  return (s, js, page) => applyEdits(b(s, js, page), js, page, site.edits);
+  return (s, js, page) => { s = applyEdits(b(s, js, page), js, page, site.edits); return js ? s : analytics(s, site, opts.analytics !== false); };
 }
