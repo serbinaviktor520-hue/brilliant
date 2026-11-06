@@ -45,7 +45,8 @@
         ],
         "linkLabel": "Відкрити сайт"
       },
-      "id": "tysha"
+      "id": "tysha",
+      "case": true
     },
     {
       "name": "STRATA",
@@ -86,7 +87,8 @@
         ],
         "linkLabel": "Відкрити сайт"
       },
-      "id": "strata"
+      "id": "strata",
+      "case": true
     },
     {
       "name": "YARUS",
@@ -127,7 +129,8 @@
         ],
         "linkLabel": "Відкрити сайт"
       },
-      "id": "yarus"
+      "id": "yarus",
+      "case": true
     },
     {
       "name": "October",
@@ -164,7 +167,8 @@
         ],
         "linkLabel": "Відкрити сайт"
       },
-      "id": "october"
+      "id": "october",
+      "case": true
     },
     {
       "name": "NODY",
@@ -204,7 +208,8 @@
         ],
         "linkLabel": "Відкрити сайт"
       },
-      "id": "nody"
+      "id": "nody",
+      "case": true
     },
     {
       "name": "Grey Agency",
@@ -241,7 +246,8 @@
         ],
         "linkLabel": "Відкрити сайт"
       },
-      "id": "grey-agency"
+      "id": "grey-agency",
+      "case": true
     },
     {
       "name": "Vibe Trvl",
@@ -278,7 +284,8 @@
         ],
         "linkLabel": "Відкрити сайт"
       },
-      "id": "vibe-trvl"
+      "id": "vibe-trvl",
+      "case": true
     }
   ],
   "reviews": [
