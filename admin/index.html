@@ -267,7 +267,7 @@ function imagePicker(obj, key, kind, ratio, name, round) {
 }
 
 // ---------- projects ----------
-const blank = () => ({ id: 'p' + Date.now().toString(36), name: 'Новий проєкт', cat: 're', url: 'https://', concept: false, linkLabel: 'Дивитися сайт', featured: false, inWorks: false, inGallery: false, imgWide: '', imgAlt: '', cardText: '', location: '', longText: '', tags: [], imgCard: '', cardSub: '', dev: { show: false, img: '', imgAlt: '', location: '', tags: [], rows: [{ label: 'Задача', text: '' }, { label: 'Що зробили', text: '' }], linkLabel: 'Відкрити сайт' } });
+const blank = () => ({ id: 'p' + Date.now().toString(36), name: 'Новий проєкт', cat: 're', url: 'https://', concept: false, case: false, linkLabel: 'Дивитися сайт', featured: false, inWorks: false, inGallery: false, imgWide: '', imgAlt: '', cardText: '', location: '', longText: '', tags: [], imgCard: '', cardSub: '', dev: { show: false, img: '', imgAlt: '', location: '', tags: [], rows: [{ label: 'Задача', text: '' }, { label: 'Що зробили', text: '' }], linkLabel: 'Відкрити сайт' } });
 let dragFrom = -1;
 function renderSide() {
   const side = $('.side'); if (!side) return;
@@ -322,7 +322,8 @@ function projectEditor(p) {
       field('Категорія', cat, 'Для фільтра у «Вибраних роботах».'),
       field('Посилання', text(p, 'url', { type: 'url', ph: 'https://…' }), 'Куди веде вся картка й кнопка.', true),
       field('Текст кнопки', lbl, '«Дивитися кейс» — для Behance.'),
-      el('div', { class: 'f' }, el('span', { class: 'lb' }, ' '), toggle('Концепт', 'Плашка «Концепт» на фото', p, 'concept', renderSide)))),
+      el('div', { class: 'f' }, el('span', { class: 'lb' }, ' '), toggle('Концепт', 'Плашка «Концепт» на фото', p, 'concept', renderSide)),
+      el('div', { class: 'f full' }, toggle('Окрема сторінка кейсу', p.case ? `Картки ведуть на vbrilliant.com/cases/${p.id}, тексти кейсу — у «Сторінки»` : 'Картки ведуть одразу на посилання вище', p, 'case', re)))),
     sec('Де показувати', null, el('div', { class: 'sws' },
       toggle('Вибрані роботи', 'Сітка на головній і в «Проєктах»', p, 'inWorks', re),
       toggle('Велика картка зверху', 'Лише один проєкт', p, 'featured', () => { if (p.featured) site.projects.forEach((q) => { if (q !== p) q.featured = false; }); re(); }),
@@ -722,7 +723,9 @@ function renderPages(main) {
   const frame = el('div', { class: 'frame' });
   const side = el('aside', { class: 'side' },
     el('h2', {}, 'Сторінки'),
-    ...core.PAGES.map((p) => el('button', { type: 'button', class: 'pg', 'aria-current': String(p.id === pageId), onclick: () => { if (p.id !== pageId) { pageId = p.id; render(); } } }, el('b', {}, p.title), el('small', {}, urlOf(p.html)))),
+    ...core.PAGES.filter((p) => !p.group).map((p) => el('button', { type: 'button', class: 'pg', 'aria-current': String(p.id === pageId), onclick: () => { if (p.id !== pageId) { pageId = p.id; render(); } } }, el('b', {}, p.title), el('small', {}, urlOf(p.html)))),
+    el('h2', { style: 'margin-top:8px' }, 'Кейси'),
+    ...core.PAGES.filter((p) => p.group === 'cases').map((p) => el('button', { type: 'button', class: 'pg', 'aria-current': String(p.id === pageId), onclick: () => { if (p.id !== pageId) { pageId = p.id; render(); } } }, el('b', {}, p.title.replace('Кейс · ', '')), el('small', {}, urlOf(p.html)))),
     el('div', { class: 'howto' },
       el('p', {}, el('b', {}, 'Текст: '), 'наведіть і клікніть, пишіть прямо на сторінці. Enter — готово, Esc — скасувати.'),
       el('p', {}, el('b', {}, 'Фото: '), 'клікніть по фото й виберіть нове.'),

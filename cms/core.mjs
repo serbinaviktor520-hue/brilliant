@@ -11,7 +11,11 @@ export const PAGES = [
   { id: 'contacts', html: 'contacts.html', js: 'assets/app-contacts.js', title: 'Контакти' },
   { id: 'privacy', html: 'privacy.html', js: null, title: 'Політика' },
   { id: '404', html: '404.html', js: null, title: '404' },
+  ...['tysha', 'strata', 'yarus', 'nody', 'grey-agency', 'vibe-trvl', 'october'].map((c) => ({ id: 'case-' + c, html: `cases/${c}.html`, js: null, title: 'Кейс · ' + ({ tysha: 'TYSHA', strata: 'STRATA', yarus: 'YARUS', nody: 'NODY', 'grey-agency': 'Grey Agency', 'vibe-trvl': 'Vibe Trvl', october: 'October' })[c], group: 'cases' })),
 ];
+// a project with its own case page links there; otherwise to the live site
+export const linkOf = (p) => (p && p.case ? `/cases/${p.id}` : (p && p.url) || '#');
+const tgt = (p) => (p && p.case ? '' : ' target="_blank" rel="noopener"');
 
 // ---------- helpers ----------
 export const escH = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -63,18 +67,18 @@ function blocks(site, exists) {
     let out = '\n';
     if (featured) {
       const p = featured;
-      out += `<a class="wfeat" data-c="${p.cat}" href="${escH(p.url)}" target="_blank" rel="noopener" style="--i: 0; grid-column: 1 / -1; position: relative; display: flex; flex-direction: column; gap: 28px; color: #0F0F0F; text-decoration: none">\n`
+      out += `<a class="wfeat" data-c="${p.cat}" href="${escH(linkOf(p))}"${tgt(p)} style="--i: 0; grid-column: 1 / -1; position: relative; display: flex; flex-direction: column; gap: 28px; color: #0F0F0F; text-decoration: none">\n`
         + `<div class="wf-media">${p.concept ? BADGE : ''}<img loading="lazy" decoding="async" src="${escH(p.imgWide)}"${srcset(p.imgWide, 1800)} alt="${escH(p.imgAlt || p.name)}" draggable="false" class="case-img" style="aspect-ratio: 16 / 9; border-radius: 24px; background: #1A1A1A" /></div>\n`
         + `<div class="wf-meta"><div><p class="wf-title" style="margin: 0; font-size: 48px; font-weight: 600; line-height: 0.95; letter-spacing: -0.045em">${escH(p.name)}</p><p class="bd mut-l" style="margin-top: 12px">${escH(p.location)}</p></div>`
         + `<div><p class="bd" style="margin: 0; max-width: 560px">${brk(p.longText)}</p>`
         + (p.tags && p.tags.length ? `<div style="margin-top: 18px; display: flex; gap: 6px; flex-wrap: wrap">${p.tags.map((t) => `<span class="wf-tag">${escH(t)}</span>`).join('')}</div>` : '')
-        + `<span class="w-go" aria-hidden="true">${escH(p.linkLabel || 'Дивитися сайт')}${ARROW_A}</span></div></div>\n</a>\n`;
+        + `<span class="w-go" aria-hidden="true">${escH(p.case ? 'Дивитися кейс' : p.linkLabel || 'Дивитися сайт')}${ARROW_A}</span></div></div>\n</a>\n`;
     }
     rest.forEach((p, i) => {
-      out += `<a class="ru" data-c="${p.cat}" href="${escH(p.url)}" target="_blank" rel="noopener" style="--i: ${i % 2}; position: relative; display: flex; flex-direction: column; gap: 20px; color: #0F0F0F; text-decoration: none">\n`
+      out += `<a class="ru" data-c="${p.cat}" href="${escH(linkOf(p))}"${tgt(p)} style="--i: ${i % 2}; position: relative; display: flex; flex-direction: column; gap: 20px; color: #0F0F0F; text-decoration: none">\n`
         + (p.concept ? BADGE + '\n' : '')
         + `<img loading="lazy" decoding="async" src="${escH(p.imgWide)}"${srcset(p.imgWide, 1800)} alt="${escH(p.imgAlt || p.name)}" draggable="false" class="case-img" style="aspect-ratio: 1920 / 1080; border-radius: 24px; background: #1A1A1A" />\n`
-        + `<div style="display: flex; flex-direction: column; gap: 6px"><p style="margin: 0; font-size: 22px; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em">${escH(p.name)}</p><p class="bd mut-l" style="max-width: 520px">${brk(p.cardText)}</p><span class="w-go" aria-hidden="true">${escH(p.linkLabel || 'Дивитися сайт')}${ARROW_A}</span></div>\n</a>\n`;
+        + `<div style="display: flex; flex-direction: column; gap: 6px"><p style="margin: 0; font-size: 22px; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em">${escH(p.name)}</p><p class="bd mut-l" style="max-width: 520px">${brk(p.cardText)}</p><span class="w-go" aria-hidden="true">${escH(p.case ? 'Дивитися кейс' : p.linkLabel || 'Дивитися сайт')}${ARROW_A}</span></div>\n</a>\n`;
     });
     return out;
   }
@@ -89,7 +93,7 @@ function blocks(site, exists) {
         .replace(/data-i="\d+"/, `data-i="${k}"`)
         .replace(/rotateY\([-\d.]+deg\)/, `rotateY(${ang}deg)`)
         .replace(/ data-href="[^"]*"/, '');
-      if (withHref) open = open.replace('<div class="ring-card"', `<div class="ring-card" data-href="${escH(p.url)}"`);
+      if (withHref) open = open.replace('<div class="ring-card"', `<div class="ring-card" data-href="${escH(linkOf(p))}"`);
       out += open + E(`<img loading="lazy" decoding="async" draggable="false" src="${escH(p.imgCard || p.imgWide)}" alt="${escH(p.name)} — проєкт Brilliant" style="width: 100%; height: 260px; object-fit: cover; display: block; box-sizing: border-box; border: 1px solid #2B2B2B; border-radius: 10px; background: #1A1A1A" />`
         + `<div style="padding: 14px 2px 0"><p style="margin: 0; font-size: 22px; font-weight: 600; line-height: 1.2; color: ${withHref ? '#EBEBEB' : '#0F0F0F'}">${escH(p.name)}</p><p style="margin: 6px 0 0; font-size: 17px; line-height: 1.2; color: ${withHref ? 'rgba(255,255,255,0.5)' : 'rgba(15,15,15,0.55)'}">${brk(p.cardSub)}</p></div></div>\n`);
     }
@@ -100,12 +104,12 @@ function blocks(site, exists) {
     const list = P.filter((p) => p.dev && p.dev.show);
     return '\n' + list.map((p) => {
       const d = p.dev;
-      return `<article class="cs-card"><a class="cs-cover" href="${escH(p.url)}" target="_blank" rel="noopener" aria-label="${escH(p.name)} — відкрити сайт"></a>${p.concept ? BADGE : ''}`
+      return `<article class="cs-card"><a class="cs-cover" href="${escH(linkOf(p))}"${tgt(p)} aria-label="${escH(p.name)} — ${p.case ? 'дивитися кейс' : 'відкрити сайт'}"></a>${p.concept ? BADGE : ''}`
         + `<img loading="lazy" decoding="async" src="${escH(d.img || p.imgWide)}"${srcset(d.img || '', 1200)} alt="${escH(d.imgAlt || p.name)}" class="case-img" style="aspect-ratio: 4 / 3" />`
         + `<div style="margin-top: 18px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px"><p class="tu">${escH(p.name)}</p><p class="bd sm mut-l">${escH(d.location)}</p></div>`
         + (d.tags && d.tags.length ? `<div style="margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap">${d.tags.map((t) => `<span class="cs-tag">${escH(t)}</span>`).join('')}</div>` : '')
         + `<div style="margin-top: 16px">${(d.rows || []).filter((r) => r.text).map((r) => `<div class="cs-row"><p class="bd sm mut-l">${escH(r.label)}</p><p class="bd" style="margin-top: 4px">${brk(r.text)}</p></div>`).join('')}</div>`
-        + `<span class="cs-open" aria-hidden="true">${escH(d.linkLabel || 'Відкрити сайт')}${ARROW_B}</span></article>`;
+        + `<span class="cs-open" aria-hidden="true">${escH(p.case ? 'Дивитися кейс' : d.linkLabel || 'Відкрити сайт')}${ARROW_B}</span></article>`;
     }).join('\n') + '\n';
   }
 
@@ -139,6 +143,7 @@ function blocks(site, exists) {
       const tpl = firstOpenTag(s.slice(rg[0]), /<div class="ring-card"[^>]*>/);
       s = splice(s, rg, ring(P.filter((p) => p.inGallery), 14, tpl, false, T));
     }
+    if (page === 'dev' && js) s = s.split('window.open(n.dataset.href,"_blank","noopener")').join('(n.dataset.href[0]==="/"?location.assign(n.dataset.href):window.open(n.dataset.href,"_blank","noopener"))');
     if (page === 'dev') {
       if ((rg = wrapper(s, /<div class="ring-card"/))) {
         const tpl = firstOpenTag(s.slice(rg[0]), /<div class="ring-card"[^>]*>/);
