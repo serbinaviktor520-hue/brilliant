@@ -62,8 +62,8 @@ function reticle() {
     ticks += `<line x1="${(200 + r1 * Math.cos(a)).toFixed(1)}" y1="${(200 + r1 * Math.sin(a)).toFixed(1)}" x2="${(200 + r2 * Math.cos(a)).toFixed(1)}" y2="${(200 + r2 * Math.sin(a)).toFixed(1)}" stroke="rgba(15,15,15,${long ? 0.4 : 0.16})" stroke-width="${long ? 2 : 1}"></line>`;
   }
   const br = (x, y, dx, dy) => `<path d="M${x} ${y + dy * 22}V${y}H${x + dx * 22}" fill="none" stroke="#3D8BFF" stroke-width="2"></path>`;
-  return `<svg viewBox="0 0 400 400" aria-hidden="true" style="position: absolute; left: 50%; top: 50%; width: 78%; max-width: 520px; transform: translate(-50%, -50%); overflow: visible">`
-    + `<g><animateTransform attributeName="transform" type="rotate" from="0 200 200" to="360 200 200" dur="60s" repeatCount="indefinite"></animateTransform>${ticks}</g>`
+  return `<svg viewBox="0 0 400 400" aria-hidden="true" style="position: absolute; left: 50%; top: 43%; width: 60%; max-width: 440px; transform: translate(-50%, -50%); overflow: visible">`
+    + `<g class="slot-rt"><g><animateTransform attributeName="transform" type="rotate" from="0 200 200" to="360 200 200" dur="60s" repeatCount="indefinite"></animateTransform>${ticks}</g></g>`
     + `<circle cx="200" cy="200" r="78" fill="none" stroke="rgba(15,15,15,0.18)" stroke-dasharray="3 6"></circle>`
     + `<line x1="0" y1="200" x2="150" y2="200" stroke="rgba(15,15,15,0.16)"></line><line x1="250" y1="200" x2="400" y2="200" stroke="rgba(15,15,15,0.16)"></line>`
     + `<line x1="200" y1="0" x2="200" y2="150" stroke="rgba(15,15,15,0.16)"></line><line x1="200" y1="250" x2="200" y2="400" stroke="rgba(15,15,15,0.16)"></line>`
@@ -72,7 +72,7 @@ function reticle() {
 }
 function slotCard(i) {
   return `<div class="ru" style="--i: ${i % 2}; position: relative; display: flex; flex-direction: column; gap: 20px">\n`
-    + `<a href="/contacts" aria-label="Тут може бути ваш проєкт — обговорити" style="position: relative; display: block; aspect-ratio: 1920 / 1080; border-radius: 24px; overflow: hidden; color: #0F0F0F; text-decoration: none; background: rgba(255,255,255,0.35); box-shadow: inset 0 0 0 1px rgba(15,15,15,0.12)">`
+    + `<a href="/contacts" aria-label="Тут може бути ваш проєкт — обговорити" style="position: relative; display: block; aspect-ratio: 1920 / 1080; border-radius: 24px; overflow: hidden; color: #0F0F0F; text-decoration: none; background: transparent; box-shadow: inset 0 0 0 1px rgba(15,15,15,0.14)" class="w-slot">`
     + reticle()
     + `<span style="position: absolute; left: 24px; top: 22px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(15,15,15,0.45)">Слот 2026</span>`
     + `<span style="position: absolute; right: 24px; top: 22px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: #3D8BFF">● Вільно</span>`
@@ -308,8 +308,19 @@ export function analytics(html, site, on = true) {
   return html.replace(/<head([^>]*)>/i, (m) => m + block);
 }
 
+// hover on the «your project» slot spins the reticle hard, then it settles back
+function slotCss(html) {
+  if (!/class="wgrid"/.test(html) && !/assets\/app(-projects)?\.js/.test(html)) return html;
+  html = html.replace(/<style id="cms-slot">[\s\S]*?<\/style>/, '');
+  const css = '.slot-rt{transform-box:view-box;transform-origin:50% 50%;transition:transform 1.6s cubic-bezier(.16,.9,.2,1)}'
+    + '.w-slot:hover .slot-rt,.w-slot:focus-visible .slot-rt{transform:rotate(300deg)}'
+    + '.w-slot{transition:box-shadow .3s}.w-slot:hover{box-shadow:inset 0 0 0 1px #3D8BFF!important}'
+    + '@media (prefers-reduced-motion:reduce){.slot-rt{transition:none}}';
+  return html.replace(/<\/head>/i, `<style id="cms-slot">${css}</style></head>`);
+}
+
 // full transform of one source file; opts.analytics = false strips the tracking (admin preview)
 export function makeBuilder(site, exists = () => false, opts = {}) {
   const b = blocks(site, exists);
-  return (s, js, page) => { s = applyEdits(b(s, js, page), js, page, site.edits); return js ? s : analytics(seo(s, page, site), site, opts.analytics !== false); };
+  return (s, js, page) => { s = applyEdits(b(s, js, page), js, page, site.edits); return js ? s : slotCss(analytics(seo(s, page, site), site, opts.analytics !== false)); };
 }

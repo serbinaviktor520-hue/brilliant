@@ -206,6 +206,57 @@ body.mm-open .mm{display:flex}body.mm-open .burger i:nth-child(1){transform:tran
 .lead{padding:48px var(--in)}.lead form{grid-template-columns:1fr}
 .more{padding:24px var(--in)}
 }
+
+/* ===== site design system (same as home / development) =====
+   gutter 20 / 16 · sections 120 / 48 · h2 56 / 32, 600, -0.035em · body 17 · lead 22 · dark blocks edge to edge, r 64 / 40
+   two columns split at the middle of the page · one left line for all text · no small labels above headings */
+:root{--g:20px;--in:0px;--x:var(--g);--gap:0px;--cols:minmax(0,1fr) minmax(0,1fr)}
+.lbl{display:none}
+.next .lbl{display:block}
+.hero{padding:140px var(--g) 0}
+.h-top>div:first-child,.two>div:first-child,.idea>div:first-child,.proc-h>div:first-child,.lead>div:first-child,.sol-t{padding-right:40px}
+.sec-h,.two h2,.idea h2,.lead h2{font-size:56px;font-weight:600;line-height:1.05;letter-spacing:-.035em;margin:0!important}
+.facts{padding:120px var(--g) 0}
+.intro{padding:120px var(--g)}
+.intro p{font-size:36px;font-weight:600;line-height:1;letter-spacing:-.035em;max-width:1100px}
+.dk{margin:0;padding:120px var(--g);border-radius:64px}
+.txt p{font-size:22px;line-height:1.25;font-weight:400}
+.goals li{font-size:17px}
+.idea{padding:120px var(--g)}
+.idea>p{padding-top:0;font-size:22px;font-weight:500;line-height:1.25;letter-spacing:-.02em}
+.proc-h{margin-bottom:64px}.proc-h p{font-size:17px}
+.step h3{font-size:22px;font-weight:600;letter-spacing:-.02em}.step p{font-size:15px}
+.sol{padding:120px var(--g)}
+.sol-h{padding:0;margin-bottom:64px}
+.sol-row{padding:40px 0}
+.sol-t h3{font-size:36px;font-weight:600;line-height:1;letter-spacing:-.035em}
+.sol-t p{font-size:17px;line-height:1.25}
+.sol-t span{font-size:15px}
+.sol-row img,.phones img{border-radius:24px}
+.mob{margin:0}.phones{border-radius:64px;padding:120px var(--g)}
+.res .note{font-size:15px}
+.next{margin:20px var(--g) 0;border-radius:64px}.next .in{padding:40px var(--g)}
+.all{padding:40px var(--g) 0}
+.lead{margin:120px 0 0;padding:120px var(--g);border-radius:64px}
+.lead>div>p{font-size:17px}
+.more{padding:40px var(--g);border-radius:24px}
+.ft{padding:64px var(--g) 28px}
+.cover{border-radius:24px;margin-top:64px}
+@media (max-width:900px){
+:root{--g:16px}
+.h-top>div:first-child,.two>div:first-child,.idea>div:first-child,.proc-h>div:first-child,.lead>div:first-child,.sol-t{padding-right:0}
+.two,.idea,.proc-h,.lead,.sol-row{gap:24px}
+.sec-h,.two h2,.idea h2,.lead h2{font-size:32px}
+.hero{padding-top:100px}
+.facts,.intro,.idea,.sol{padding-top:48px;padding-bottom:48px}
+.intro p{font-size:24px}
+.dk,.lead,.phones{padding:48px var(--g);border-radius:40px}
+.txt p,.idea>p{font-size:17px}
+.sol-t h3{font-size:24px}
+.sol-row{padding:24px 0}
+.next{border-radius:40px}
+.lead{margin-top:48px}
+}
 @media (prefers-reduced-motion:reduce){.nd-c{transition:none!important}*{transition:none!important;scroll-behavior:auto!important}.rv-up{opacity:1;transform:none}.cover img{transform:none}}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "October — Сайт-сторітелінг для виставки художника: як може виглядати сайт у незвичній ніші.", "headline": "October — сайт онлайн-виставки картин: кейс | Brilliant", "description": "Концепт сайту-сторітелінгу для виставки художника: як може виглядати сайт у незвичній ніші, арт-дирекція і веб-дизайн у стилістиці епохи.", "url": "https://www.vbrilliant.com/cases/october", "image": "https://www.vbrilliant.com/assets/work-october.webp", "inLanguage": "uk", "genre": "Мистецтво", "creator": {"@type": "Person", "name": "Вітя Бріліант", "url": "https://www.vbrilliant.com/"}}</script>
