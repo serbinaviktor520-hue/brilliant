@@ -59,22 +59,22 @@ function reticle() {
   let ticks = '';
   for (let i = 0; i < 72; i++) {
     const a = (i * 5 * Math.PI) / 180, long = i % 6 === 0, r1 = long ? 118 : 124, r2 = 132;
-    ticks += `<line x1="${(200 + r1 * Math.cos(a)).toFixed(1)}" y1="${(200 + r1 * Math.sin(a)).toFixed(1)}" x2="${(200 + r2 * Math.cos(a)).toFixed(1)}" y2="${(200 + r2 * Math.sin(a)).toFixed(1)}" stroke="rgba(255,255,255,${long ? 0.55 : 0.28})" stroke-width="${long ? 2 : 1}"></line>`;
+    ticks += `<line x1="${(200 + r1 * Math.cos(a)).toFixed(1)}" y1="${(200 + r1 * Math.sin(a)).toFixed(1)}" x2="${(200 + r2 * Math.cos(a)).toFixed(1)}" y2="${(200 + r2 * Math.sin(a)).toFixed(1)}" stroke="rgba(15,15,15,${long ? 0.4 : 0.16})" stroke-width="${long ? 2 : 1}"></line>`;
   }
   const br = (x, y, dx, dy) => `<path d="M${x} ${y + dy * 22}V${y}H${x + dx * 22}" fill="none" stroke="#3D8BFF" stroke-width="2"></path>`;
   return `<svg viewBox="0 0 400 400" aria-hidden="true" style="position: absolute; left: 50%; top: 50%; width: 78%; max-width: 520px; transform: translate(-50%, -50%); overflow: visible">`
     + `<g><animateTransform attributeName="transform" type="rotate" from="0 200 200" to="360 200 200" dur="60s" repeatCount="indefinite"></animateTransform>${ticks}</g>`
-    + `<circle cx="200" cy="200" r="78" fill="none" stroke="rgba(255,255,255,0.18)" stroke-dasharray="3 6"></circle>`
-    + `<line x1="0" y1="200" x2="150" y2="200" stroke="rgba(255,255,255,0.3)"></line><line x1="250" y1="200" x2="400" y2="200" stroke="rgba(255,255,255,0.3)"></line>`
-    + `<line x1="200" y1="0" x2="200" y2="150" stroke="rgba(255,255,255,0.3)"></line><line x1="200" y1="250" x2="200" y2="400" stroke="rgba(255,255,255,0.3)"></line>`
+    + `<circle cx="200" cy="200" r="78" fill="none" stroke="rgba(15,15,15,0.18)" stroke-dasharray="3 6"></circle>`
+    + `<line x1="0" y1="200" x2="150" y2="200" stroke="rgba(15,15,15,0.16)"></line><line x1="250" y1="200" x2="400" y2="200" stroke="rgba(15,15,15,0.16)"></line>`
+    + `<line x1="200" y1="0" x2="200" y2="150" stroke="rgba(15,15,15,0.16)"></line><line x1="200" y1="250" x2="200" y2="400" stroke="rgba(15,15,15,0.16)"></line>`
     + br(150, 150, 1, 1) + br(250, 150, -1, 1) + br(150, 250, 1, -1) + br(250, 250, -1, -1)
     + `<circle cx="200" cy="200" r="4" fill="#3D8BFF"><animate attributeName="r" values="4;7;4" dur="2.4s" repeatCount="indefinite"></animate></circle></svg>`;
 }
 function slotCard(i) {
   return `<div class="ru" style="--i: ${i % 2}; position: relative; display: flex; flex-direction: column; gap: 20px">\n`
-    + `<a href="/contacts" aria-label="Тут може бути ваш проєкт — обговорити" style="position: relative; display: block; aspect-ratio: 1920 / 1080; border-radius: 24px; overflow: hidden; color: #FFFFFF; text-decoration: none; background: radial-gradient(ellipse 120% 110% at 50% 120%, #7C9DFF 0%, #3A63FF 18%, #1A2CEB 34%, #0A12AE 48%, #04073F 66%, #000000 88%)">`
+    + `<a href="/contacts" aria-label="Тут може бути ваш проєкт — обговорити" style="position: relative; display: block; aspect-ratio: 1920 / 1080; border-radius: 24px; overflow: hidden; color: #0F0F0F; text-decoration: none; background: rgba(255,255,255,0.35); box-shadow: inset 0 0 0 1px rgba(15,15,15,0.12)">`
     + reticle()
-    + `<span style="position: absolute; left: 24px; top: 22px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.6)">Слот 2026</span>`
+    + `<span style="position: absolute; left: 24px; top: 22px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(15,15,15,0.45)">Слот 2026</span>`
     + `<span style="position: absolute; right: 24px; top: 22px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: #3D8BFF">● Вільно</span>`
     + `<span style="position: absolute; left: 0; right: 0; bottom: 26px; text-align: center; font-size: clamp(22px, 2.4vw, 34px); font-weight: 600; letter-spacing: -0.03em">Тут може бути ваш проєкт</span></a>\n`
     + `<div style="display: flex; flex-direction: column; gap: 6px"><p style="margin: 0; font-size: 22px; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em">Ваш проєкт</p><p class="bd mut-l" style="max-width: 520px">Розкажіть про задачу. Ціну й строки назву після короткого дзвінка, відповім протягом 24 годин.</p><a href="/contacts" class="w-go" style="text-decoration: none">Обговорити проєкт${ARROW_A}</a></div>\n</div>\n`;
