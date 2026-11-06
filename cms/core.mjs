@@ -215,13 +215,44 @@ export function replaceImg(s, from, to) {
   if (/\.webp$/.test(f)) s = s.split(v900(f)).join(t);
   return s.split(f).join(t);
 }
+// links: href="old" → href="new" (exact attribute value, so other links stay untouched)
+export function replaceLink(s, from, to, js) {
+  if (!s || !from || !to || from === to) return s;
+  const enc = (v) => (js ? forJS(v) : v).replace(/"/g, '&quot;');
+  return s.split(`href="${enc(from)}"`).join(`href="${enc(to)}"`);
+}
+export const countLink = (s, href, js) => (s && href ? s.split(`href="${(js ? forJS(href) : href).replace(/"/g, '&quot;')}"`).length - 1 : 0);
 export function applyEdits(s, js, page, edits) {
   for (const e of edits || []) {
     if (!e || (e.page !== '*' && e.page !== page)) continue;
     if (e.type === 'img') s = replaceImg(s, e.from, e.to);
+    else if (e.type === 'link') s = replaceLink(s, e.from, e.to, js);
     else s = replaceText(s, e.from, e.to, js);
   }
   return s;
+}
+
+// ---------- SEO: page title + description (Google snippet, link previews) ----------
+const attrV = (v) => String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+export function readSeo(html) {
+  const dec = (v) => (v || '').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
+  const t = (html.match(/<title>([^<]*)<\/title>/i) || [])[1];
+  const d = (html.match(/<meta name="description" content="([^"]*)"/i) || [])[1];
+  return { title: dec(t), description: dec(d) };
+}
+export function seo(html, page, site) {
+  const m = site && site.seo && site.seo[page];
+  if (!m) return html;
+  if (typeof m.title === 'string' && m.title.trim()) {
+    const v = attrV(m.title.trim());
+    html = html.replace(/<title>[^<]*<\/title>/i, `<title>${v}</title>`)
+      .replace(/(<meta (?:property="og:title"|name="twitter:title") content=")[^"]*"/gi, `$1${v}"`);
+  }
+  if (typeof m.description === 'string' && m.description.trim()) {
+    const v = attrV(m.description.trim());
+    html = html.replace(/(<meta (?:name="description"|property="og:description"|name="twitter:description") content=")[^"]*"/gi, `$1${v}"`);
+  }
+  return html;
 }
 
 // ---------- analytics (GA4 / Google Ads) ----------
@@ -247,5 +278,5 @@ export function analytics(html, site, on = true) {
 // full transform of one source file; opts.analytics = false strips the tracking (admin preview)
 export function makeBuilder(site, exists = () => false, opts = {}) {
   const b = blocks(site, exists);
-  return (s, js, page) => { s = applyEdits(b(s, js, page), js, page, site.edits); return js ? s : analytics(s, site, opts.analytics !== false); };
+  return (s, js, page) => { s = applyEdits(b(s, js, page), js, page, site.edits); return js ? s : analytics(seo(s, page, site), site, opts.analytics !== false); };
 }

@@ -12,6 +12,14 @@ const site = JSON.parse(fs.readFileSync(path.join(ROOT, 'content/site.json'), 'u
 const exists = (rel) => { try { return fs.statSync(path.join(ROOT, rel)).isFile(); } catch { return false; } };
 const build = makeBuilder(site, exists);
 
+// keep the original pages for the admin preview (/cms/src/…), so it can show removed edits too
+for (const pg of PAGES) for (const f of [pg.html, pg.js]) {
+  if (!f || !fs.existsSync(path.join(ROOT, f))) continue;
+  const dst = path.join(ROOT, 'cms/src', f);
+  if (fs.existsSync(dst)) continue; // already built once from these originals
+  fs.mkdirSync(path.dirname(dst), { recursive: true });
+  fs.copyFileSync(path.join(ROOT, f), dst);
+}
 const changedJS = [];
 for (const pg of PAGES) {
   for (const [f, isJS] of [[pg.html, false], [pg.js, true]]) {

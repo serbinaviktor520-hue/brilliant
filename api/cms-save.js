@@ -39,11 +39,17 @@ function validSite(site) {
   if (site.edits != null) {
     if (!Array.isArray(site.edits) || site.edits.length > 3000) return 'Неправильний список правок';
     for (const e of site.edits) {
-      if (!e || typeof e.from !== 'string' || typeof e.to !== 'string' || typeof e.page !== 'string' || !/^(text|img)$/.test(e.type)) return 'Неправильна правка сторінки';
+      if (!e || typeof e.from !== 'string' || typeof e.to !== 'string' || typeof e.page !== 'string' || !/^(text|img|link)$/.test(e.type)) return 'Неправильна правка сторінки';
       if (e.from.length < 2 || e.from.length > 2000 || e.to.length > 2000) return 'Задовгий або закороткий текст правки';
       if (e.type === 'img' && !/^(assets|uploads)\/[\w.-]+$/.test(e.to)) return 'Неправильний шлях фото';
+      if (e.type === 'link' && (/^\s*(javascript|data|vbscript):/i.test(e.to) || /["<>`]/.test(e.to))) return 'Неправильне посилання';
     }
   }
+  if (site.seo != null) {
+    if (typeof site.seo !== 'object' || Array.isArray(site.seo)) return 'Неправильні SEO-дані';
+    for (const k in site.seo) { const m = site.seo[k] || {}; if (String(m.title || '').length > 200 || String(m.description || '').length > 400) return 'Задовгий заголовок або опис сторінки'; }
+  }
+  if (site.analytics != null && site.analytics.ga4 && !/^G-[A-Z0-9]{4,16}$/.test(site.analytics.ga4)) return 'Неправильний ID Google Аналітики (має бути G-XXXXXXX)';
   return '';
 }
 
@@ -58,6 +64,29 @@ export default async function handler(req) {
   if (!same(body.password || '', PASS)) { fail(ip); return json({ ok: false, error: 'Неправильний пароль' }, 401); }
   if (body.action === 'check') return json({ ok: true });
 
+  const REPO = process.env.GITHUB_REPO || 'serbinaviktor520-hue/brilliant';
+  const BRANCH = process.env.GITHUB_BRANCH || 'main';
+  const gh = async (p, opt = {}) => {
+    const r = await fetch(`https://api.github.com/repos/${REPO}${p}`, { ...opt, headers: { authorization: `Bearer ${TOKEN}`, accept: 'application/vnd.github+json', 'user-agent': 'brilliant-admin', 'content-type': 'application/json', ...(opt.headers || {}) } });
+    const t = await r.text(); let d = null; try { d = JSON.parse(t); } catch {}
+    if (!r.ok) throw new Error(`GitHub ${r.status}: ${(d && d.message) || t.slice(0, 120)}`);
+    return d;
+  };
+  if (body.action === 'history') {
+    try {
+      const list = await gh(`/commits?path=content/site.json&sha=${BRANCH}&per_page=25`);
+      return json({ ok: true, items: list.map((c) => ({ sha: c.sha, date: c.commit.author.date, message: c.commit.message.split('\n')[0].slice(0, 120) })) });
+    } catch (e) { return json({ ok: false, error: 'Не вдалося отримати історію: ' + e.message }, 502); }
+  }
+  if (body.action === 'version') {
+    if (!/^[0-9a-f]{7,40}$/.test(body.sha || '')) return json({ ok: false, error: 'Неправильна версія' }, 400);
+    try {
+      const f = await gh(`/contents/content/site.json?ref=${body.sha}`);
+      const bin = atob(String(f.content || '').replace(/\s/g, '')); const bytes = Uint8Array.from(bin, (c) => c.charCodeAt(0));
+      return json({ ok: true, site: JSON.parse(new TextDecoder().decode(bytes)) });
+    } catch (e) { return json({ ok: false, error: 'Не вдалося відкрити версію: ' + e.message }, 502); }
+  }
+
   const site = body.site;
   const err = validSite(site);
   if (err) return json({ ok: false, error: err }, 400);
@@ -68,14 +97,6 @@ export default async function handler(req) {
   }
   site.updatedAt = Date.now();
 
-  const REPO = process.env.GITHUB_REPO || 'serbinaviktor520-hue/brilliant';
-  const BRANCH = process.env.GITHUB_BRANCH || 'main';
-  const gh = async (p, opt = {}) => {
-    const r = await fetch(`https://api.github.com/repos/${REPO}${p}`, { ...opt, headers: { authorization: `Bearer ${TOKEN}`, accept: 'application/vnd.github+json', 'user-agent': 'brilliant-admin', 'content-type': 'application/json', ...(opt.headers || {}) } });
-    const t = await r.text(); let d = null; try { d = JSON.parse(t); } catch {}
-    if (!r.ok) throw new Error(`GitHub ${r.status}: ${(d && d.message) || t.slice(0, 120)}`);
-    return d;
-  };
   try {
     const ref = await gh(`/git/ref/heads/${BRANCH}`);
     const head = await gh(`/git/commits/${ref.object.sha}`);

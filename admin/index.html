@@ -127,9 +127,36 @@ textarea{min-height:92px;resize:vertical;line-height:1.45}
 .wrap.wp{grid-template-columns:minmax(260px,300px) minmax(0,1fr) minmax(0,1.05fr);max-width:none}
 .pvw{position:sticky;top:76px;align-self:start;height:calc(100vh - 92px);min-height:480px}
 .pvw .stage{height:100%}
+details.old{margin-top:8px}
+details.old summary{cursor:pointer;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);padding:6px 0;list-style:none}
+details.old summary::-webkit-details-marker{display:none}
+details.old summary::after{content:" ▾";letter-spacing:0}
+details.old[open] summary::after{content:" ▴"}
+details.old .chg{margin-top:8px}
+.chg .back{font-size:15px}
+.chg .rv-l{font-size:11px;font-weight:600;color:#1F5FD0;white-space:nowrap;padding-top:6px}
+.set{max-width:920px;margin:0 auto;padding:12px max(16px,env(safe-area-inset-right)) 80px max(16px,env(safe-area-inset-left));display:flex;flex-direction:column;gap:16px}
+.cnt{font-size:12px;color:var(--mut);font-weight:500}.cnt.over{color:var(--bad)}
+.lbl{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.serp{margin-top:6px;padding:16px 18px;border-radius:14px;border:1px solid var(--line);background:#fff;font-family:Arial,system-ui,sans-serif}
+.serp small{display:block;font-size:12px;color:#4D5156}
+.serp b{display:block;margin:4px 0 3px;font-size:19px;font-weight:400;line-height:1.3;color:#1A0DAB;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.serp p{margin:0;font-size:14px;line-height:1.55;color:#4D5156;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;background:rgba(15,15,15,.45)}
+.modal .box{width:min(620px,100%);max-height:min(720px,calc(100vh - 32px));display:flex;flex-direction:column;border-radius:24px;background:var(--card);overflow:hidden}
+.modal .mh{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px 22px 12px}
+.modal .mh h3{margin:0;font-size:22px;letter-spacing:-.02em}
+.modal .mh p{margin:4px 0 0;color:var(--mut);font-size:13px}
+.modal .ml{overflow:auto;padding:4px 14px 18px;display:flex;flex-direction:column;gap:6px}
+.ver{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px;border-radius:14px;background:#F6F6F6}
+.ver b{display:block;font-size:14px;font-weight:600}.ver small{color:var(--mut);font-size:12px}
+.ver.now{background:rgba(61,139,255,.1)}
+.x{width:36px;height:36px;border:0;border-radius:9px;background:rgba(15,15,15,.06);font-size:18px}
 @media (max-width:1280px){.wrap.wp{grid-template-columns:minmax(260px,300px) minmax(0,1fr)}.pvw{grid-column:1/-1;position:static;height:80vh}}
 @media (max-width:980px){.pgw{grid-template-columns:1fr;height:auto}.pgw .stage{height:80vh}.wrap.wp{grid-template-columns:1fr}}
 @media (max-width:980px){.wrap{grid-template-columns:1fr}.side{position:static;max-height:none}.top{grid-template-columns:1fr auto}.tabs{grid-column:1/-1;grid-row:2;justify-self:start}.grid2,.sws{grid-template-columns:1fr}.img{grid-template-columns:1fr}.prev{grid-template-columns:1fr}.st{display:none}}
+@media (max-width:980px){.pgw .side{flex-direction:row;flex-wrap:wrap;gap:6px;overflow:visible}.pgw .side>h2{width:100%}.pg{width:auto;padding:8px 14px;border-radius:999px}.pg small{display:none}.pgw .howto{display:none}#chg{width:100%}}
+@media (max-width:640px){.logo b,.acts a.btn{display:none}.acts{gap:6px}.acts .btn{min-height:40px;padding:0 12px}.tabs{width:100%;justify-content:space-between}.tabs button{padding:0 10px;flex:1}.top{padding:8px 12px}.wrap,.set{padding-left:12px;padding-right:12px}.sec{padding:18px;border-radius:20px}.modal .box{border-radius:20px}.bar{gap:6px}.bar small{display:none}}
 </style>
 </head>
 <body>
@@ -137,7 +164,7 @@ textarea{min-height:92px;resize:vertical;line-height:1.45}
   <form id="lf">
     <span class="logo"><i><img src="/assets/logo.png" alt=""></i></span>
     <h1>Адмінка</h1>
-    <p>Тут редагуються сторінки, проєкти й відгуки на vbrilliant.com.</p>
+    <p>Тексти, фото, посилання, проєкти, відгуки й SEO на vbrilliant.com.</p>
     <div class="f"><label for="pw">Пароль</label><input id="pw" type="password" autocomplete="current-password" required></div>
     <div class="err" id="lerr"></div>
     <button class="btn pri" type="submit">Увійти</button>
@@ -151,9 +178,11 @@ textarea{min-height:92px;resize:vertical;line-height:1.45}
       <button role="tab" id="t-pages" aria-selected="true">Сторінки</button>
       <button role="tab" id="t-projects" aria-selected="false">Проєкти</button>
       <button role="tab" id="t-reviews" aria-selected="false">Відгуки</button>
+      <button role="tab" id="t-settings" aria-selected="false">SEO</button>
     </div>
     <div class="acts">
       <span class="st" id="st">Усе збережено</span>
+      <button class="btn ghost sm" id="hist" type="button" title="Попередні версії сайту">Історія</button>
       <a class="btn ghost sm" href="/" target="_blank" rel="noopener">Сайт ↗</a>
       <button class="btn pri" id="pub" disabled>Опублікувати</button>
     </div>
@@ -171,7 +200,7 @@ const CATS = { re: 'Нерухомість', ag: 'Агенції', br: 'Брен
 const store = { get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} } };
 
 let pass = store.get('bl-admin') || '', site = null, saved = '', tab = 'pages', cur = 0, busy = false;
-let pageId = 'home', mode = 'edit', view = 'desk', savedEdits = 0, pvPage = null;
+let pageId = 'home', mode = 'edit', view = innerWidth < 700 ? 'mob' : 'desk', savedEdits = 0, pvPage = null;
 const pending = new Map(); // path -> {base64, url}
 
 // ---------- utils ----------
@@ -181,7 +210,7 @@ const src = (p) => (!p ? '' : pending.has(p) ? pending.get(p).url : '/' + p.repl
 const blobPath = new Map(); // blob url -> uploads/… path
 const recent = new Map(); // just-published photos, shown from memory until the deploy is live
 const dirty = () => JSON.stringify(site) !== saved || pending.size > 0;
-function mark() { if (tab !== 'pages') schedulePreview(); const d = dirty(); const st = $('#st'); st.textContent = d ? 'Є неопубліковані зміни' : 'Усе збережено'; st.classList.toggle('dirty', d); $('#pub').disabled = !d || busy; }
+function mark() { if (tab === 'projects' || tab === 'reviews') schedulePreview(); const d = dirty(); const st = $('#st'); st.textContent = d ? 'Є неопубліковані зміни' : 'Усе збережено'; st.classList.toggle('dirty', d); $('#pub').disabled = !d || busy; }
 let tt = 0; function toast(msg, bad) { const t = $('#toast'); t.textContent = msg; t.classList.toggle('bad', !!bad); t.hidden = false; clearTimeout(tt); tt = setTimeout(() => { t.hidden = true; }, bad ? 7000 : 4500); }
 addEventListener('beforeunload', (e) => { if (site && dirty()) { e.preventDefault(); e.returnValue = ''; } });
 
@@ -340,8 +369,10 @@ const srcCache = {}, builtCache = {};
 function sources(id) {
   if (!srcCache[id]) {
     const pg = PG[id];
-    const get = async (u) => (await fetch(u + (u.includes('?') ? '&' : '?') + 'cms=' + Date.now(), { cache: 'no-store' })).text();
-    srcCache[id] = Promise.all([get(urlOf(pg.html)), pg.js ? get('/' + pg.js) : Promise.resolve('')]).catch((e) => { delete srcCache[id]; throw e; });
+    const get = async (u) => { const r = await fetch(u + (u.includes('?') ? '&' : '?') + 'cms=' + Date.now(), { cache: 'no-store' }); if (!r.ok) throw new Error(String(r.status)); return r.text(); };
+    // originals (before any edits) are kept in /cms/src by the build, so removed edits disappear from the preview too
+    const one = (f, live) => get('/cms/src/' + f).catch(() => get(live));
+    srcCache[id] = Promise.all([one(pg.html, urlOf(pg.html)), pg.js ? one(pg.js, '/' + pg.js) : Promise.resolve('')]).catch((e) => { delete srcCache[id]; throw e; });
   }
   return srcCache[id];
 }
@@ -407,6 +438,15 @@ class Stage {
   destroy() { this.seq++; this.ro.disconnect(); this.host.querySelectorAll('iframe').forEach((f) => this.drop(f)); }
 }
 let stage = null;
+// ⌘/Ctrl+S — publish, ⌘/Ctrl+Z — undo the last unpublished change on the page (outside text fields)
+function hotkey(e, typing) {
+  if (!(e.metaKey || e.ctrlKey) || e.altKey) return false;
+  const k = e.key.toLowerCase();
+  if (k === 's') { e.preventDefault(); e.stopPropagation(); if (!$('#pub').disabled) $('#pub').click(); return true; }
+  if (k === 'z' && !e.shiftKey && !typing && tab === 'pages') { e.preventDefault(); e.stopPropagation(); undoLast(); return true; }
+  return false;
+}
+addEventListener('keydown', (e) => { const t = e.target; hotkey(e, !!(t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)))); });
 const seg = (opts, val, on) => el('div', { class: 'seg', role: 'group' }, ...opts.map(([v, label]) => el('button', { type: 'button', 'aria-pressed': String(v === val), onclick: () => on(v) }, label)));
 
 // ---------- pages tab: click a text or a photo right on the page ----------
@@ -422,7 +462,9 @@ function recordEdit(e) {
   const k = site.edits.findIndex((x, i) => i >= savedEdits && x.page === e.page && x.type === e.type && x.to === e.from);
   if (k >= 0) { site.edits[k].to = e.to; if (site.edits[k].from === site.edits[k].to) site.edits.splice(k, 1); } else site.edits.push(e);
   const bc = builtCache[pageId];
-  if (bc) builtCache[pageId] = e.type === 'img' ? [core.replaceImg(bc[0], e.from, e.to), core.replaceImg(bc[1], e.from, e.to)] : [core.replaceText(bc[0], e.from, e.to, false), core.replaceText(bc[1], e.from, e.to, true)];
+  if (bc) builtCache[pageId] = e.type === 'img' ? [core.replaceImg(bc[0], e.from, e.to), core.replaceImg(bc[1], e.from, e.to)]
+    : e.type === 'link' ? [core.replaceLink(bc[0], e.from, e.to, false), core.replaceLink(bc[1], e.from, e.to, true)]
+    : [core.replaceText(bc[0], e.from, e.to, false), core.replaceText(bc[1], e.from, e.to, true)];
   mark(); renderChanges();
 }
 
@@ -434,13 +476,19 @@ function attachEditor(f) {
 .cms-hl.off{border-color:rgba(15,15,15,.35);border-style:dashed;background:rgba(15,15,15,.04)}
 .cms-lb{position:fixed;z-index:2147483647;pointer-events:none;display:none;padding:6px 10px;border-radius:8px;background:#0F0F0F;color:#fff;font:600 12px/1.2 Manrope,system-ui,sans-serif;white-space:nowrap;letter-spacing:0;text-transform:none}
 .cms-ed{outline:2px solid #3D8BFF;outline-offset:3px;border-radius:3px;cursor:text;caret-color:#3D8BFF;-webkit-user-select:text;user-select:text}
-html.cms-on,html.cms-on *{cursor:pointer}`;
+html.cms-on,html.cms-on *{cursor:pointer}
+.cms-lp{position:fixed;z-index:2147483647;display:flex;gap:6px;align-items:center;padding:6px;border-radius:12px;background:#0F0F0F;box-shadow:0 12px 34px rgba(0,0,0,.28);font:500 12px/1 Manrope,system-ui,sans-serif;letter-spacing:0;text-transform:none;cursor:auto}
+.cms-lp *{cursor:auto}
+.cms-lp b{color:rgba(255,255,255,.62);padding:0 4px 0 8px;font-weight:600;white-space:nowrap}
+.cms-lp input{width:320px;max-width:56vw;height:34px;border:0;border-radius:8px;padding:0 10px;background:#fff;color:#0F0F0F;font:500 13px Manrope,system-ui,sans-serif;outline:none;cursor:text}
+.cms-lp button{height:34px;padding:0 14px;border:0;border-radius:8px;background:#3D8BFF;color:#fff;font:600 12px Manrope,system-ui,sans-serif;cursor:pointer}`;
   d.head.append(st);
   const hl = d.createElement('div'); hl.className = 'cms-hl';
   const lb = d.createElement('div'); lb.className = 'cms-lb';
   d.body.append(hl, lb);
-  let hit = null, editing = null, raf = 0, mx = 0, my = 0;
-  const own = (e) => e === hl || e === lb;
+  let hit = null, editing = null, raf = 0, mx = 0, my = 0, lp = null;
+  const own = (e) => e === hl || e === lb || (lp && lp.box.contains(e));
+  const inLp = (t) => !!(lp && t && lp.box.contains(t));
 
   const textAt = (x, y) => {
     for (const e of d.elementsFromPoint(x, y)) {
@@ -449,6 +497,21 @@ html.cms-on,html.cms-on *{cursor:pointer}`;
         if (n.nodeType !== 3 || n.nodeValue.trim().length < 2) continue;
         const r = d.createRange(); r.selectNodeContents(n);
         for (const q of r.getClientRects()) if (x >= q.left - 3 && x <= q.right + 3 && y >= q.top - 3 && y <= q.bottom + 3) return { kind: 'text', node: n, el: e, rect: r.getBoundingClientRect() };
+      }
+    }
+    return null;
+  };
+  // texts inside layers with pointer-events:none (chat bubbles, overlays) are invisible to elementsFromPoint
+  const textScan = (x, y) => {
+    const tw = d.createTreeWalker(d.body, NodeFilter.SHOW_TEXT); let n;
+    while ((n = tw.nextNode())) {
+      if (n.nodeValue.trim().length < 2) continue;
+      const e = n.parentElement; if (!e || own(e) || e.closest('script,style,svg,.cms-lp')) continue;
+      const r = d.createRange(); r.selectNodeContents(n);
+      const b = r.getBoundingClientRect(); if (y < b.top - 3 || y > b.bottom + 3 || x < b.left - 3 || x > b.right + 3) continue;
+      for (const q of r.getClientRects()) if (x >= q.left - 3 && x <= q.right + 3 && y >= q.top - 3 && y <= q.bottom + 3) {
+        const cs = w.getComputedStyle(e); if (cs.visibility === 'hidden' || +cs.opacity === 0) break;
+        return { kind: 'text', node: n, el: e, rect: b };
       }
     }
     return null;
@@ -462,27 +525,39 @@ html.cms-on,html.cms-on *{cursor:pointer}`;
     }
     return null;
   };
+  const linkAt = (x, y) => {
+    for (const e of d.elementsFromPoint(x, y)) {
+      if (own(e)) continue;
+      const a = e.closest('a[href]');
+      if (a) return { kind: 'link', el: a, rect: a.getBoundingClientRect() };
+    }
+    return null;
+  };
+  const knownLink = (a) => { const bc = builtCache[pageId] || ['', '']; const h = a && a.getAttribute('href'); return !!h && core.countLink(bc[1], h, true) + core.countLink(bc[0], h, false) > 0; };
   const known = (h) => {
     const bc = builtCache[pageId] || ['', ''];
     if (h.kind === 'text') return core.countText(bc[1], h.node.nodeValue.trim(), true) + core.countText(bc[0], h.node.nodeValue.trim(), false) > 0;
+    if (h.kind === 'link') return knownLink(h.el);
     return !!h.path && (bc[0].includes(h.path) || bc[1].includes(h.path));
   };
   const probe = () => {
     raf = 0;
     if (editing || mode !== 'edit') { hl.style.display = lb.style.display = 'none'; return; }
-    const h = textAt(mx, my) || imgAt(mx, my);
+    const h = textAt(mx, my) || textScan(mx, my) || imgAt(mx, my) || linkAt(mx, my);
     hit = h;
     if (!h) { hl.style.display = lb.style.display = 'none'; return; }
     const g = h.el.closest(GEN);
     h.msg = g ? (g.closest('.rv-card') ? 'Відгуки редагуються у вкладці «Відгуки»' : 'Проєкти редагуються у вкладці «Проєкти»')
-      : !known(h) ? (h.kind === 'text' ? 'Цей текст підставляється автоматично' : 'Це фото змінюється тільки в коді')
+      : !known(h) ? (h.kind === 'text' ? 'Цей текст підставляється автоматично' : h.kind === 'link' ? 'Це посилання змінюється тільки в коді' : 'Це фото змінюється тільки в коді')
       : null;
+    h.a = h.kind === 'link' ? h.el : h.kind === 'text' ? h.el.closest('a[href]') : null;
+    if (h.a && !knownLink(h.a)) h.a = null;
     h.go = g ? (g.closest('.rv-card') ? 'reviews' : 'projects') : null;
     const r = h.rect, pad = h.kind === 'text' ? 4 : 0;
     Object.assign(hl.style, { display: 'block', left: r.left - pad + 'px', top: r.top - pad + 'px', width: r.width + pad * 2 + 'px', height: r.height + pad * 2 + 'px' });
     hl.classList.toggle('off', !!h.msg);
     const shared = !h.msg && scopeOf(h.el) === '*';
-    lb.textContent = h.msg || (h.kind === 'text' ? 'Клікніть, щоб змінити текст' : 'Клікніть, щоб замінити фото') + (shared ? ' · на всіх сторінках' : '');
+    lb.textContent = h.msg || (h.kind === 'text' ? (h.a ? 'Клікніть, щоб змінити текст і посилання' : 'Клікніть, щоб змінити текст') : h.kind === 'link' ? 'Клікніть, щоб змінити посилання' : 'Клікніть, щоб замінити фото') + (shared ? ' · на всіх сторінках' : '');
     lb.style.display = 'block';
     const lw = lb.offsetWidth, top = r.top - pad - 32 > 4 ? r.top - pad - 32 : r.bottom + pad + 6;
     lb.style.left = Math.max(6, Math.min(w.innerWidth - lw - 6, r.left - pad)) + 'px'; lb.style.top = top + 'px';
@@ -491,8 +566,42 @@ html.cms-on,html.cms-on *{cursor:pointer}`;
   w.addEventListener('scroll', () => { if (!raf && hit) raf = w.requestAnimationFrame(probe); }, true);
   d.addEventListener('mouseleave', () => { hl.style.display = lb.style.display = 'none'; hit = null; });
 
+  function openLink(a, rect, scope) {
+    closeLink(true);
+    const from = a.getAttribute('href') || '';
+    const box = d.createElement('div'); box.className = 'cms-lp';
+    const inp = d.createElement('input'); inp.type = 'text'; inp.spellcheck = false; inp.value = from; inp.setAttribute('aria-label', 'Посилання');
+    const lbl = d.createElement('b'); lbl.textContent = 'Посилання';
+    const ok = d.createElement('button'); ok.type = 'button'; ok.textContent = 'Готово';
+    box.append(lbl, inp, ok); d.body.append(box);
+    const bw = box.offsetWidth, bh = box.offsetHeight;
+    box.style.left = Math.max(6, Math.min(w.innerWidth - bw - 6, rect.left)) + 'px';
+    box.style.top = (rect.bottom + 12 + bh > w.innerHeight - 6 ? Math.max(6, rect.top - bh - 12) : rect.bottom + 12) + 'px';
+    lp = { box, a, from, scope, inp };
+    const done = () => { if (editing) finish(true); closeLink(true); };
+    ok.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); done(); });
+    inp.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); done(); } else if (e.key === 'Escape') { e.preventDefault(); if (editing) finish(false); closeLink(false); } });
+    inp.addEventListener('blur', () => setTimeout(() => { if (inLp(d.activeElement) || (editing && d.activeElement === editing.sp)) return; done(); }, 0));
+    return inp;
+  }
+  function closeLink(commit) {
+    if (!lp) return;
+    const { box, a, from, scope, inp } = lp; lp = null;
+    let to = inp.value.trim();
+    box.remove();
+    if (!commit || !to || to === from) return;
+    if (/^@[A-Za-z0-9_]{4,}$/.test(to)) to = 'https://t.me/' + to.slice(1);
+    else if (/^[^@\s/:]+@[^@\s/]+\.[a-z]{2,}$/i.test(to)) to = 'mailto:' + to;
+    else if (/^\+?[\d\s()-]{7,}$/.test(to)) to = 'tel:' + to.replace(/[\s()-]/g, '');
+    else if (/^(www\.)?[\w-]+(\.[\w-]+)+(\/\S*)?$/i.test(to)) to = 'https://' + to;
+    if (/^\s*(javascript|data|vbscript):/i.test(to) || /["<>`\s]/.test(to)) { toast('Таке посилання не підходить. Приклад: https://t.me/username', true); return; }
+    a.setAttribute('href', to);
+    recordEdit({ page: scope, type: 'link', from, to });
+  }
   function startText(h) {
     const n = h.node, orig = n.nodeValue, from = orig.trim(), scope = scopeOf(h.el);
+    // a reveal animation still playing on the block resets the caret on every key — jump it to the end first
+    for (let e = n.parentElement; e && e !== d.body; e = e.parentElement) for (const an of (e.getAnimations ? e.getAnimations() : [])) { try { an.finish(); } catch (_) {} }
     const sp = d.createElement('span'); sp.className = 'cms-ed';
     try { sp.contentEditable = 'plaintext-only'; } catch (e) { sp.contentEditable = 'true'; }
     if (sp.contentEditable !== 'plaintext-only') sp.contentEditable = 'true';
@@ -501,10 +610,12 @@ html.cms-on,html.cms-on *{cursor:pointer}`;
     hl.style.display = lb.style.display = 'none';
     sp.focus();
     const sel = w.getSelection(), rg = d.createRange(); rg.selectNodeContents(sp); sel.removeAllRanges(); sel.addRange(rg);
-    sp.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); finish(true); } else if (e.key === 'Escape') { e.preventDefault(); finish(false); } });
+    sp.addEventListener('keydown', (e) => { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); finish(true); closeLink(true); } else if (e.key === 'Escape') { e.preventDefault(); finish(false); closeLink(false); } else if (e.key === 'Tab' && lp) { e.preventDefault(); lp.inp.focus(); lp.inp.select(); } });
     sp.addEventListener('keyup', (e) => e.stopPropagation());
     sp.addEventListener('paste', (e) => { e.preventDefault(); d.execCommand('insertText', false, (e.clipboardData.getData('text/plain') || '').replace(/\s+/g, ' ')); });
-    sp.addEventListener('blur', () => finish(true));
+    sp.addEventListener('blur', () => setTimeout(() => { if (inLp(d.activeElement)) return; if (editing && editing.sp === sp) { finish(true); closeLink(true); } }, 0));
+    if (h.a) openLink(h.a, h.a.getBoundingClientRect(), scopeOf(h.a));
+    sp.focus();
   }
   function finish(commit) {
     if (!editing) return;
@@ -542,30 +653,63 @@ html.cms-on,html.cms-on *{cursor:pointer}`;
       if (tgt && !/^https?:/.test(href)) { e.preventDefault(); e.stopPropagation(); if (tgt.id !== pageId) { pageId = tgt.id; render(); } }
       return;
     }
+    if (inLp(e.target)) return;
     if (editing && editing.sp.contains(e.target)) { e.preventDefault(); return; }
     e.preventDefault(); e.stopPropagation();
-    if (editing) { finish(true); return; }
+    if (editing || lp) { if (editing) finish(true); closeLink(true); return; }
     mx = e.clientX; my = e.clientY; probe();
     const h = hit; if (!h) return;
     if (h.msg) { if (h.go) { tab = h.go; cur = 0; syncTabs(); render(); } else toast(h.msg); return; }
-    if (h.kind === 'text') startText(h); else startImg(h);
+    if (h.kind === 'text') startText(h); else if (h.kind === 'link') { hl.style.display = lb.style.display = 'none'; const i = openLink(h.el, h.rect, scopeOf(h.el)); i.focus(); i.select(); } else startImg(h);
   }, true);
-  for (const t of ['pointerdown', 'mousedown', 'touchstart', 'submit', 'dblclick']) d.addEventListener(t, (e) => { if (mode === 'edit' && !(editing && editing.sp.contains(e.target))) { if (t === 'submit') e.preventDefault(); e.stopPropagation(); } }, { capture: true, passive: false });
-  d.addEventListener('keydown', (e) => { if (mode === 'edit' && !editing) e.stopPropagation(); }, true);
+  for (const t of ['pointerdown', 'mousedown', 'touchstart', 'submit', 'dblclick']) d.addEventListener(t, (e) => { if (mode === 'edit' && !inLp(e.target) && !(editing && editing.sp.contains(e.target))) { if (t === 'submit') e.preventDefault(); e.stopPropagation(); } }, { capture: true, passive: false });
+  d.addEventListener('keydown', (e) => { if (hotkey(e, !!(editing || lp))) return; if (mode === 'edit' && !editing && !lp) e.stopPropagation(); }, true);
   d.documentElement.classList.toggle('cms-on', mode === 'edit');
-  f._setMode = () => { d.documentElement.classList.toggle('cms-on', mode === 'edit'); if (mode !== 'edit') { if (editing) finish(true); hl.style.display = lb.style.display = 'none'; } };
+  f._setMode = () => { d.documentElement.classList.toggle('cms-on', mode === 'edit'); if (mode !== 'edit') { if (editing) finish(true); closeLink(true); hl.style.display = lb.style.display = 'none'; } };
 }
 
+const short = (v) => (v.length > 90 ? v.slice(0, 88) + '…' : v);
+function editLine(e) {
+  if (e.type === 'img') return el('span', {}, 'Нове фото замість ', el('s', {}, e.from.split('/').pop()));
+  if (e.type === 'link') return [el('span', {}, '🔗 ', el('s', {}, short(e.from))), el('span', {}, short(e.to))];
+  return [el('span', {}, el('s', {}, short(e.from))), el('span', {}, short(e.to))];
+}
+function reloadStage() { if (stage && tab === 'pages') stage.show(pageId, { keepScroll: true, onReady: attachEditor }); }
+function undoLast() {
+  for (let i = site.edits.length - 1; i >= savedEdits; i--) {
+    const e = site.edits[i];
+    if (e.page === pageId || e.page === '*') { site.edits.splice(i, 1); mark(); renderChanges(); reloadStage(); toast('Останню зміну скасовано'); return; }
+  }
+  toast('Немає неопублікованих змін на цій сторінці');
+}
+// published edits of this page, collapsed to "original → now" so each can be put back
+function publishedChains() {
+  const list = site.edits.slice(0, savedEdits);
+  const used = new Set(), out = [];
+  for (let i = list.length - 1; i >= 0; i--) {
+    const e = list[i];
+    if (used.has(i) || !(e.page === pageId || e.page === '*')) continue;
+    let root = e.from; used.add(i);
+    for (let j = i - 1; j >= 0; j--) { const x = list[j]; if (!used.has(j) && x.page === e.page && x.type === e.type && x.to === root) { root = x.from; used.add(j); } }
+    if (root !== e.to) out.push({ page: e.page, type: e.type, from: root, to: e.to });
+  }
+  return out;
+}
 function renderChanges() {
   const box = $('#chg'); if (!box) return;
   const list = site.edits.map((e, i) => ({ e, i })).filter(({ e, i }) => i >= savedEdits && (e.page === pageId || e.page === '*'));
-  box.replaceChildren(...(list.length ? [el('h2', {}, `Неопубліковані зміни · ${list.length}`)] : []),
+  const done = publishedChains();
+  const reverted = (c) => site.edits.slice(savedEdits).some((x) => x.page === c.page && x.type === c.type && x.from === c.to && x.to === c.from);
+  box.replaceChildren(
+    ...(list.length ? [el('h2', {}, `Неопубліковані · ${list.length}`)] : []),
     ...list.map(({ e, i }) => el('div', { class: 'chg' },
-      el('div', { style: 'min-width:0' }, e.page === '*' ? el('em', {}, 'Усі сторінки') : null,
-        e.type === 'img' ? el('span', {}, 'Нове фото замість ', el('s', {}, e.from.split('/').pop())) : [el('span', {}, el('s', {}, e.from)), el('span', {}, e.to)]),
-      el('button', { type: 'button', 'aria-label': 'Скасувати цю зміну', title: 'Скасувати', onclick: () => { site.edits.splice(i, 1); mark(); renderChanges(); stage && stage.show(pageId, { keepScroll: true, onReady: attachEditor }); } }, '×'))));
+      el('div', { style: 'min-width:0' }, e.page === '*' ? el('em', {}, 'Усі сторінки') : null, editLine(e)),
+      el('button', { type: 'button', 'aria-label': 'Скасувати цю зміну', title: 'Скасувати', onclick: () => { site.edits.splice(i, 1); mark(); renderChanges(); reloadStage(); } }, '×'))),
+    ...(done.length ? [el('details', { class: 'old' }, el('summary', {}, `Опубліковані зміни · ${done.length}`),
+      ...done.map((c) => el('div', { class: 'chg' },
+        el('div', { style: 'min-width:0' }, c.page === '*' ? el('em', {}, 'Усі сторінки') : null, editLine(c)),
+        reverted(c) ? el('small', { class: 'rv-l' }, 'повернеться') : el('button', { type: 'button', class: 'back', title: 'Повернути як було', onclick: () => { site.edits.push({ page: c.page, type: c.type, from: c.to, to: c.from }); mark(); renderChanges(); reloadStage(); toast('Повернеться після «Опублікувати»'); } }, '↺'))))] : []));
 }
-
 function pagesBar() {
   return el('div', { class: 'bar' },
     el('div', { class: 'grp' },
@@ -582,7 +726,8 @@ function renderPages(main) {
     el('div', { class: 'howto' },
       el('p', {}, el('b', {}, 'Текст: '), 'наведіть і клікніть, пишіть прямо на сторінці. Enter — готово, Esc — скасувати.'),
       el('p', {}, el('b', {}, 'Фото: '), 'клікніть по фото й виберіть нове.'),
-      el('p', {}, 'Шапка, меню, футер і чат міняються на всіх сторінках одразу.')),
+      el('p', {}, el('b', {}, 'Посилання: '), 'клік по кнопці чи іконці. Підходить сайт, пошта, телефон або @нік у Telegram.'),
+      el('p', {}, 'Шапка, меню, футер і чат міняються на всіх сторінках одразу. ⌘Z — скасувати, ⌘S — опублікувати.')),
     el('div', { id: 'chg', style: 'display:flex;flex-direction:column;gap:8px' }));
   main.className = 'pgw';
   main.replaceChildren(side, el('section', { class: 'stage' }, pagesBar(), frame));
@@ -622,6 +767,7 @@ function render() {
   const main = $('#main');
   if (stage) { stage.destroy(); stage = null; }
   if (tab === 'pages') { renderPages(main); return; }
+  if (tab === 'settings') { renderSettings(main); return; }
   const list = tab === 'projects' ? site.projects : site.reviews;
   if (cur >= list.length) cur = Math.max(0, list.length - 1);
   main.className = 'wrap wp';
@@ -630,9 +776,80 @@ function render() {
   if (!list.length) { $('.ed').append(el('div', { class: 'sec empty' }, 'Поки порожньо. Додайте перший запис зліва.')); return; }
   if (tab === 'projects') projectEditor(list[cur]); else reviewEditor(list[cur]);
 }
-const TABS = [['#t-pages', 'pages'], ['#t-projects', 'projects'], ['#t-reviews', 'reviews']];
+const TABS = [['#t-pages', 'pages'], ['#t-projects', 'projects'], ['#t-reviews', 'reviews'], ['#t-settings', 'settings']];
 function syncTabs() { for (const [id, t] of TABS) $(id).setAttribute('aria-selected', String(t === tab)); }
 for (const [id, t] of TABS) $(id).addEventListener('click', () => { if (tab === t) return; tab = t; cur = 0; pvPage = null; syncTabs(); render(); });
+
+// ---------- SEO: title & description of each page, as Google shows them ----------
+function renderSettings(main) {
+  main.className = 'set';
+  const pages = core.PAGES.filter((p) => p.id !== '404');
+  const secs = pages.map((pg) => {
+    const box = el('section', { class: 'sec' }, el('h3', {}, pg.title), el('p', { class: 'hint' }, 'vbrilliant.com' + urlOf(pg.html)), el('div', { class: 'empty', style: 'padding:20px' }, 'Завантажую…'));
+    sources(pg.id).then(([h]) => {
+      const orig = core.readSeo(h);
+      const cur = () => (site.seo || {})[pg.id] || {};
+      const val = (k) => (cur()[k] != null ? cur()[k] : orig[k]);
+      const set = (k, v) => { site.seo = site.seo || {}; const m = { ...cur(), [k]: v }; if ((m.title ?? orig.title) === orig.title && (m.description ?? orig.description) === orig.description) delete site.seo[pg.id]; else { if (m.title === orig.title) delete m.title; if (m.description === orig.description) delete m.description; site.seo[pg.id] = m; } if (!Object.keys(site.seo).length) delete site.seo; mark(); draw(); };
+      const t = el('input', { type: 'text' }); t.value = val('title');
+      const dsc = el('textarea', { rows: 3 }); dsc.value = val('description');
+      const tc = el('span', { class: 'cnt' }), dc = el('span', { class: 'cnt' });
+      const serp = el('div', { class: 'serp' }, el('small', {}, 'vbrilliant.com' + (pg.html === 'index.html' ? '' : ' › ' + pg.html.replace('.html', ''))), el('b', {}), el('p', {}));
+      const draw = () => {
+        const T = t.value.trim(), D = dsc.value.trim();
+        tc.textContent = `${T.length} / 60`; tc.classList.toggle('over', T.length > 60);
+        dc.textContent = `${D.length} / 160`; dc.classList.toggle('over', D.length > 160);
+        serp.querySelector('b').textContent = T || orig.title; serp.querySelector('p').textContent = D || orig.description;
+      };
+      t.addEventListener('input', () => set('title', t.value)); dsc.addEventListener('input', () => set('description', dsc.value));
+      const reset = el('button', { type: 'button', class: 'btn sm ghost', onclick: () => { delete (site.seo || {})[pg.id]; t.value = orig.title; dsc.value = orig.description; if (site.seo && !Object.keys(site.seo).length) delete site.seo; mark(); draw(); } }, 'Як було');
+      box.lastChild.replaceWith(el('div', { class: 'grid2' },
+        el('div', { class: 'f full' }, el('div', { class: 'lbl' }, el('label', {}, 'Заголовок у Google і на вкладці'), tc), t, el('small', {}, 'До 60 символів, головне — на початку.')),
+        el('div', { class: 'f full' }, el('div', { class: 'lbl' }, el('label', {}, 'Опис під заголовком'), dc), dsc, el('small', {}, '120–160 символів: що робите, для кого і чому вам писати.')),
+        el('div', { class: 'f full' }, el('div', { class: 'lbl' }, el('span', { class: 'lb' }, 'Як це виглядатиме в Google'), reset), serp)));
+      draw();
+    }).catch(() => { box.lastChild.textContent = 'Не вдалося завантажити сторінку.'; });
+    return box;
+  });
+  site.analytics = site.analytics || {};
+  const ga = el('input', { type: 'text', placeholder: 'G-XXXXXXXXXX' }); ga.value = site.analytics.ga4 || '';
+  ga.addEventListener('input', () => { site.analytics.ga4 = ga.value.trim().toUpperCase(); mark(); });
+  main.replaceChildren(
+    el('div', { class: 'head' }, el('h1', {}, 'SEO')),
+    el('p', { style: 'margin:-6px 0 4px;color:var(--mut)' }, 'Заголовки й описи сторінок для Google та прев’ю посилань у месенджерах.'),
+    ...secs,
+    el('section', { class: 'sec' }, el('h3', {}, 'Аналітика'), el('p', { class: 'hint' }, 'Google Аналітика вже стоїть на всіх сторінках і рахує заявки (generate_lead) та кліки в месенджери.'),
+      field('ID потоку Google Аналітики', ga, 'Аналітика → Администратор → Потоки данных → ваш сайт.')));
+}
+
+// ---------- history: open any earlier published version, check it, publish it back ----------
+async function openHistory() {
+  const list = el('div', { class: 'ml' }, el('div', { class: 'empty', style: 'padding:30px' }, 'Завантажую історію…'));
+  const close = () => { m.remove(); removeEventListener('keydown', esc); };
+  const esc = (e) => { if (e.key === 'Escape') close(); };
+  const m = el('div', { class: 'modal', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Історія змін', onclick: (e) => { if (e.target === m) close(); } },
+    el('div', { class: 'box' }, el('div', { class: 'mh' }, el('div', {}, el('h3', {}, 'Історія'), el('p', {}, 'Відкрийте версію, перевірте її і натисніть «Опублікувати», щоб повернути на сайт.')), el('button', { type: 'button', class: 'x', 'aria-label': 'Закрити', onclick: () => close() }, '×')), list));
+  document.body.append(m); addEventListener('keydown', esc);
+  const { ok, d } = await api({ password: pass, action: 'history' }).catch(() => ({ ok: false, d: {} }));
+  if (!ok) { list.replaceChildren(el('div', { class: 'empty', style: 'padding:30px' }, d.error || 'Не вдалося завантажити історію')); return; }
+  const fmt = (iso) => new Date(iso).toLocaleString('uk-UA', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+  list.replaceChildren(...d.items.map((it, i) => {
+    let armed = false;
+    const b = el('button', { type: 'button', class: 'btn sm' }, i === 0 ? 'Зараз на сайті' : 'Відкрити');
+    if (i === 0) b.disabled = true;
+    b.addEventListener('click', async () => {
+      if (dirty() && !armed) { armed = true; b.textContent = 'Незбережене зникне. Ще раз'; b.classList.add('danger'); return; }
+      b.textContent = 'Відкриваю…';
+      const r = await api({ password: pass, action: 'version', sha: it.sha }).catch(() => ({ ok: false, d: {} }));
+      if (!r.ok) { toast(r.d.error || 'Не вдалося відкрити версію', true); b.textContent = 'Відкрити'; return; }
+      const v = r.d.site; v.projects = v.projects || []; v.reviews = v.reviews || []; v.edits = v.edits || [];
+      v.updatedAt = site.updatedAt; site = v; savedEdits = v.edits.length; pending.clear();
+      close(); render(); mark(); toast(`Відкрито версію від ${fmt(it.date)}. Перевірте й натисніть «Опублікувати».`);
+    });
+    return el('div', { class: 'ver' + (i === 0 ? ' now' : '') }, el('div', {}, el('b', {}, fmt(it.date)), el('small', {}, it.message)), b);
+  }));
+}
+$('#hist').addEventListener('click', openHistory);
 
 // ---------- publish ----------
 async function api(payload) {
@@ -643,7 +860,13 @@ async function api(payload) {
 $('#pub').addEventListener('click', async () => {
   if (busy) return;
   const files = [...pending.entries()].filter(([p]) => JSON.stringify(site).includes(p)).map(([path, v]) => ({ path, base64: v.base64 }));
-  const body = { password: pass, action: 'save', site, files, message: 'Адмінка: ' + new Date().toLocaleString('uk-UA') };
+  const old = JSON.parse(saved), parts = [];
+  const ch = (k) => JSON.stringify(old[k] ?? null) !== JSON.stringify(site[k] ?? null);
+  const ne = site.edits.length - savedEdits;
+  if (ch('edits')) parts.push(ne > 0 ? `сторінки (${ne})` : 'сторінки');
+  if (ch('projects')) parts.push('проєкти'); if (ch('reviews')) parts.push('відгуки');
+  if (ch('seo')) parts.push('SEO'); if (ch('analytics')) parts.push('аналітика');
+  const body = { password: pass, action: 'save', site, files, message: 'Адмінка: ' + (parts.join(', ') || 'оновлення') };
   const size = JSON.stringify(body).length;
   if (size > 3.8e6) { toast('Забагато нових фото за раз. Опублікуйте частину, потім решту.', true); return; }
   busy = true; mark(); $('#pub').textContent = 'Публікую…';
