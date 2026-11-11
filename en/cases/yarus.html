@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>YARUS — residential pre-sale landing page: case study | Brilliant</title>
+<meta name="description" content="An early-access landing page for a 34-storey lakeside residential tower in Kyiv: a 14-screen structure, choosing an apartment by height tier, pre-sale terms, design and development.">
+<link rel="canonical" href="https://www.vbrilliant.com/en/cases/yarus">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Brilliant"><meta property="og:locale" content="en_GB">
+<meta property="og:title" content="YARUS — residential pre-sale landing page: case study | Brilliant"><meta property="og:description" content="An early-access landing page for a 34-storey lakeside residential tower in Kyiv: a 14-screen structure, choosing an apartment by height tier, pre-sale terms, design and development."><meta property="og:url" content="https://www.vbrilliant.com/en/cases/yarus"><meta property="og:image" content="https://www.vbrilliant.com/assets/cases/yarus/d00.webp">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="YARUS — residential pre-sale landing page: case study | Brilliant"><meta name="twitter:description" content="An early-access landing page for a 34-storey lakeside residential tower in Kyiv: a 14-screen structure, choosing an apartment by height tier, pre-sale terms, design and development."><meta name="twitter:image" content="https://www.vbrilliant.com/assets/cases/yarus/d00.webp">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/manrope-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/assets/cases/yarus/d00.webp" imagesrcset="/assets/cases/yarus/d00-900.webp 900w, /assets/cases/yarus/d00.webp 1800w" imagesizes="100vw">
+<style>
+@font-face{font-family:Manrope;font-weight:200 800;font-display:swap;src:url(/assets/fonts/manrope-cyrillic-wght-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:Manrope;font-weight:200 800;font-display:swap;src:url(/assets/fonts/manrope-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+:root{--in:40px;--x:calc(var(--g) + var(--in));--cols:minmax(0,5fr) minmax(0,7fr);--gap:48px;--bg:#EBEBEB;--ink:#0F0F0F;--mut:rgba(15,15,15,.56);--line:rgba(15,15,15,.12);--acc:#3D8BFF;--dark:#0A0A0A;--g:20px;--r:40px}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.5 Manrope,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.skip{position:absolute;left:-9999px;top:8px;z-index:100;padding:10px 14px;border-radius:8px;background:#fff}.skip:focus{left:8px}
+.lbl{margin:0;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
+.wrap{padding:0 var(--g)}
+/* header: the compact dark chips of the main site */
+.hdr{position:fixed;top:10px;left:0;right:0;z-index:50;display:flex;justify-content:center;gap:5px;pointer-events:none}
+.hdr>*{pointer-events:auto}
+.hdr .chip{display:inline-flex;align-items:center;justify-content:center;height:52px;padding:5px;border-radius:12px;background:#0F0F0F}
+.hdr .logo{width:76px}.hdr .logo img{height:28px;width:auto}
+.hdr nav{display:flex;gap:5px}
+.hdr nav a{display:inline-flex;align-items:center;justify-content:center;min-width:104px;height:42px;padding:0 14px;border-radius:8px;background:rgba(255,255,255,.1);color:#fff;font-size:15px;font-weight:500;text-decoration:none;transition:background .25s}
+.hdr nav a:hover,.hdr nav a[aria-current]{background:var(--acc)}
+.hdr .cta{padding:5px}.hdr .cta a{display:inline-flex;align-items:center;gap:10px;height:42px;padding:0 16px;border-radius:8px;background:#fff;color:#0F0F0F;font-size:15px;font-weight:600;text-decoration:none}
+.hdr .cta a:hover{background:var(--acc);color:#fff}
+.hdr .burger{display:none}.burger{width:52px;border:0;cursor:pointer}.burger i{display:block;width:22px;height:2px;margin:3px auto;background:#fff;border-radius:2px;transition:transform .3s}
+.mm{position:fixed;inset:0;z-index:49;display:none;flex-direction:column;justify-content:flex-end;gap:4px;padding:96px 16px 28px;background:var(--bg)}
+.mm a{display:block;padding:12px 0;border-top:1px solid rgba(15,15,15,.18);font-size:32px;font-weight:600;letter-spacing:-.03em;line-height:1.1;text-decoration:none}
+.mm .mm-cta{margin-top:18px;padding:18px;border:0;border-radius:10px;background:#0F0F0F;color:#fff;font-size:17px;text-align:center}
+body.mm-open .mm{display:flex}body.mm-open .burger i:nth-child(1){transform:translateY(5px) rotate(45deg)}body.mm-open .burger i:nth-child(2){opacity:0}body.mm-open .burger i:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+/* hero */
+.hero{padding:120px var(--g) 0}.crumbs,.h-top{padding:0 var(--in)}
+.crumbs{display:flex;gap:8px;align-items:center;margin:0 0 28px;font-size:14px;color:var(--mut)}
+.crumbs a{text-decoration:none}.crumbs a:hover{color:var(--ink)}
+.h-top{display:grid;grid-template-columns:var(--cols);gap:var(--gap);align-items:end}
+.h-title{margin:0;font-size:clamp(68px,12.4vw,210px);font-weight:600;letter-spacing:-.065em;line-height:.84;word-break:break-word}
+.h-title sup{font-size:.13em;letter-spacing:0;vertical-align:top;position:relative;top:.6em;margin-left:.2em;font-weight:600;color:var(--acc)}
+.h-tag{margin:22px 0 0;max-width:620px;font-size:clamp(20px,1.9vw,28px);font-weight:500;line-height:1.22;letter-spacing:-.02em}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line)}
+.meta div{padding:14px 0;border-bottom:1px solid var(--line)}
+.meta div:nth-child(odd){padding-right:16px}
+.meta dt{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.meta dd{margin:4px 0 0;font-size:16px;font-weight:500;line-height:1.35}
+.meta .full{grid-column:1/-1}
+.h-go{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:0 26px;border-radius:8px;border:1px solid #0F0F0F;background:#0F0F0F;color:#fff;font-size:15px;font-weight:600;text-decoration:none;transition:background .25s,color .25s,border-color .25s}
+.btn:hover{background:var(--acc);border-color:var(--acc)}
+.btn.out{background:transparent;color:#0F0F0F;border-color:rgba(15,15,15,.25)}.btn.out:hover{border-color:#0F0F0F;background:#0F0F0F;color:#fff}
+.btn.w{background:#fff;color:#0F0F0F;border-color:#fff}.btn.w:hover{background:var(--acc);border-color:var(--acc);color:#fff}
+.cover{margin-top:44px;position:relative;border-radius:var(--r);overflow:hidden;background:#111}
+.cover img{width:100%;aspect-ratio:16/9;object-fit:cover;transform:scale(1.06);transition:transform 1.6s cubic-bezier(.2,.7,.2,1)}
+.cover.in img{transform:scale(1)}
+.cover .kind{position:absolute;left:24px;top:24px;padding:8px 14px;border-radius:999px;background:rgba(10,10,10,.55);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:#fff;font-size:13px;font-weight:600}
+/* facts: same as the home stats — rolling gradient digits, spread edge to edge */
+.facts{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;padding:96px var(--x) 16px}
+.fact{display:flex;flex-direction:column;gap:20px}
+.fact b{display:block;margin:0;font-size:144px;font-weight:600;line-height:.9;letter-spacing:-.07em;white-space:nowrap}
+.gt{background:linear-gradient(180deg,#3D8BFF 0%,#3D8BFF 30%,#EBEBEB 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.nd{display:inline-block;height:1em;vertical-align:top;clip-path:inset(0 -0.3em);margin-right:-0.07em}
+.nd-c{display:block;transform:translateY(var(--from));transition:transform 1.9s cubic-bezier(.2,.8,.2,1)}
+.nd-c>span{display:block;height:1em;line-height:1em}
+.facts.go .nd-c{transform:translateY(var(--to))}
+.facts.go .nd:nth-child(2) .nd-c{transition-delay:.12s}.facts.go .nd:nth-child(3) .nd-c{transition-delay:.24s}
+.fact .u{font-size:.36em;vertical-align:top;letter-spacing:-.02em;margin-left:.08em}
+.fact p{margin:0;width:230px;min-width:100%;font-size:17px;line-height:1.35;color:var(--mut)}
+/* intro statement */
+.intro{padding:96px var(--x)}
+.intro p{margin:0;max-width:1240px;font-size:clamp(28px,3.6vw,56px);font-weight:500;line-height:1.08;letter-spacing:-.035em;}
+/* dark section */
+.dk{margin:0 var(--g);padding:88px var(--in);border-radius:var(--r);background:var(--dark);color:#EBEBEB;position:relative;overflow:hidden}
+.dk .lbl{color:var(--acc)}
+.two{display:grid;grid-template-columns:var(--cols);gap:var(--gap)}
+.two h2,.sec-h{margin:0;font-size:clamp(40px,5vw,84px);font-weight:600;letter-spacing:-.05em;line-height:.92}
+.txt p{margin:0 0 18px;font-size:clamp(18px,1.45vw,22px);line-height:1.45;color:rgba(235,235,235,.86)}
+.goals{list-style:none;margin:32px 0 0;padding:0;border-top:1px solid rgba(255,255,255,.16)}
+.goals li{display:grid;grid-template-columns:44px 1fr;gap:8px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.16);font-size:18px;line-height:1.35}
+.goals li span{color:var(--acc);font-weight:700;font-size:14px;padding-top:3px}
+/* idea */
+.idea{padding:110px var(--x);display:grid;grid-template-columns:var(--cols);gap:var(--gap);align-items:start}
+.idea h2{margin:14px 0 0;font-size:clamp(44px,6vw,104px);font-weight:600;letter-spacing:-.055em;line-height:.9}
+.idea>p{margin:0;padding-top:30px;font-size:clamp(22px,2.4vw,36px);font-weight:500;line-height:1.2;letter-spacing:-.025em}
+/* process: «огранка» — five facets of the stone */
+.proc{background:linear-gradient(180deg,#0A0A0A 0%,#04073F 55%,#1A2CEB 100%)}
+.proc-h{display:grid;grid-template-columns:var(--cols);gap:var(--gap);align-items:end;margin-bottom:56px}
+.proc-h p{margin:0;max-width:420px;color:rgba(235,235,235,.7);font-size:17px}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;counter-reset:s}
+.step{position:relative;padding:22px 20px 26px;border-radius:24px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.step svg{width:54px;height:66px;display:block;margin-bottom:22px}
+.step svg path{fill:rgba(255,255,255,.07);stroke:rgba(255,255,255,.4);stroke-width:1;transition:fill .6s}
+.step svg path.on{fill:var(--acc)}
+.step h3{margin:0 0 4px;font-size:24px;font-weight:600;letter-spacing:-.03em}
+.step small{display:block;margin-bottom:12px;color:var(--acc);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.step p{margin:0;font-size:15px;line-height:1.45;color:rgba(235,235,235,.78)}
+/* gallery */
+.gal{padding:96px var(--g) 40px;}.gal-h{padding:0 var(--in)}.gal{display:flex;flex-direction:column;gap:20px}
+.gal-h{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:24px}
+.shot{margin:0}
+.shot img{width:100%;border-radius:24px;background:#D9DDE5;cursor:zoom-in}
+.shot figcaption,.row-cap{margin:12px 0 0;padding-left:var(--in);display:grid;grid-template-columns:48px 1fr;gap:6px;max-width:720px;font-size:15px;line-height:1.4;color:var(--mut)}
+.shot figcaption b,.row-cap b{color:var(--ink);font-weight:700}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.phones{padding:56px 40px;border-radius:var(--r);background:radial-gradient(ellipse 120% 90% at 50% 120%,#3A63FF 0%,#1A2CEB 22%,#04073F 52%,#0A0A0A 75%)}
+.phones .strip{display:flex;gap:18px;justify-content:center;align-items:flex-start}
+.phones .ph{flex:0 1 230px;margin:0}
+.phones .ph:nth-child(even){margin-top:56px}
+.phones img{width:100%;border-radius:28px;border:6px solid #1a1a1a;box-shadow:0 30px 60px rgba(0,0,0,.35);cursor:zoom-in}
+.phones .row-cap{color:rgba(235,235,235,.7);margin:28px auto 0;text-align:left}
+.phones .row-cap b{color:#fff}
+.more{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:40px var(--in);border-radius:var(--r);background:#fff}
+.more p{margin:0;max-width:640px;font-size:20px;line-height:1.35}
+/* solutions: a decision and the screen that shows it */
+.sol{padding:96px var(--g) 20px}
+.sol-h{padding:0 var(--in);margin-bottom:56px}
+.sol-row{display:grid;grid-template-columns:var(--cols);gap:var(--gap);padding:40px var(--in);border-top:1px solid var(--line);align-items:start}
+.sol-row:last-of-type{border-bottom:1px solid var(--line)}
+.sol-t{position:sticky;top:96px}
+.sol-t span{display:block;font-size:15px;font-weight:700;color:var(--acc);margin-bottom:14px}
+.sol-t h3{margin:0;font-size:clamp(28px,2.6vw,42px);font-weight:600;letter-spacing:-.04em;line-height:1.02}
+.sol-t p{margin:16px 0 0;max-width:440px;font-size:18px;line-height:1.45;color:var(--mut)}
+.sol-row img{width:100%;border-radius:20px;background:#D9DDE5;cursor:zoom-in}
+.sol-row.noimg{padding-top:28px;padding-bottom:28px}.sol-row.noimg .sol-t{position:static}
+.mob{margin:20px var(--g) 0}
+/* decisions */
+.dec{padding:80px var(--x)}
+.dec-list{margin-top:40px;border-top:1px solid var(--line)}
+.dec-row{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--gap);padding:28px 0;border-bottom:1px solid var(--line);transition:padding .35s}
+.dec-row:hover{padding-left:12px}
+.dec-row span{display:none}
+.dec-row h3{margin:0;font-size:clamp(22px,2vw,30px);font-weight:600;letter-spacing:-.03em;line-height:1.1}
+.dec-row p{margin:0;font-size:18px;line-height:1.45;color:var(--mut)}
+/* result */
+.res .two h2{max-width:520px}
+.res .note{margin-top:28px;padding:14px 18px;border-radius:14px;background:rgba(255,255,255,.07);font-size:14px;color:rgba(235,235,235,.7)}
+.rv{margin-top:36px;padding:28px;border-radius:24px;background:#fff;color:#0F0F0F}
+.rv blockquote{margin:0;font-size:22px;font-weight:500;line-height:1.3;letter-spacing:-.015em}
+.rv figcaption{display:flex;align-items:center;gap:14px;margin-top:22px;font-size:15px}
+.rv img{width:52px;height:52px;border-radius:50%;object-fit:cover}
+.rv figcaption span{color:var(--mut)}
+/* next */
+.next{display:block;margin:20px var(--g) 0;position:relative;border-radius:var(--r);overflow:hidden;background:#000;color:#fff;text-decoration:none;min-height:520px}
+.next img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;transform:scale(1.04);transition:transform 1.2s cubic-bezier(.2,.7,.2,1),opacity .6s}
+.next:hover img{transform:scale(1);opacity:.75}
+.next .in{position:relative;display:flex;flex-direction:column;justify-content:space-between;min-height:520px;padding:40px var(--in)}
+.next .lbl{color:#fff;opacity:.8}
+.next b{font-size:clamp(64px,10vw,180px);font-weight:600;letter-spacing:-.06em;line-height:.85}
+.next .go{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.next .go span{font-size:20px;max-width:520px}
+.all{display:flex;flex-wrap:wrap;gap:8px;padding:28px var(--x) 0}
+.all a{padding:10px 16px;border-radius:999px;border:1px solid var(--line);font-size:15px;font-weight:500;text-decoration:none;transition:border-color .2s,background .2s}
+.all a:hover{border-color:#0F0F0F}.all a[aria-current]{background:#0F0F0F;color:#fff;border-color:#0F0F0F}
+/* lead */
+.lead{margin:110px var(--g) 0;padding:72px var(--in);border-radius:var(--r);background:linear-gradient(180deg,#04073F 0%,#0A12AE 45%,#3A63FF 80%,#9DB6FF 100%);color:#fff;display:grid;grid-template-columns:var(--cols);gap:var(--gap)}
+.lead h2{margin:0;font-size:clamp(40px,4.6vw,76px);font-weight:600;letter-spacing:-.05em;line-height:.95}
+.lead>div>p{margin:20px 0 0;font-size:18px;color:rgba(255,255,255,.8);max-width:440px}
+.lead form{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px;align-content:start}
+.lead label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500}
+.lead input{height:52px;padding:0;border:0;border-bottom:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;font:inherit;font-size:18px;outline:none}
+.lead input::placeholder{color:rgba(255,255,255,.45)}
+.lead input:focus{border-color:#fff}
+.lead .full{grid-column:1/-1}
+.lead .ok{grid-column:1/-1;margin:0;font-size:18px}
+.lead .fine{grid-column:1/-1;margin:0;font-size:13px;color:rgba(255,255,255,.65)}
+.lead button{justify-self:start}
+.lead [aria-invalid=true]{border-color:#FFB4B4}
+/* footer */
+.ft{margin-top:20px;padding:56px var(--x) 28px;display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:end}
+.ft img{height:26px;width:auto;filter:invert(1)}
+.ft p{margin:10px 0 0;color:var(--mut);font-size:14px}
+.ft nav{display:flex;gap:18px;flex-wrap:wrap;font-size:15px}
+.ft nav a{text-decoration:none}.ft nav a:hover{color:var(--acc)}
+/* reveal */
+.rv-up{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv-up.in{opacity:1;transform:none}
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(8,8,8,.92)}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:100%;border-radius:14px;object-fit:contain}
+.lb button{position:absolute;top:16px;right:16px;width:48px;height:48px;border:0;border-radius:12px;background:rgba(255,255,255,.12);color:#fff;font-size:24px;cursor:pointer}
+@media (max-width:1100px){.steps{grid-template-columns:repeat(3,minmax(0,1fr))}.trio{grid-template-columns:1fr 1fr}.trio .shot:last-child{grid-column:1/-1}}
+@media (max-width:900px){
+:root{--g:16px;--r:28px;--in:20px;--gap:24px}
+.hdr{justify-content:space-between;padding:0 16px;top:12px}.hdr>.chip:nth-child(2){display:none}.hdr nav,.hdr .cta{display:none}.hdr .burger{display:inline-flex;flex-direction:column;justify-content:center}.hdr .chip{height:56px}
+.hero{padding-top:96px}.h-top{grid-template-columns:1fr;gap:28px}.h-title{font-size:clamp(56px,19vw,120px)}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 16px;padding-top:56px}.fact b{font-size:72px}.fact p{width:auto;font-size:15px}
+.intro{padding:64px var(--x)}
+.dk{padding:56px var(--in)}.two,.idea,.lead,.proc-h,.dec-row{grid-template-columns:1fr}.idea>p{padding-top:0}.idea{padding:72px var(--x)}
+.steps{grid-template-columns:1fr}.step{display:grid;grid-template-columns:54px 1fr;gap:4px 16px}.step svg{grid-row:span 3;margin:0;width:44px;height:54px}
+.pair,.trio{grid-template-columns:1fr}.shot img{border-radius:16px}
+.phones{padding:36px 0;border-radius:var(--r)}.phones .strip{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 20px 8px;scrollbar-width:none}.phones .strip::-webkit-scrollbar{display:none}.phones .ph{flex:0 0 62%;scroll-snap-align:center}.phones .ph:nth-child(even){margin-top:0}.phones .row-cap{padding:0 var(--in)}
+.dec-row{gap:8px}.sol-row{grid-template-columns:1fr;gap:20px;padding:32px var(--in)}.sol-t{position:static}.sol{padding-top:64px}
+.next,.next .in{min-height:380px}.next .in{padding:24px var(--in)}
+.lead{padding:48px var(--in)}.lead form{grid-template-columns:1fr}
+.more{padding:24px var(--in)}
+}
+
+/* ===== site design system (same as home / development) =====
+   gutter 20 / 16 · sections 120 / 48 · h2 56 / 32, 600, -0.035em · body 17 · lead 22 · dark blocks edge to edge, r 64 / 40
+   two columns split at the middle of the page · one left line for all text · no small labels above headings */
+:root{--g:20px;--in:0px;--x:var(--g);--gap:0px;--cols:minmax(0,1fr) minmax(0,1fr)}
+.lbl{display:none}
+.next .lbl{display:block}
+.hero{padding:140px var(--g) 0}
+.h-top>div:first-child,.two>div:first-child,.idea>div:first-child,.proc-h>div:first-child,.lead>div:first-child,.sol-t{padding-right:40px}
+.sec-h,.two h2,.idea h2,.lead h2{font-size:56px;font-weight:600;line-height:1.05;letter-spacing:-.035em;margin:0!important}
+.facts{padding:120px var(--g) 0}
+.intro{padding:120px var(--g)}
+.intro p{font-size:36px;font-weight:600;line-height:1;letter-spacing:-.035em;max-width:1100px}
+.dk{margin:0;padding:120px var(--g);border-radius:64px}
+.txt p{font-size:22px;line-height:1.25;font-weight:400}
+.goals li{font-size:17px}
+.idea{padding:120px var(--g)}
+.idea>p{padding-top:0;font-size:22px;font-weight:500;line-height:1.25;letter-spacing:-.02em}
+.proc-h{margin-bottom:64px}.proc-h p{font-size:17px}
+.step h3{font-size:22px;font-weight:600;letter-spacing:-.02em}.step p{font-size:15px}
+.sol{padding:120px var(--g)}
+.sol-h{padding:0;margin-bottom:64px}
+.sol-row{padding:40px 0}
+.sol-t h3{font-size:36px;font-weight:600;line-height:1;letter-spacing:-.035em}
+.sol-t p{font-size:17px;line-height:1.25}
+.sol-t span{font-size:15px}
+.sol-row img,.phones img{border-radius:24px}
+.mob{margin:0}.phones{border-radius:64px;padding:120px var(--g)}
+.res .note{font-size:15px}
+.next{margin:20px var(--g) 0;border-radius:64px}.next .in{padding:40px var(--g)}
+.all{padding:40px var(--g) 0}
+.lead{margin:120px 0 0;padding:120px var(--g);border-radius:64px}
+.lead>div>p{font-size:17px}
+.more{padding:40px var(--g);border-radius:24px}
+.ft{padding:64px var(--g) 28px}
+.cover{border-radius:24px;margin-top:64px}
+@media (max-width:900px){
+:root{--g:16px}
+.h-top>div:first-child,.two>div:first-child,.idea>div:first-child,.proc-h>div:first-child,.lead>div:first-child,.sol-t{padding-right:0}
+.two,.idea,.proc-h,.lead,.sol-row{gap:24px}
+.sec-h,.two h2,.idea h2,.lead h2{font-size:32px}
+.hero{padding-top:100px}
+.facts,.intro,.idea,.sol{padding-top:48px;padding-bottom:48px}
+.intro p{font-size:24px}
+.dk,.lead,.phones{padding:48px var(--g);border-radius:40px}
+.txt p,.idea>p{font-size:17px}
+.sol-t h3{font-size:24px}
+.sol-row{padding:24px 0}
+.next{border-radius:40px}
+.lead{margin-top:48px}
+}
+.mob+.dk,.dk+.dk,.dk+.mob,.dk+.next{margin-top:20px}.phones .row-cap b{display:none}.phones .row-cap{display:block;text-align:center;max-width:none}
+@media (prefers-reduced-motion:reduce){.nd-c{transition:none!important}*{transition:none!important;scroll-behavior:auto!important}.rv-up{opacity:1;transform:none}.cover img{transform:none}}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "YARUS — A residential pre-sale landing page that builds an early-access list before sales open.", "headline": "YARUS — residential pre-sale landing page: case study | Brilliant", "description": "An early-access landing page for a 34-storey lakeside residential tower in Kyiv: a 14-screen structure, choosing an apartment by height tier, pre-sale terms, design and development.", "url": "https://www.vbrilliant.com/en/cases/yarus", "image": "https://www.vbrilliant.com/assets/cases/yarus/d00.webp", "inLanguage": "en", "genre": "Residential real estate", "creator": {"@type": "Person", "name": "Victor Brilliant", "url": "https://www.vbrilliant.com/en/"}, "dateCreated": "2026"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.vbrilliant.com/en/"}, {"@type": "ListItem", "position": 2, "name": "Projects", "item": "https://www.vbrilliant.com/en/projects"}, {"@type": "ListItem", "position": 3, "name": "YARUS", "item": "https://www.vbrilliant.com/en/cases/yarus"}]}</script>
+<link rel="alternate" hreflang="uk" href="https://www.vbrilliant.com/cases/yarus"><link rel="alternate" hreflang="en" href="https://www.vbrilliant.com/en/cases/yarus"><link rel="alternate" hreflang="x-default" href="https://www.vbrilliant.com/cases/yarus"><script src="/assets/lang.js?v=8a50db20" defer></script></head>
+<body>
+<a class="skip" href="#main">Skip to content</a><header class="hdr"><a class="chip logo" href="/en/" aria-label="Brilliant — home"><img src="/assets/logo.png" alt="Brilliant" width="56" height="28"></a><span class="chip"><nav aria-label="Main navigation"><a href="/en/projects" aria-current=page>Projects</a><a href="/en/development">Developers</a><a href="/en/#approach">Approach</a><a href="/en/contacts">Contacts</a></nav></span><span class="chip cta"><a href="/en/contacts">Discuss a project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a></span><button class="chip burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mm"><i></i><i></i><i></i></button></header><div class="mm" id="mm"><a href="/en/">Home</a><a href="/en/projects">Projects</a><a href="/en/development">Developers</a><a href="/en/#approach">Approach</a><a href="/en/contacts">Contacts</a><a class="mm-cta" href="/en/contacts">Discuss a project</a></div>
+<main id="main">
+<section class="hero">
+<nav class="crumbs" aria-label="Breadcrumbs"><a href="/en/">Home</a><span aria-hidden="true">/</span><a href="/en/projects">Projects</a><span aria-hidden="true">/</span><span aria-current="page">YARUS</span></nav>
+<div class="h-top">
+<div><h1 class="h-title">YARUS</h1><p class="h-tag">A residential pre-sale landing page that builds an early-access list before sales open.</p></div>
+<div><dl class="meta"><div><dt>Client</dt><dd>Residential developer, Kyiv</dd></div><div><dt>Industry</dt><dd>Residential real estate</dd></div><div><dt>Format</dt><dd>Concept</dd></div><div><dt>Year</dt><dd>2026</dd></div><div class="full"><dt>What we did</dt><dd>Structure and copy, Art direction, Design, Development, Two languages</dd></div></dl>
+<div class="h-go"><a class="btn" href="https://yarus.vbrilliant.com/" target="_blank" rel="noopener">Open website <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a><a class="btn out" href="#lead">I want the same</a></div></div>
+</div>
+<div class="cover"><img src="/assets/cases/yarus/d00.webp" srcset="/assets/cases/yarus/d00-900.webp 900w, /assets/cases/yarus/d00.webp 1800w" sizes="100vw" width="1800" height="1146" alt="YARUS — first screen of the website" fetchpriority="high" decoding="async"><span class="kind">Concept</span></div>
+</section>
+<section class="facts" aria-label="The project in numbers"><div class="fact"><b aria-label="34 "><span aria-hidden="true"><span class="nd"><span class="nd-c" style="--from:0em;--to:-13em"><span class="gt">0</span><span class="gt">1</span><span class="gt">2</span><span class="gt">3</span><span class="gt">4</span><span class="gt">5</span><span class="gt">6</span><span class="gt">7</span><span class="gt">8</span><span class="gt">9</span><span class="gt">0</span><span class="gt">1</span><span class="gt">2</span><span class="gt">3</span></span></span><span class="nd"><span class="nd-c" style="--from:-10em;--to:-6em"><span class="gt">0</span><span class="gt">9</span><span class="gt">8</span><span class="gt">7</span><span class="gt">6</span><span class="gt">5</span><span class="gt">4</span><span class="gt">3</span><span class="gt">2</span><span class="gt">1</span><span class="gt">0</span></span></span></span></b><p>floors, 4 tiers with gardens</p></div><div class="fact"><b aria-label="168 "><span aria-hidden="true"><span class="nd"><span class="nd-c" style="--from:0em;--to:-11em"><span class="gt">0</span><span class="gt">1</span><span class="gt">2</span><span class="gt">3</span><span class="gt">4</span><span class="gt">5</span><span class="gt">6</span><span class="gt">7</span><span class="gt">8</span><span class="gt">9</span><span class="gt">0</span><span class="gt">1</span></span></span><span class="nd"><span class="nd-c" style="--from:-10em;--to:-4em"><span class="gt">0</span><span class="gt">9</span><span class="gt">8</span><span class="gt">7</span><span class="gt">6</span><span class="gt">5</span><span class="gt">4</span><span class="gt">3</span><span class="gt">2</span><span class="gt">1</span><span class="gt">0</span></span></span><span class="nd"><span class="nd-c" style="--from:0em;--to:-18em"><span class="gt">0</span><span class="gt">1</span><span class="gt">2</span><span class="gt">3</span><span class="gt">4</span><span class="gt">5</span><span class="gt">6</span><span class="gt">7</span><span class="gt">8</span><span class="gt">9</span><span class="gt">0</span><span class="gt">1</span><span class="gt">2</span><span class="gt">3</span><span class="gt">4</span><span class="gt">5</span><span class="gt">6</span><span class="gt">7</span><span class="gt">8</span></span></span></span></b><p>apartments from 46 m²</p></div><div class="fact"><b aria-label="14 "><span aria-hidden="true"><span class="nd"><span class="nd-c" style="--from:0em;--to:-11em"><span class="gt">0</span><span class="gt">1</span><span class="gt">2</span><span class="gt">3</span><span class="gt">4</span><span class="gt">5</span><span class="gt">6</span><span class="gt">7</span><span class="gt">8</span><span class="gt">9</span><span class="gt">0</span><span class="gt">1</span></span></span><span class="nd"><span class="nd-c" style="--from:-10em;--to:-6em"><span class="gt">0</span><span class="gt">9</span><span class="gt">8</span><span class="gt">7</span><span class="gt">6</span><span class="gt">5</span><span class="gt">4</span><span class="gt">3</span><span class="gt">2</span><span class="gt">1</span><span class="gt">0</span></span></span></span></b><p>screens in the structure</p></div><div class="fact"><b aria-label="30 days"><span aria-hidden="true"><span class="nd"><span class="nd-c" style="--from:0em;--to:-13em"><span class="gt">0</span><span class="gt">1</span><span class="gt">2</span><span class="gt">3</span><span class="gt">4</span><span class="gt">5</span><span class="gt">6</span><span class="gt">7</span><span class="gt">8</span><span class="gt">9</span><span class="gt">0</span><span class="gt">1</span><span class="gt">2</span><span class="gt">3</span></span></span><span class="nd"><span class="nd-c" style="--from:-10em;--to:-10em"><span class="gt">0</span><span class="gt">9</span><span class="gt">8</span><span class="gt">7</span><span class="gt">6</span><span class="gt">5</span><span class="gt">4</span><span class="gt">3</span><span class="gt">2</span><span class="gt">1</span><span class="gt">0</span></span></span></span><span class="gt u" aria-hidden="true">days</span></b><p>price lock for the list</p></div></section>
+<section class="intro rv-up"><p>How do you sell a building that doesn’t exist yet? Not with promises but with terms: the first price list, the best apartments, a price locked for 30 days, and no money needed to join the list.</p></section>
+<section class="dk">
+<div class="two"><div><p class="lbl">Task</p><h2 style="margin-top:14px">Where we started</h2></div>
+<div class="txt"><p>A 34-storey residential tower by a lake in Kyiv, with public sales still ahead. The developer needs to gather first buyers in advance to open sales with a queue.</p><p>Off-plan buyers are cautious. The site had to remove the fear of “what if it never gets finished” and explain why being first pays off.</p><ul class="goals"><li><span>01</span>Explain the benefits of early access in numbers</li><li><span>02</span>Let people choose an apartment by height and view</li><li><span>03</span>Answer reliability questions before they’re asked</li></ul></div></div>
+</section>
+<section class="idea"><div><p class="lbl">Idea</p><h2>Tiers</h2></div><p class="rv-up">The tower is made of four tiers, and each one ends in a garden. We made tiers the main logic of choice: not “floor 23” but “Tier III, a garden at 72 metres, views of the lake and the city centre”. So people choose their life at height, not square metres.</p></section>
+<section class="dk proc">
+<div class="proc-h"><div><p class="lbl">Process</p><h2 class="sec-h" style="margin-top:14px">Cut in five stages</h2></div><p>Every project goes the same way: from a raw idea to a website that shines and works.</p></div>
+<div class="steps"><div class="step"><svg viewBox="0 0 54 66" aria-hidden="true"><path d="M27 2 L8 22 L27 30 Z"/><path d="M27 2 L46 22 L27 30 Z"/><path d="M8 22 L27 30 L27 64 Z"/><path d="M46 22 L27 30 L27 64 Z"/><path d="M8 22 L2 24 L27 64 Z M46 22 L52 24 L27 64 Z"/></svg><small>Stage 01</small><h3>Raw material</h3><p>How new builds are sold in Kyiv, what scares buyers at launch, which early-access terms work.</p></div><div class="step"><svg viewBox="0 0 54 66" aria-hidden="true"><path d="M27 2 L8 22 L27 30 Z"/><path d="M27 2 L46 22 L27 30 Z"/><path d="M8 22 L27 30 L27 64 Z"/><path d="M46 22 L27 30 L27 64 Z"/><path d="M8 22 L2 24 L27 64 Z M46 22 L52 24 L27 64 Z"/></svg><small>Stage 02</small><h3>Marking</h3><p>14 screens: first screen, why now, location, gardens, autonomy, apartments, trust, prices, steps, FAQ and form.</p></div><div class="step"><svg viewBox="0 0 54 66" aria-hidden="true"><path d="M27 2 L8 22 L27 30 Z"/><path d="M27 2 L46 22 L27 30 Z"/><path d="M8 22 L27 30 L27 64 Z"/><path d="M46 22 L27 30 L27 64 Z"/><path d="M8 22 L2 24 L27 64 Z M46 22 L52 24 L27 64 Z"/></svg><small>Stage 03</small><h3>Cutting</h3><p>A warm, light style with lots of air, a thin grotesque and large numbers with small captions.</p></div><div class="step"><svg viewBox="0 0 54 66" aria-hidden="true"><path d="M27 2 L8 22 L27 30 Z"/><path d="M27 2 L46 22 L27 30 Z"/><path d="M8 22 L27 30 L27 64 Z"/><path d="M46 22 L27 30 L27 64 Z"/><path d="M8 22 L2 24 L27 64 Z M46 22 L52 24 L27 64 Z"/></svg><small>Stage 04</small><h3>Setting</h3><p>Tier selection on a tower photo, interior galleries, a price growth scale, a FAQ accordion, a Kyiv clock in the header.</p></div><div class="step"><svg viewBox="0 0 54 66" aria-hidden="true"><path d="M27 2 L8 22 L27 30 Z"/><path d="M27 2 L46 22 L27 30 Z"/><path d="M8 22 L27 30 L27 64 Z"/><path d="M46 22 L27 30 L27 64 Z"/><path d="M8 22 L2 24 L27 64 Z M46 22 L52 24 L27 64 Z"/></svg><small>Stage 05</small><h3>Polish</h3><p>English and Ukrainian versions, a mobile “Get prices” button always at the bottom, its own domain.</p></div></div>
+</section>
+<section class="sol" aria-label="Solutions"><div class="sol-h"><p class="lbl">Solutions</p><h2 class="sec-h" style="margin-top:14px">What we did and why</h2></div><div class="sol-row rv-up"><div class="sol-t"><span>01</span><h3>Four figures on the first screen</h3><p>Floors, gardens, a minute to the lake, completion date. The essentials about the building read before any copy.</p></div><figure class="shot" style="margin:0"><img src="/assets/cases/yarus/d00.webp" srcset="/assets/cases/yarus/d00-900.webp 900w, /assets/cases/yarus/d00.webp 1800w" sizes="(max-width:900px) 100vw, 58vw" width="1800" height="1146" alt="YARUS: Four figures on the first screen" loading="lazy" decoding="async" class="" data-zoom="/assets/cases/yarus/d00.webp"></figure></div><div class="sol-row rv-up"><div class="sol-t"><span>02</span><h3>Terms instead of promises</h3><p>The first price list, 40 apartments for the list, a 30-day price lock and zero deposit to join. A reason to leave a request right now.</p></div><figure class="shot" style="margin:0"><img src="/assets/cases/yarus/d01.webp" srcset="/assets/cases/yarus/d01-900.webp 900w, /assets/cases/yarus/d01.webp 1800w" sizes="(max-width:900px) 100vw, 58vw" width="1800" height="1146" alt="YARUS: Terms instead of promises" loading="lazy" decoding="async" class="" data-zoom="/assets/cases/yarus/d01.webp"></figure></div><div class="sol-row rv-up"><div class="sol-t"><span>03</span><h3>Choosing by view, not by floor</h3><p>A click on a tier shows the height, garden, sizes and the view from the window. People choose how they’ll live, not a number in a table.</p></div><figure class="shot" style="margin:0"><img src="/assets/cases/yarus/d05.webp" srcset="/assets/cases/yarus/d05-900.webp 900w, /assets/cases/yarus/d05.webp 1800w" sizes="(max-width:900px) 100vw, 58vw" width="1800" height="1146" alt="YARUS: Choosing by view, not by floor" loading="lazy" decoding="async" class="" data-zoom="/assets/cases/yarus/d05.webp"></figure></div><div class="sol-row rv-up"><div class="sol-t"><span>04</span><h3>Interiors sell a feeling</h3><p>Stone, oak, linen and floor-to-ceiling windows. The gallery shows what a home that doesn’t exist yet looks like.</p></div><figure class="shot" style="margin:0"><img src="/assets/cases/yarus/d06.webp" srcset="/assets/cases/yarus/d06-900.webp 900w, /assets/cases/yarus/d06.webp 1800w" sizes="(max-width:900px) 100vw, 58vw" width="1800" height="1146" alt="YARUS: Interiors sell a feeling" loading="lazy" decoding="async" class="" data-zoom="/assets/cases/yarus/d06.webp"></figure></div><div class="sol-row rv-up"><div class="sol-t"><span>05</span><h3>Fear removed in advance</h3><p>Documents, a separate account and a site camera come before the prices. The main objection is answered before it’s raised.</p></div><figure class="shot" style="margin:0"><img src="/assets/cases/yarus/d09.webp" srcset="/assets/cases/yarus/d09-900.webp 900w, /assets/cases/yarus/d09.webp 1800w" sizes="(max-width:900px) 100vw, 58vw" width="1800" height="1146" alt="YARUS: Fear removed in advance" loading="lazy" decoding="async" class="" data-zoom="/assets/cases/yarus/d09.webp"></figure></div><div class="sol-row rv-up"><div class="sol-t"><span>06</span><h3>Price over time</h3><p>A scale from early access to completion shows what waiting costs. The decision to wait gets its own price.</p></div><figure class="shot" style="margin:0"><img src="/assets/cases/yarus/d10.webp" srcset="/assets/cases/yarus/d10-900.webp 900w, /assets/cases/yarus/d10.webp 1800w" sizes="(max-width:900px) 100vw, 58vw" width="1800" height="1146" alt="YARUS: Price over time" loading="lazy" decoding="async" class="" data-zoom="/assets/cases/yarus/d10.webp"></figure></div></section>
+<section class="mob" aria-label="Mobile version"><div class="phones rv-up"><div class="strip"><figure class="ph"><img src="/assets/cases/yarus/m00.webp" width="600" height="1298" alt="YARUS — mobile version" loading="lazy" decoding="async" class="" data-zoom="/assets/cases/yarus/m00.webp"></figure><figure class="ph"><img src="/assets/cases/yarus/m01.webp" width="600" height="1298" alt="YARUS — mobile version" loading="lazy" decoding="async" class="" data-zoom="/assets/cases/yarus/m01.webp"></figure><figure class="ph"><img src="/assets/cases/yarus/m04.webp" width="600" height="1298" alt="YARUS — mobile version" loading="lazy" decoding="async" class="" data-zoom="/assets/cases/yarus/m04.webp"></figure><figure class="ph"><img src="/assets/cases/yarus/m05.webp" width="600" height="1298" alt="YARUS — mobile version" loading="lazy" decoding="async" class="" data-zoom="/assets/cases/yarus/m05.webp"></figure><figure class="ph"><img src="/assets/cases/yarus/m07.webp" width="600" height="1298" alt="YARUS — mobile version" loading="lazy" decoding="async" class="" data-zoom="/assets/cases/yarus/m07.webp"></figure></div><p class="row-cap"><b></b><span>Mobile version: the prices button always within reach.</span></p></div></section>
+<section class="dk res"><div class="two"><div><p class="lbl">Result</p><h2 style="margin-top:14px">What the developer gets</h2></div><div class="txt"><p>A pre-sale tool: a list of interested buyers before sales open, and a sales team calling people who have already seen prices and layouts.</p><p class="note">Concept project: the residential tower and developer are fictional, figures are illustrative. The website is fully working.</p></div></div></section>
+<a class="next" href="/en/cases/nody"><img src="/assets/work-nody.webp" alt="" loading="lazy" decoding="async"><span class="in"><span class="lbl">Next case</span><span class="go"><b>NODY</b><span>A website for a studio that furnishes apartments turnkey and sells a service, not a catalogue. <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></span></span></span></a>
+<nav class="all" aria-label="All cases"><a href="/en/cases/tysha">TYSHA</a><a href="/en/cases/strata">STRATA</a><a href="/en/cases/yarus" aria-current=page>YARUS</a><a href="/en/cases/nody">NODY</a><a href="/en/cases/grey-agency">Grey Agency</a><a href="/en/cases/vibe-trvl">Vibe Trvl</a><a href="/en/cases/october">October</a></nav>
+<section class="lead" id="lead"><div><h2>Want the same for your project?</h2><p>Tell me briefly about the task. I’ll reply personally within 24 hours, and give you the price and timeline after a short call.</p></div>
+<form novalidate data-case="YARUS"><label>Name<input name="name" autocomplete="name" placeholder="Your name"></label><label>Telegram, WhatsApp or phone<input name="contact" autocomplete="tel" placeholder="@username or +44…"></label>
+<button class="btn w" type="submit">Discuss a project <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></button><p class="fine">By clicking the button you agree to the <a href="/en/privacy">privacy policy</a>.</p></form></section>
+</main>
+<footer class="ft"><div><img src="/assets/logo.png" alt="Brilliant" width="52" height="26" loading="lazy"><p>© 2026 Victor Brilliant · Turnkey websites that bring in leads</p></div><nav aria-label="Links"><a href="/en/projects">All projects</a><a href="/en/development">Developers</a><a href="https://t.me/vitya_brilliant" target="_blank" rel="noopener">Telegram</a><a href="https://www.instagram.com/vitya_brilliant/" target="_blank" rel="noopener">Instagram</a><a href="https://www.behance.net/006b19c5" target="_blank" rel="noopener">Behance</a><a href="mailto:hello@vbrilliant.com">hello@vbrilliant.com</a></nav></footer>
+<script>
+(function(){
+var b=document.body,h=document.querySelector('.burger');
+if(h)h.addEventListener('click',function(){var o=b.classList.toggle('mm-open');h.setAttribute('aria-expanded',o);});
+document.querySelectorAll('.mm a').forEach(function(a){a.addEventListener('click',function(){b.classList.remove('mm-open');});});
+addEventListener('keydown',function(e){if(e.key==='Escape'){b.classList.remove('mm-open');lbClose();}});
+var io='IntersectionObserver' in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');if(e.target.classList.contains('steps'))lightSteps(e.target);io.unobserve(e.target);}});},{rootMargin:'0px 0px -12% 0px'}):null;
+document.querySelectorAll('.rv-up,.cover,.steps').forEach(function(el){io?io.observe(el):el.classList.add('in');});
+var fx=document.querySelector('.facts');if(fx){if('IntersectionObserver' in window){var fo=new IntersectionObserver(function(es){if(es[0].isIntersecting){fx.classList.add('go');fo.disconnect();}},{threshold:.4});fo.observe(fx);}else fx.classList.add('go');}
+function lightSteps(s){s.querySelectorAll('.step').forEach(function(st,i){setTimeout(function(){st.querySelectorAll('path').forEach(function(p,j){if(j<=i)p.classList.add('on');});},250+i*260);});}
+if(!io)document.querySelectorAll('.steps').forEach(lightSteps);
+// lightbox
+var lb=document.createElement('div');lb.className='lb';lb.setAttribute('role','dialog');lb.setAttribute('aria-modal','true');lb.setAttribute('aria-label','Image viewer');lb.innerHTML='<img alt=""><button type="button" aria-label="Close">×</button>';b.appendChild(lb);
+var li=lb.querySelector('img');
+function lbClose(){lb.classList.remove('open');li.src='';}
+lb.addEventListener('click',lbClose);
+document.querySelectorAll('[data-zoom]').forEach(function(im){if(im.closest('.cover,.next'))return;im.addEventListener('click',function(){li.src=im.getAttribute('data-zoom');li.alt=im.alt;lb.classList.add('open');lb.querySelector('button').focus();});});
+// lead form -> /api/lead (same as the main site)
+var t0=Date.now(),f=document.querySelector('.lead form');
+if(f)f.addEventListener('submit',function(e){e.preventDefault();var n=f.name.value.trim(),c=f.contact.value.trim(),bad=false;
+[[f.name,n.length<2],[f.contact,c.length<5]].forEach(function(x){x[0].setAttribute('aria-invalid',x[1]);if(x[1])bad=true;});if(bad)return;
+var btn=f.querySelector('button');btn.disabled=true;btn.firstChild.nodeValue='Sending… ';
+var fields='Name: '+n+'\nContact: '+c+'\nCase: '+f.getAttribute('data-case'),fd=new FormData();
+fd.append('form','EN · Case · '+f.getAttribute('data-case'));fd.append('fields',fields);fd.append('page',location.pathname);fd.append('t',String(Date.now()-t0));fd.append('k','b'+(fields.length*7+13));
+fetch('/api/lead',{method:'POST',body:fd}).then(function(r){return r.json();}).then(function(d){if(!d.ok)throw 0;f.innerHTML='<p class="ok">Thank you! I’ll reply personally within 24 hours.</p>';}).catch(function(){btn.disabled=false;btn.firstChild.nodeValue='Discuss a project ';alert('Couldn’t send it. Please message me on Telegram: @vitya_brilliant');});});
+})();
+</script>
+</body>
+</html>

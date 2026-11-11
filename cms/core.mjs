@@ -4,6 +4,8 @@
 //   • site.edits = [{ page: 'home'|'projects'|'dev'|'contacts'|'privacy'|'404'|'*', type: 'text'|'img', from, to }]
 //     are applied in order (chain-safe: A→B then B→C works on files that hold A or B).
 
+const CASE_IDS = ['tysha', 'strata', 'yarus', 'nody', 'grey-agency', 'vibe-trvl', 'october'];
+const CASE_NAMES = { tysha: 'TYSHA', strata: 'STRATA', yarus: 'YARUS', nody: 'NODY', 'grey-agency': 'Grey Agency', 'vibe-trvl': 'Vibe Trvl', october: 'October' };
 export const PAGES = [
   { id: 'home', html: 'index.html', js: 'assets/app.js', title: 'Головна' },
   { id: 'projects', html: 'projects.html', js: 'assets/app-projects.js', title: 'Проєкти' },
@@ -11,11 +13,38 @@ export const PAGES = [
   { id: 'contacts', html: 'contacts.html', js: 'assets/app-contacts.js', title: 'Контакти' },
   { id: 'privacy', html: 'privacy.html', js: null, title: 'Політика' },
   { id: '404', html: '404.html', js: null, title: '404' },
-  ...['tysha', 'strata', 'yarus', 'nody', 'grey-agency', 'vibe-trvl', 'october'].map((c) => ({ id: 'case-' + c, html: `cases/${c}.html`, js: null, title: 'Кейс · ' + ({ tysha: 'TYSHA', strata: 'STRATA', yarus: 'YARUS', nody: 'NODY', 'grey-agency': 'Grey Agency', 'vibe-trvl': 'Vibe Trvl', october: 'October' })[c], group: 'cases' })),
+  ...CASE_IDS.map((c) => ({ id: 'case-' + c, html: `cases/${c}.html`, js: null, title: 'Кейс · ' + CASE_NAMES[c], group: 'cases' })),
+  { id: 'en-home', html: 'en/index.html', js: 'assets/en/app.js', title: 'EN · Home', group: 'en' },
+  { id: 'en-projects', html: 'en/projects.html', js: 'assets/en/app-projects.js', title: 'EN · Projects', group: 'en' },
+  { id: 'en-dev', html: 'en/development.html', js: 'assets/en/app-development.js', title: 'EN · Developers', group: 'en' },
+  { id: 'en-contacts', html: 'en/contacts.html', js: 'assets/en/app-contacts.js', title: 'EN · Contacts', group: 'en' },
+  { id: 'en-privacy', html: 'en/privacy.html', js: null, title: 'EN · Privacy', group: 'en' },
+  ...CASE_IDS.map((c) => ({ id: 'en-case-' + c, html: `en/cases/${c}.html`, js: null, title: 'EN · Case · ' + CASE_NAMES[c], group: 'en' })),
 ];
+export const langOf = (page) => (/^en-/.test(page || '') ? 'en' : 'uk');
+const basePage = (page) => String(page || '').replace(/^en-/, '');
 // a project with its own case page links there; otherwise to the live site
-export const linkOf = (p) => (p && p.case ? `/cases/${p.id}` : (p && p.url) || '#');
+export const linkOf = (p, lang) => (p && p.case ? `${lang === 'en' ? '/en' : ''}/cases/${p.id}` : (p && p.url) || '#');
+// English copy of a project / review lives in p.en / r.en (same field names); empty fields fall back to Ukrainian
+export const loc = (o, lang) => {
+  if (lang !== 'en' || !o || !o.en) return o;
+  const m = { ...o };
+  for (const [k, v] of Object.entries(o.en)) {
+    if (k === 'dev' && v && o.dev) { const d = { ...o.dev }; for (const [dk, dv] of Object.entries(v)) if (dv !== '' && dv != null && !(Array.isArray(dv) && !dv.length)) d[dk] = dv; m.dev = d; }
+    else if (v !== '' && v != null && !(Array.isArray(v) && !v.length)) m[k] = v;
+  }
+  return m;
+};
+const L10N = {
+  uk: { viewCase: 'Дивитися кейс', viewSite: 'Дивитися сайт', openSite: 'Відкрити сайт', viewCaseL: 'дивитися кейс', openSiteL: 'відкрити сайт', badge: 'Концепт', all: 'Усі', proj: 'проєкт Brilliant', q: ['«', '»'], contacts: '/contacts',
+    slotAria: 'Тут може бути ваш проєкт — обговорити', slotTag: 'Слот 2026', slotFree: '● Вільно', slotTitle: 'Тут може бути ваш проєкт', slotName: 'Ваш проєкт', slotText: 'Розкажіть про задачу. Ціну й строки назву після короткого дзвінка, відповім протягом 24 годин.', slotCta: 'Обговорити проєкт' },
+  en: { viewCase: 'View case', viewSite: 'View website', openSite: 'Open website', viewCaseL: 'view case', openSiteL: 'open website', badge: 'Concept', all: 'All', proj: 'a Brilliant project', q: ['“', '”'], contacts: '/en/contacts',
+    slotAria: 'Your project could be here — let’s talk', slotTag: 'Slot 2026', slotFree: '● Available', slotTitle: 'Your project could be here', slotName: 'Your project', slotText: 'Tell me about the task. I’ll give you the price and timeline after a short call, with a reply within 24 hours.', slotCta: 'Discuss a project' },
+};
+const CATS_EN = { re: 'Real estate', ag: 'Agencies', br: 'Brands', art: 'Art' };
 const tgt = (p) => (p && p.case ? '' : ' target="_blank" rel="noopener"');
+// labels a site.json value may carry in Ukrainian; shown in English on /en pages
+const LABEL_EN = { 'Дивитися сайт': 'View website', 'Дивитися кейс': 'View case', 'Відкрити сайт': 'Open website' };
 
 // ---------- helpers ----------
 export const escH = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -23,7 +52,7 @@ const brk = (s) => escH(s).replace(/\r?\n/g, '<br />');
 const v900 = (src) => src.replace(/\.webp$/, '-900.webp');
 const ARROW_A = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>';
 const ARROW_B = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg>';
-const BADGE = '<span class="cpt-b">Концепт</span>';
+
 export const CATS = { re: 'Нерухомість', ag: 'Агенції', br: 'Бренди', art: 'Арт' };
 
 // in JS files the markup sits inside html`…` template literals
@@ -70,20 +99,27 @@ function reticle() {
     + br(150, 150, 1, 1) + br(250, 150, -1, 1) + br(150, 250, 1, -1) + br(250, 250, -1, -1)
     + `<circle cx="200" cy="200" r="4" fill="#3D8BFF"><animate attributeName="r" values="4;7;4" dur="2.4s" repeatCount="indefinite"></animate></circle></svg>`;
 }
-function slotCard(i) {
+function slotCard(i, t) {
   return `<div class="ru" style="--i: ${i % 2}; position: relative; display: flex; flex-direction: column; gap: 20px">\n`
-    + `<a href="/contacts" aria-label="Тут може бути ваш проєкт — обговорити" style="position: relative; display: block; aspect-ratio: 1920 / 1080; border-radius: 24px; overflow: hidden; color: #0F0F0F; text-decoration: none; background: transparent; box-shadow: inset 0 0 0 1px rgba(15,15,15,0.14)" class="w-slot">`
+    + `<a href="${t.contacts}" aria-label="${t.slotAria}" style="position: relative; display: block; aspect-ratio: 1920 / 1080; border-radius: 24px; overflow: hidden; color: #0F0F0F; text-decoration: none; background: transparent; box-shadow: inset 0 0 0 1px rgba(15,15,15,0.14)" class="w-slot">`
     + reticle()
-    + `<span style="position: absolute; left: 24px; top: 22px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(15,15,15,0.45)">Слот 2026</span>`
-    + `<span style="position: absolute; right: 24px; top: 22px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: #3D8BFF">● Вільно</span>`
-    + `<span style="position: absolute; left: 0; right: 0; bottom: 26px; text-align: center; font-size: clamp(22px, 2.4vw, 34px); font-weight: 600; letter-spacing: -0.03em">Тут може бути ваш проєкт</span></a>\n`
-    + `<div style="display: flex; flex-direction: column; gap: 6px"><p style="margin: 0; font-size: 22px; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em">Ваш проєкт</p><p class="bd mut-l" style="max-width: 520px">Розкажіть про задачу. Ціну й строки назву після короткого дзвінка, відповім протягом 24 годин.</p><a href="/contacts" class="w-go" style="text-decoration: none">Обговорити проєкт${ARROW_A}</a></div>\n</div>\n`;
+    + `<span style="position: absolute; left: 24px; top: 22px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(15,15,15,0.45)">${t.slotTag}</span>`
+    + `<span style="position: absolute; right: 24px; top: 22px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: #3D8BFF">${t.slotFree}</span>`
+    + `<span style="position: absolute; left: 0; right: 0; bottom: 26px; text-align: center; font-size: clamp(22px, 2.4vw, 34px); font-weight: 600; letter-spacing: -0.03em">${t.slotTitle}</span></a>\n`
+    + `<div style="display: flex; flex-direction: column; gap: 6px"><p style="margin: 0; font-size: 22px; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em">${t.slotName}</p><p class="bd mut-l" style="max-width: 520px">${t.slotText}</p><a href="${t.contacts}" class="w-go" style="text-decoration: none">${t.slotCta}${ARROW_A}</a></div>\n</div>\n`;
 }
 
 // ---------- blocks ----------
-function blocks(site, exists) {
-  const P = site.projects || [];
-  const R = (site.reviews || []).filter((r) => r.quote && r.name);
+function blocks(site, exists, lang = 'uk') {
+  const t = L10N[lang], en = lang === 'en';
+  const BADGE = `<span class="cpt-b">${t.badge}</span>`;
+  const lbl = (s) => (en && LABEL_EN[s]) || s;
+  const linkOf_ = (p) => linkOf(p, lang);
+  const P = (site.projects || []).map((p) => loc(p, lang));
+  const R = (site.reviews || []).map((r) => loc(r, lang)).filter((r) => r.quote && r.name);
+  const C = en ? CATS_EN : CATS;
+  // /en pages live one folder down: site.json image paths (assets/…) must be root-relative there
+  const fixA = en ? (x) => x.replace(/(^|["\s,(])assets\//g, '$1/assets/') : (x) => x;
   const srcset = (src, w) => (src.startsWith('assets/') && exists(v900(src)) ? ` srcset="${v900(src)} 900w, ${src} ${w}w" sizes="(max-width: 1023px) 100vw, 50vw"` : '');
   const works = P.filter((p) => p.inWorks);
   const featured = works.find((p) => p.featured) || null;
@@ -93,21 +129,21 @@ function blocks(site, exists) {
     let out = '\n';
     if (featured) {
       const p = featured;
-      out += `<a class="wfeat" data-c="${p.cat}" href="${escH(linkOf(p))}"${tgt(p)} style="--i: 0; grid-column: 1 / -1; position: relative; display: flex; flex-direction: column; gap: 28px; color: #0F0F0F; text-decoration: none">\n`
+      out += `<a class="wfeat" data-c="${p.cat}" href="${escH(linkOf_(p))}"${tgt(p)} style="--i: 0; grid-column: 1 / -1; position: relative; display: flex; flex-direction: column; gap: 28px; color: #0F0F0F; text-decoration: none">\n`
         + `<div class="wf-media">${p.concept ? BADGE : ''}<img loading="lazy" decoding="async" src="${escH(p.imgWide)}"${srcset(p.imgWide, 1800)} alt="${escH(p.imgAlt || p.name)}" draggable="false" class="case-img" style="aspect-ratio: 16 / 9; border-radius: 24px; background: #1A1A1A" /></div>\n`
         + `<div class="wf-meta"><div><p class="wf-title" style="margin: 0; font-size: 48px; font-weight: 600; line-height: 0.95; letter-spacing: -0.045em">${escH(p.name)}</p><p class="bd mut-l" style="margin-top: 12px">${escH(p.location)}</p></div>`
         + `<div><p class="bd" style="margin: 0; max-width: 560px">${brk(p.longText)}</p>`
         + (p.tags && p.tags.length ? `<div style="margin-top: 18px; display: flex; gap: 6px; flex-wrap: wrap">${p.tags.map((t) => `<span class="wf-tag">${escH(t)}</span>`).join('')}</div>` : '')
-        + `<span class="w-go" aria-hidden="true">${escH(p.case ? 'Дивитися кейс' : p.linkLabel || 'Дивитися сайт')}${ARROW_A}</span></div></div>\n</a>\n`;
+        + `<span class="w-go" aria-hidden="true">${escH(p.case ? t.viewCase : lbl(p.linkLabel) || t.viewSite)}${ARROW_A}</span></div></div>\n</a>\n`;
     }
     rest.forEach((p, i) => {
-      out += `<a class="ru" data-c="${p.cat}" href="${escH(linkOf(p))}"${tgt(p)} style="--i: ${i % 2}; position: relative; display: flex; flex-direction: column; gap: 20px; color: #0F0F0F; text-decoration: none">\n`
+      out += `<a class="ru" data-c="${p.cat}" href="${escH(linkOf_(p))}"${tgt(p)} style="--i: ${i % 2}; position: relative; display: flex; flex-direction: column; gap: 20px; color: #0F0F0F; text-decoration: none">\n`
         + (p.concept ? BADGE + '\n' : '')
         + `<img loading="lazy" decoding="async" src="${escH(p.imgWide)}"${srcset(p.imgWide, 1800)} alt="${escH(p.imgAlt || p.name)}" draggable="false" class="case-img" style="aspect-ratio: 1920 / 1080; border-radius: 24px; background: #1A1A1A" />\n`
-        + `<div style="display: flex; flex-direction: column; gap: 6px"><p style="margin: 0; font-size: 22px; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em">${escH(p.name)}</p><p class="bd mut-l" style="max-width: 520px">${brk(p.cardText)}</p><span class="w-go" aria-hidden="true">${escH(p.case ? 'Дивитися кейс' : p.linkLabel || 'Дивитися сайт')}${ARROW_A}</span></div>\n</a>\n`;
+        + `<div style="display: flex; flex-direction: column; gap: 6px"><p style="margin: 0; font-size: 22px; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em">${escH(p.name)}</p><p class="bd mut-l" style="max-width: 520px">${brk(p.cardText)}</p><span class="w-go" aria-hidden="true">${escH(p.case ? t.viewCase : lbl(p.linkLabel) || t.viewSite)}${ARROW_A}</span></div>\n</a>\n`;
     });
     // an empty place in the 2-column grid becomes an invitation: «тут може бути ваш проєкт», drawn as a reticle
-    if (rest.length % 2 === 1) out += slotCard(rest.length);
+    if (rest.length % 2 === 1) out += slotCard(rest.length, t);
     return out;
   }
 
@@ -121,8 +157,8 @@ function blocks(site, exists) {
         .replace(/data-i="\d+"/, `data-i="${k}"`)
         .replace(/rotateY\([-\d.]+deg\)/, `rotateY(${ang}deg)`)
         .replace(/ data-href="[^"]*"/, '');
-      if (withHref) open = open.replace('<div class="ring-card"', `<div class="ring-card" data-href="${escH(linkOf(p))}"`);
-      out += open + E(`<img loading="lazy" decoding="async" draggable="false" src="${escH(p.imgCard || p.imgWide)}" alt="${escH(p.name)} — проєкт Brilliant" style="width: 100%; height: 260px; object-fit: cover; display: block; box-sizing: border-box; border: 1px solid #2B2B2B; border-radius: 10px; background: #1A1A1A" />`
+      if (withHref) open = open.replace('<div class="ring-card"', `<div class="ring-card" data-href="${escH(linkOf_(p))}"`);
+      out += open + E(`<img loading="lazy" decoding="async" draggable="false" src="${escH(p.imgCard || p.imgWide)}" alt="${escH(p.name)} — ${t.proj}" style="width: 100%; height: 260px; object-fit: cover; display: block; box-sizing: border-box; border: 1px solid #2B2B2B; border-radius: 10px; background: #1A1A1A" />`
         + `<div style="padding: 14px 2px 0"><p style="margin: 0; font-size: 22px; font-weight: 600; line-height: 1.2; color: ${withHref ? '#EBEBEB' : '#0F0F0F'}">${escH(p.name)}</p><p style="margin: 6px 0 0; font-size: 17px; line-height: 1.2; color: ${withHref ? 'rgba(255,255,255,0.5)' : 'rgba(15,15,15,0.55)'}">${brk(p.cardSub)}</p></div></div>\n`);
     }
     return out;
@@ -132,12 +168,12 @@ function blocks(site, exists) {
     const list = P.filter((p) => p.dev && p.dev.show);
     return '\n' + list.map((p) => {
       const d = p.dev;
-      return `<article class="cs-card"><a class="cs-cover" href="${escH(linkOf(p))}"${tgt(p)} aria-label="${escH(p.name)} — ${p.case ? 'дивитися кейс' : 'відкрити сайт'}"></a>${p.concept ? BADGE : ''}`
+      return `<article class="cs-card"><a class="cs-cover" href="${escH(linkOf_(p))}"${tgt(p)} aria-label="${escH(p.name)} — ${p.case ? t.viewCaseL : t.openSiteL}"></a>${p.concept ? BADGE : ''}`
         + `<img loading="lazy" decoding="async" src="${escH(d.img || p.imgWide)}"${srcset(d.img || '', 1200)} alt="${escH(d.imgAlt || p.name)}" class="case-img" style="aspect-ratio: 4 / 3" />`
         + `<div style="margin-top: 18px; display: flex; justify-content: space-between; align-items: baseline; gap: 12px"><p class="tu">${escH(p.name)}</p><p class="bd sm mut-l">${escH(d.location)}</p></div>`
         + (d.tags && d.tags.length ? `<div style="margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap">${d.tags.map((t) => `<span class="cs-tag">${escH(t)}</span>`).join('')}</div>` : '')
         + `<div style="margin-top: 16px">${(d.rows || []).filter((r) => r.text).map((r) => `<div class="cs-row"><p class="bd sm mut-l">${escH(r.label)}</p><p class="bd" style="margin-top: 4px">${brk(r.text)}</p></div>`).join('')}</div>`
-        + `<span class="cs-open" aria-hidden="true">${escH(p.case ? 'Дивитися кейс' : d.linkLabel || 'Відкрити сайт')}${ARROW_B}</span></article>`;
+        + `<span class="cs-open" aria-hidden="true">${escH(p.case ? t.viewCase : lbl(d.linkLabel) || t.openSite)}${ARROW_B}</span></article>`;
     }).join('\n') + '\n';
   }
 
@@ -147,7 +183,7 @@ function blocks(site, exists) {
     for (let k = 0; k < n; k++) {
       const r = R[k % R.length];
       const open = openTpl.replace(/rotateY\([-\d.]+deg\)/, `rotateY(${(k * 30).toFixed(1)}deg)`);
-      out += open + E(`<blockquote style="margin: 0; font-size: 22px; font-weight: 500; line-height: 1.3; letter-spacing: -0.015em">«${brk(r.quote)}»</blockquote>`
+      out += open + E(`<blockquote style="margin: 0; font-size: 22px; font-weight: 500; line-height: 1.3; letter-spacing: -0.015em">${t.q[0]}${brk(r.quote)}${t.q[1]}</blockquote>`
         + `<figcaption style="display: flex; align-items: center; gap: 14px">`
         + (r.photo ? `<img src="${escH(r.photo)}" alt="${escH(r.name)}" loading="lazy" style="width: 52px; height: 52px; border-radius: 50%; object-fit: cover; flex: 0 0 52px; display: block; background: #D9DDE5" />` : '')
         + `<span class="bd sm"><strong>${escH(r.name)}</strong><br /><span class="mut-l">${escH(r.role)}</span></span></figcaption></figure>\n`);
@@ -156,32 +192,33 @@ function blocks(site, exists) {
   }
 
   function tabs(s) {
-    const cnt = { all: works.length }; for (const k in CATS) cnt[k] = works.filter((p) => p.cat === k).length;
-    s = s.replace(/>Усі<sup>\d+<\/sup>/g, `>Усі<sup>${cnt.all}</sup>`);
-    for (const k in CATS) s = s.replace(new RegExp(`>${CATS[k]}<sup>\\d+</sup>`, 'g'), `>${CATS[k]}<sup>${cnt[k]}</sup>`);
+    const cnt = { all: works.length }; for (const k in C) cnt[k] = works.filter((p) => p.cat === k).length;
+    s = s.replace(new RegExp(`>${t.all}<sup>\\d+</sup>`, 'g'), `>${t.all}<sup>${cnt.all}</sup>`);
+    for (const k in C) s = s.replace(new RegExp(`>${C[k]}<sup>\\d+</sup>`, 'g'), `>${C[k]}<sup>${cnt[k]}</sup>`);
     return s;
   }
 
-  return function apply(s, js, page) {
+  return function apply(s, js, page0) {
+    const page = basePage(page0);
     const T = js ? forJS : (x) => x;
     let rg;
-    if ((rg = inner(s, /<div class="wgrid"[^>]*>/g))) s = splice(s, rg, T(worksGrid()));
+    if ((rg = inner(s, /<div class="wgrid"[^>]*>/g))) s = splice(s, rg, T(fixA(worksGrid())));
     if (page === 'home' || page === 'projects') s = tabs(s);
     if (page === 'home' && (rg = wrapper(s, /<div class="ring-card"/))) {
       const tpl = firstOpenTag(s.slice(rg[0]), /<div class="ring-card"[^>]*>/);
-      s = splice(s, rg, ring(P.filter((p) => p.inGallery), 14, tpl, false, T));
+      s = splice(s, rg, ring(P.filter((p) => p.inGallery), 14, tpl, false, (x) => T(fixA(x))));
     }
     if (page === 'dev' && js) s = s.split('window.open(n.dataset.href,"_blank","noopener")').join('(n.dataset.href[0]==="/"?location.assign(n.dataset.href):window.open(n.dataset.href,"_blank","noopener"))');
     if (page === 'dev') {
       if ((rg = wrapper(s, /<div class="ring-card"/))) {
         const tpl = firstOpenTag(s.slice(rg[0]), /<div class="ring-card"[^>]*>/);
-        s = splice(s, rg, ring(P.filter((p) => p.dev && p.dev.show), 16, tpl, true, T));
+        s = splice(s, rg, ring(P.filter((p) => p.dev && p.dev.show), 16, tpl, true, (x) => T(fixA(x))));
       }
-      if ((rg = inner(s, /<div class="m-cases cs-scroll"[^>]*>/g))) s = splice(s, rg, T(cases()));
+      if ((rg = inner(s, /<div class="m-cases cs-scroll"[^>]*>/g))) s = splice(s, rg, T(fixA(cases())));
     }
     if ((page === 'home' || page === 'dev') && (rg = wrapper(s, /<figure class="rv-card"/))) {
       const tpl = firstOpenTag(s.slice(rg[0]), /<figure class="rv-card"[^>]*>/);
-      s = splice(s, rg, reviews(tpl, T));
+      s = splice(s, rg, reviews(tpl, (x) => T(fixA(x))));
     }
     return s;
   };
@@ -310,7 +347,7 @@ export function analytics(html, site, on = true) {
 
 // hover on the «your project» slot spins the reticle hard, then it settles back
 function slotCss(html) {
-  if (!/class="wgrid"/.test(html) && !/assets\/app(-projects)?\.js/.test(html)) return html;
+  if (!/class="wgrid"/.test(html) && !/assets\/(en\/)?app(-projects)?\.js/.test(html)) return html;
   html = html.replace(/<style id="cms-slot">[\s\S]*?<\/style>/, '');
   const css = '.slot-rt{transform-box:view-box;transform-origin:50% 50%;transition:transform 1.6s cubic-bezier(.16,.9,.2,1)}'
     + '.w-slot:hover .slot-rt,.w-slot:focus-visible .slot-rt{transform:rotate(300deg)}'
@@ -321,6 +358,6 @@ function slotCss(html) {
 
 // full transform of one source file; opts.analytics = false strips the tracking (admin preview)
 export function makeBuilder(site, exists = () => false, opts = {}) {
-  const b = blocks(site, exists);
-  return (s, js, page) => { s = applyEdits(b(s, js, page), js, page, site.edits); return js ? s : slotCss(analytics(seo(s, page, site), site, opts.analytics !== false)); };
+  const bl = { uk: blocks(site, exists, 'uk'), en: blocks(site, exists, 'en') };
+  return (s, js, page) => { s = applyEdits(bl[langOf(page)](s, js, page), js, page, site.edits); return js ? s : slotCss(analytics(seo(s, page, site), site, opts.analytics !== false)); };
 }

@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.vbrilliant.com/</loc><lastmod>2026-11-06</lastmod><priority>1.0</priority></url>
-  <url><loc>https://www.vbrilliant.com/development</loc><lastmod>2026-11-06</lastmod><priority>0.9</priority></url>
-  <url><loc>https://www.vbrilliant.com/projects</loc><lastmod>2026-11-06</lastmod><priority>0.7</priority></url>
-  <url><loc>https://www.vbrilliant.com/contacts</loc><lastmod>2026-11-06</lastmod><priority>0.6</priority></url>
-  <url><loc>https://www.vbrilliant.com/cases/tysha</loc><lastmod>2026-11-06</lastmod><priority>0.6</priority></url>
-  <url><loc>https://www.vbrilliant.com/cases/strata</loc><lastmod>2026-11-06</lastmod><priority>0.6</priority></url>
-  <url><loc>https://www.vbrilliant.com/cases/yarus</loc><lastmod>2026-11-06</lastmod><priority>0.6</priority></url>
-  <url><loc>https://www.vbrilliant.com/cases/nody</loc><lastmod>2026-11-06</lastmod><priority>0.6</priority></url>
-  <url><loc>https://www.vbrilliant.com/cases/grey-agency</loc><lastmod>2026-11-06</lastmod><priority>0.6</priority></url>
-  <url><loc>https://www.vbrilliant.com/cases/vibe-trvl</loc><lastmod>2026-11-06</lastmod><priority>0.6</priority></url>
-  <url><loc>https://www.vbrilliant.com/cases/october</loc><lastmod>2026-11-06</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/</loc><lastmod>2026-11-11</lastmod><priority>1.0</priority></url>
+  <url><loc>https://www.vbrilliant.com/development</loc><lastmod>2026-11-11</lastmod><priority>0.9</priority></url>
+  <url><loc>https://www.vbrilliant.com/projects</loc><lastmod>2026-11-11</lastmod><priority>0.7</priority></url>
+  <url><loc>https://www.vbrilliant.com/contacts</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/cases/tysha</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/cases/strata</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/cases/yarus</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/cases/nody</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/cases/grey-agency</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/cases/vibe-trvl</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/cases/october</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/en/</loc><lastmod>2026-11-11</lastmod><priority>0.9</priority></url>
+  <url><loc>https://www.vbrilliant.com/en/development</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/en/projects</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/en/contacts</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/en/cases/grey-agency</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/en/cases/nody</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/en/cases/october</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/en/cases/strata</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/en/cases/tysha</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/en/cases/vibe-trvl</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.vbrilliant.com/en/cases/yarus</loc><lastmod>2026-11-11</lastmod><priority>0.6</priority></url>
 </urlset>

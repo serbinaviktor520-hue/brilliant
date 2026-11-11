@@ -55,7 +55,7 @@ export default async function handler(req) {
       return json({ ok: true, skipped: 'check' });
     }
     console.log('lead', JSON.stringify({ when, form, page: pg, fields }));
-    const m = '🆕 Заявка: ' + form + '\n📄 Сторінка: ' + (pg || '/') + '\n\n' + fields;
+    const m = (/^\/en(\/|$)/.test(pg) ? '🇬🇧 EN · ' : '') + '🆕 Заявка: ' + form + '\n📄 Сторінка: ' + (pg || '/') + '\n\n' + fields;
     const [a, b] = await Promise.all([
       tg('sendMessage', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ chat_id: chat, text: m }) }),
       toSheet({ when, form, page: pg, fields }),
@@ -73,7 +73,7 @@ export default async function handler(req) {
   if (hasVoice && voice.size > 20 * 1024 * 1024) return json({ ok: false, error: 'size' }, 413);
   console.log('lead', JSON.stringify({ when, form: 'Чат', page, contact, text, voice: !!hasVoice }));
 
-  const msg = '🆕 Заявка з чату на сайті\n\n'
+  const msg = (/^\/en(\/|$)/.test(page) ? '🇬🇧 EN · ' : '') + '🆕 Заявка з чату на сайті\n\n'
     + '👤 Контакт: ' + contact + '\n'
     + '📄 Сторінка: ' + (page || '/') + '\n\n'
     + (text ? '💬 ' + text : '🎙 Голосове повідомлення нижче');

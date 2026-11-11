@@ -345,8 +345,33 @@ function projectEditor(p) {
       field('Теги', tagsInput(p.dev, 'tags'), null, true),
       field('Задача', text(p.dev.rows[0] || (p.dev.rows[0] = { label: 'Задача', text: '' }), 'text', { area: true, rows: 3 }), null, true),
       field('Що зробили', text(p.dev.rows[1] || (p.dev.rows[1] = { label: 'Що зробили', text: '' }), 'text', { area: true, rows: 3 }), null, true))) : null,
+    enSec(p),
     !p.inWorks && !p.inGallery && !(p.dev && p.dev.show) ? el('div', { class: 'sec empty' }, 'Проєкт ніде не показується. Увімкніть, де його показати.') : null
   );
+}
+
+// English copy for vbrilliant.com/en — empty fields show the Ukrainian text
+function enSec(p) {
+  const E = p.en || (p.en = {});
+  const D = E.dev || (E.dev = {});
+  if (!Array.isArray(D.rows)) D.rows = [{ label: 'Task', text: '' }, { label: 'What we did', text: '' }];
+  if (!Array.isArray(E.tags)) E.tags = [];
+  if (!Array.isArray(D.tags)) D.tags = [];
+  const kids = [];
+  if (p.inWorks) {
+    kids.push(field('Image description', text(E, 'imgAlt', { ph: p.imgAlt || '' }), null, true));
+    if (p.featured) kids.push(field('Subtitle', text(E, 'location', { ph: p.location || '' }), null, true), field('Description', text(E, 'longText', { area: true, rows: 4, ph: p.longText || '' }), null, true), field('Tags', tagsInput(E, 'tags'), null, true));
+    else kids.push(field('Short description', text(E, 'cardText', { area: true, rows: 3, ph: p.cardText || '' }), null, true));
+  }
+  if (p.inGallery) kids.push(field('Gallery caption', text(E, 'cardSub', { area: true, rows: 2, ph: p.cardSub || '' }), null, true));
+  if (p.dev && p.dev.show) kids.push(
+    field('Client', text(D, 'location', { ph: p.dev.location || '' })),
+    field('Image description (dev)', text(D, 'imgAlt', { ph: p.dev.imgAlt || '' })),
+    field('Tags (dev)', tagsInput(D, 'tags'), null, true),
+    field('Task', text(D.rows[0], 'text', { area: true, rows: 3, ph: (p.dev.rows[0] || {}).text || '' }), null, true),
+    field('What we did', text(D.rows[1] || (D.rows[1] = { label: 'What we did', text: '' }), 'text', { area: true, rows: 3, ph: (p.dev.rows[1] || {}).text || '' }), null, true));
+  if (!kids.length) return null;
+  return el('section', { class: 'sec' }, el('h3', {}, 'English · /en'), el('p', { class: 'hint' }, 'Тексти для англійської версії сайту. Якщо поле порожнє, там покажеться український текст.'), el('div', { class: 'grid2' }, ...kids));
 }
 
 function reviewEditor(r) {
@@ -358,14 +383,19 @@ function reviewEditor(r) {
         field('Фото', imagePicker(r, 'photo', 'avatar', '1 / 1', () => r.name, true), null, true),
         field('Ім’я', text(r, 'name', { live: () => { $('.head h1').textContent = r.name || 'Відгук'; renderSide(); } })),
         field('Хто це', text(r, 'role', { ph: 'Власник бізнесу, працюємо 1,5 року', live: renderSide })),
-        field('Текст відгуку', text(r, 'quote', { area: true, rows: 5 }), 'Без лапок, вони додаються самі.', true))));
+        field('Текст відгуку', text(r, 'quote', { area: true, rows: 5 }), 'Без лапок, вони додаються самі.', true))),
+    (() => { const E = r.en || (r.en = {}); return el('section', { class: 'sec' }, el('h3', {}, 'English · /en'), el('p', { class: 'hint' }, 'Для англійської версії сайту. Порожнє поле — покажеться український текст.'),
+      el('div', { class: 'grid2' },
+        field('Name', text(E, 'name', { ph: r.name || '' })),
+        field('Who', text(E, 'role', { ph: r.role || '' })),
+        field('Review', text(E, 'quote', { area: true, rows: 5, ph: r.quote || '' }), null, true))); })());
 }
 
 // ---------- live preview engine ----------
 // Pages are built in the browser with the same code as the deploy (cms/core.mjs) and shown from blob: URLs,
 // so the preview is exactly what «Опублікувати» will put on the site.
 const PG = Object.fromEntries(core.PAGES.map((p) => [p.id, p]));
-const urlOf = (f) => (f === 'index.html' ? '/' : '/' + f.replace(/\.html$/, ''));
+const urlOf = (f) => '/' + f.replace(/(^|\/)index\.html$/, '$1').replace(/\.html$/, '');
 const srcCache = {}, builtCache = {};
 function sources(id) {
   if (!srcCache[id]) {
@@ -650,7 +680,7 @@ html.cms-on,html.cms-on *{cursor:pointer}
     if (mode !== 'edit') {
       if (!a) return;
       const href = a.getAttribute('href') || '';
-      const tgt = core.PAGES.find((p) => { const b = p.html.replace(/\.html$/, ''); const h = href.replace(/^\.?\//, '').split(/[?#]/)[0].replace(/\.html$/, ''); return h === b || (b === 'index' && h === ''); });
+      const tgt = core.PAGES.find((p) => { const b = p.html.replace(/\.html$/, ''); const h = href.replace(/^\.?\//, '').split(/[?#]/)[0].replace(/\.html$/, '').replace(/(^|\/)$/, (m) => (m ? m + 'index' : '')); return h === b || (b === 'index' && h === ''); });
       if (tgt && !/^https?:/.test(href)) { e.preventDefault(); e.stopPropagation(); if (tgt.id !== pageId) { pageId = tgt.id; render(); } }
       return;
     }
@@ -726,6 +756,8 @@ function renderPages(main) {
     ...core.PAGES.filter((p) => !p.group).map((p) => el('button', { type: 'button', class: 'pg', 'aria-current': String(p.id === pageId), onclick: () => { if (p.id !== pageId) { pageId = p.id; render(); } } }, el('b', {}, p.title), el('small', {}, urlOf(p.html)))),
     el('h2', { style: 'margin-top:8px' }, 'Кейси'),
     ...core.PAGES.filter((p) => p.group === 'cases').map((p) => el('button', { type: 'button', class: 'pg', 'aria-current': String(p.id === pageId), onclick: () => { if (p.id !== pageId) { pageId = p.id; render(); } } }, el('b', {}, p.title.replace('Кейс · ', '')), el('small', {}, urlOf(p.html)))),
+    el('h2', { style: 'margin-top:8px' }, 'English'),
+    ...core.PAGES.filter((p) => p.group === 'en').map((p) => el('button', { type: 'button', class: 'pg', 'aria-current': String(p.id === pageId), onclick: () => { if (p.id !== pageId) { pageId = p.id; render(); } } }, el('b', {}, p.title.replace('EN · ', '')), el('small', {}, urlOf(p.html)))),
     el('div', { class: 'howto' },
       el('p', {}, el('b', {}, 'Текст: '), 'наведіть і клікніть, пишіть прямо на сторінці. Enter — готово, Esc — скасувати.'),
       el('p', {}, el('b', {}, 'Фото: '), 'клікніть по фото й виберіть нове.'),
