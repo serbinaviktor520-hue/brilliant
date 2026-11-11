@@ -46,7 +46,38 @@
         "linkLabel": "Відкрити сайт"
       },
       "id": "tysha",
-      "case": true
+      "case": true,
+      "en": {
+        "imgAlt": "TYSHA — architecture studio website",
+        "location": "Architecture studio, Lviv — Warsaw",
+        "longText": "A manifesto website for a studio that designs private houses in silence: decibels as the running metric, projects, method and a day in the house hour by hour. Concept, structure and copy, art direction, design and front-end.",
+        "cardText": "",
+        "cardSub": "Architecture studio:\na manifesto website",
+        "tags": [
+          "Architecture",
+          "Studio website",
+          "Art direction"
+        ],
+        "dev": {
+          "imgAlt": "TYSHA — architecture studio website",
+          "location": "Architecture studio, Lviv",
+          "tags": [
+            "Concept",
+            "Architecture",
+            "Studio website"
+          ],
+          "rows": [
+            {
+              "label": "Task",
+              "text": "Show how the studio differs from a hundred others: it designs private houses in silence, 30 minutes from the city, and writes the silence level into the contract."
+            },
+            {
+              "label": "What we did",
+              "text": "The “architecture of silence” concept, structure and copy, art direction, design and front-end: decibels as the running metric, projects, a four-layer method, a day in the house hour by hour."
+            }
+          ]
+        }
+      }
     },
     {
       "name": "STRATA",
@@ -88,7 +119,34 @@
         "linkLabel": "Відкрити сайт"
       },
       "id": "strata",
-      "case": true
+      "case": true,
+      "en": {
+        "imgAlt": "STRATA",
+        "location": "",
+        "longText": "",
+        "cardText": "Investor landing page for a Class A office tower: concept, design and front-end.",
+        "cardSub": "Class A office tower:\ninvestor landing page",
+        "tags": [],
+        "dev": {
+          "imgAlt": "STRATA — Class A office tower landing page",
+          "location": "Class A office tower, Kyiv",
+          "tags": [
+            "Concept",
+            "Commercial real estate",
+            "Investor landing page"
+          ],
+          "rows": [
+            {
+              "label": "Task",
+              "text": "Bring investors and tenants to request the investment memorandum of a 34-storey office tower before the public sales launch."
+            },
+            {
+              "label": "What we did",
+              "text": "Structure and copy, art direction, design and front-end: a first screen with trust arguments, floors and layouts, an investment section, a memorandum request."
+            }
+          ]
+        }
+      }
     },
     {
       "name": "YARUS",
@@ -130,7 +188,34 @@
         "linkLabel": "Відкрити сайт"
       },
       "id": "yarus",
-      "case": true
+      "case": true,
+      "en": {
+        "imgAlt": "YARUS",
+        "location": "",
+        "longText": "",
+        "cardText": "Pre-sale landing page for a lakeside residential tower: concept, design and front-end.",
+        "cardSub": "Lakeside residential tower in Kyiv:\npre-sale landing page",
+        "tags": [],
+        "dev": {
+          "imgAlt": "YARUS — residential pre-sale landing page",
+          "location": "Residential tower, Kyiv",
+          "tags": [
+            "Concept",
+            "Residential real estate",
+            "Pre-sale landing page"
+          ],
+          "rows": [
+            {
+              "label": "Task",
+              "text": "Sell a building that doesn’t exist yet: collect early-access requests for a 34-storey lakeside tower before sales open."
+            },
+            {
+              "label": "What we did",
+              "text": "Structure and copy, art direction, design and front-end: a first screen with key numbers, choosing an apartment by height tier, early-access terms and a request form."
+            }
+          ]
+        }
+      }
     },
     {
       "name": "October",
@@ -168,7 +253,30 @@
         "linkLabel": "Відкрити сайт"
       },
       "id": "october",
-      "case": true
+      "case": true,
+      "en": {
+        "imgAlt": "October",
+        "location": "",
+        "longText": "",
+        "cardText": "Online exhibition of a painting series: art direction and web design.",
+        "cardSub": "Online exhibition of a painting series:\nart direction and web design",
+        "tags": [],
+        "dev": {
+          "imgAlt": "",
+          "location": "",
+          "tags": [],
+          "rows": [
+            {
+              "label": "Task",
+              "text": ""
+            },
+            {
+              "label": "What we did",
+              "text": ""
+            }
+          ]
+        }
+      }
     },
     {
       "name": "NODY",
@@ -209,7 +317,33 @@
         "linkLabel": "Відкрити сайт"
       },
       "id": "nody",
-      "case": true
+      "case": true,
+      "en": {
+        "imgAlt": "NODY",
+        "location": "",
+        "longText": "",
+        "cardText": "Furniture studio website: research, art direction, design, development.",
+        "cardSub": "Furniture studio website: research,\nart direction, design, development",
+        "tags": [],
+        "dev": {
+          "imgAlt": "NODY — furniture studio",
+          "location": "Furniture studio",
+          "tags": [
+            "Premium furniture",
+            "Corporate website"
+          ],
+          "rows": [
+            {
+              "label": "Task",
+              "text": "Present bespoke furniture so clients trust the studio before they visit the showroom."
+            },
+            {
+              "label": "What we did",
+              "text": "Market research, art direction, design and development: a catalogue of solutions, interior pages, a quote request from every screen."
+            }
+          ]
+        }
+      }
     },
     {
       "name": "Grey Agency",
@@ -247,7 +381,30 @@
         "linkLabel": "Відкрити сайт"
       },
       "id": "grey-agency",
-      "case": true
+      "case": true,
+      "en": {
+        "imgAlt": "Grey Agency",
+        "location": "",
+        "longText": "",
+        "cardText": "Turnkey website for a traffic agency: from competitor research to Webflow.",
+        "cardSub": "Turnkey website for a traffic agency:\nfrom competitor research to Webflow",
+        "tags": [],
+        "dev": {
+          "imgAlt": "",
+          "location": "",
+          "tags": [],
+          "rows": [
+            {
+              "label": "Task",
+              "text": ""
+            },
+            {
+              "label": "What we did",
+              "text": ""
+            }
+          ]
+        }
+      }
     },
     {
       "name": "Vibe Trvl",
@@ -285,7 +442,30 @@
         "linkLabel": "Відкрити сайт"
       },
       "id": "vibe-trvl",
-      "case": true
+      "case": true,
+      "en": {
+        "imgAlt": "Vibe Trvl",
+        "location": "",
+        "longText": "",
+        "cardText": "Website for a premium travel agency: design and development.",
+        "cardSub": "Website for a premium\ntravel agency: design and development",
+        "tags": [],
+        "dev": {
+          "imgAlt": "",
+          "location": "",
+          "tags": [],
+          "rows": [
+            {
+              "label": "Task",
+              "text": ""
+            },
+            {
+              "label": "What we did",
+              "text": ""
+            }
+          ]
+        }
+      }
     }
   ],
   "reviews": [
@@ -293,37 +473,67 @@
       "quote": "Дякую за оперативність та швидкі правки по сайту. Окремий респект за якісну упаковку агенції та інстаграму — все зробили чітко за домовленостями!",
       "name": "Настя",
       "role": "Сайт і Instagram для агенції",
-      "photo": "assets/rv-nastia.webp"
+      "photo": "assets/rv-nastia.webp",
+      "en": {
+        "quote": "Thank you for being so quick, revisions included. Special respect for packaging the agency and its Instagram so well — everything was done exactly as agreed!",
+        "role": "Website and Instagram for an agency",
+        "name": "Nastia"
+      }
     },
     {
       "quote": "Працюємо вже півтора року. Кожен проєкт — це витвір мистецтва. Отримую саме той преміальний результат, який потрібен і мені як власнику, і нашим клієнтам.",
       "name": "Павло Фарафонов",
       "role": "Власник бізнесу, працюємо 1,5 року",
-      "photo": "assets/rv-pavlo.webp"
+      "photo": "assets/rv-pavlo.webp",
+      "en": {
+        "quote": "We’ve been working together for a year and a half. Every project is a work of art. I get exactly the premium result that I need as an owner and that our clients need too.",
+        "role": "Business owner, working together for 1.5 years",
+        "name": "Pavlo Farafonov"
+      }
     },
     {
       "quote": "Єдиний, хто повністю зчитав мій смак і зробив тонке попадання. Сайт швидкий, юзабельний і вже приносить стабільні оплати за мій мініпродукт. Це просто топ!",
       "name": "Влад Молчанов",
       "role": "Сайт для онлайн-продукту",
-      "photo": "assets/rv-vlad.webp"
+      "photo": "assets/rv-vlad.webp",
+      "en": {
+        "quote": "The only one who fully read my taste and hit it precisely. The site is fast, easy to use and already brings steady payments for my mini product. Simply top!",
+        "role": "Website for an online product",
+        "name": "Vlad Molchanov"
+      }
     },
     {
       "quote": "Ідеальне дотримання дедлайнів та глибоке занурення в проєкт. Дає кратно більше, ніж інші дизайнери на ринку. Рекомендую від щирого серця, Вітя — топ!",
       "name": "Amiran Sanaia",
       "role": "Трафік-агенція",
-      "photo": "assets/rv-amiran.webp"
+      "photo": "assets/rv-amiran.webp",
+      "en": {
+        "quote": "Perfect deadlines and a deep dive into the project. Gives many times more than other designers on the market. I recommend him from the bottom of my heart — Victor is the best!",
+        "role": "Traffic agency",
+        "name": "Amiran Sanaia"
+      }
     },
     {
       "quote": "Дякую за співпрацю! Сподобалося, що ми чули один одного й знаходили найкращі рішення. Сайт вийшов дуже гарним та повністю враховує нашу стратегію розвитку.",
       "name": "Dariia Bondarieva",
       "role": "Сайт компанії",
-      "photo": "assets/rv-dariia.webp"
+      "photo": "assets/rv-dariia.webp",
+      "en": {
+        "quote": "Thank you for working with us! We really listened to each other and found the best solutions. The website turned out beautiful and fully reflects our growth strategy.",
+        "role": "Company website",
+        "name": "Dariia Bondarieva"
+      }
     },
     {
       "quote": "Дякую за розривну лекцію! Неймовірна реакція аудиторії, цікавий досвід, класний підхід та подача. Ти приємний спікер і потужний спеціаліст. Дякую за виступ!",
       "name": "Nesonia",
       "role": "Організатори лекції",
-      "photo": "assets/rv-nesonia.webp"
+      "photo": "assets/rv-nesonia.webp",
+      "en": {
+        "quote": "Thank you for a brilliant lecture! An incredible audience response, interesting experience, a great approach and delivery. A pleasant speaker and a strong expert. Thank you for the talk!",
+        "role": "Lecture organisers",
+        "name": "Nesonia"
+      }
     }
   ],
   "analytics": {
